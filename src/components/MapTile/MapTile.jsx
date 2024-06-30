@@ -1,7 +1,18 @@
-function MapTile() {
+import './MapTile.css'
+
+function MapTile(props) {
+    const { row, col, visited, requiredEnergy } = props.data;
     return (
         <div className="map-tile">
-            T
+            <div>
+                <small>{row} | {col}</small>
+            </div>
+            <div>
+                ReqE: {requiredEnergy}
+            </div>
+            <div>
+                Visited: {String(visited)}
+            </div>
         </div>
     )
 }
