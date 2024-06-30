@@ -1,3 +1,3 @@
 # Treasure Hunt Game
 
-## RULES OF THE GAME
+## RULES OF THE GAMEpm
