@@ -1,4 +1,6 @@
 import './App.css'
+import Map from './components/Map/Map'
+import Player from './components/Player/Player'
 
 function App() {
 
@@ -6,6 +8,8 @@ function App() {
     <>
       <h1>Treasure Hunt</h1>
       <div>Coming soon...</div>
+      <Player/>
+      <Map/> 
     </>
   )
 }
