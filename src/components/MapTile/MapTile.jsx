@@ -5,10 +5,10 @@ function MapTile(props) {
     return (
         <div className="map-tile">
             <div>
-                <small>{row} | {col}</small>
+                <small>{row},{col}</small>
             </div>
             <div>
-                ReqE: {requiredEnergy}
+                ⚡: {requiredEnergy}
             </div>
             <div>
                 Visited: {String(visited)}

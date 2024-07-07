@@ -29,8 +29,6 @@ function App() {
     tiles: generateMapTiles(rows, cols)
   }
 
-
-
   return (
     <>
       <h1>Treasure Hunt</h1>

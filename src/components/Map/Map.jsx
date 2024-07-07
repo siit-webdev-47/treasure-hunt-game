@@ -11,7 +11,7 @@ function Map(props) {
             <h2>Map Component</h2>
             <div>Work in progress</div>
             <div className="game-map" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
-                {tiles.map(tile => <MapTile data={tile} />)}
+                {tiles.map((tile, i) => <MapTile data={tile} key={i} />)}
             </div>
         </>
     )
