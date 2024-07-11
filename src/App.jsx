@@ -1,8 +1,10 @@
 import './App.css'
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import { useEffect } from 'react';
 import Map from './components/Map/Map'
 import Player from './components/Player/Player'
+
+export const MapContext = createContext();
 
 function generateMapTiles(rows, cols){
   const tiles = [];
@@ -19,6 +21,8 @@ function generateMapTiles(rows, cols){
 
   return tiles;
 }
+
+
 
 function App() {
   
@@ -48,11 +52,14 @@ function App() {
 
   return (
     <>
-      <h1>Treasure Hunt</h1>
-      <div>Coming soon...</div>
-      <Player/>
-      <Map data={map}/> 
+      <MapContext.Provider value={{map, setMap}}>
+        <h1>Treasure Hunt</h1>
+        <div>Coming soon...</div>
+        <Player/>
+        <Map data={map}/>  
+      </MapContext.Provider>
     </>
+    
   )
 }
 
