@@ -1,4 +1,6 @@
 import './App.css'
+import { useState } from 'react';
+import { useEffect } from 'react';
 import Map from './components/Map/Map'
 import Player from './components/Player/Player'
 
@@ -22,12 +24,27 @@ function App() {
   
   const rows = 5
   const cols = 8
-
-  const map = {
+  const [map, setMap] = useState ({
     rows,
     cols,
     tiles: generateMapTiles(rows, cols)
-  }
+  })
+
+  useEffect(() => {
+    const tileUpdate = setTimeout(() => {
+      const newTiles = map.tiles.map((tile, i) => {
+        if (i === 3) {
+          return{...tile, visited:true};
+        }
+        return tile;
+      });
+
+      setMap({...map, tiles: newTiles});
+    }, 3000);
+    
+    return () => clearTimeout(tileUpdate); 
+  }, [map]);
+
 
   return (
     <>
