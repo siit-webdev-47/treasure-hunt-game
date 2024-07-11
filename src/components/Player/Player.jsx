@@ -1,9 +1,45 @@
+import { useState } from "react";
+import './Player.css'; 
+
+
 function Player() {
+    
+    const [name, setName] = useState('');
+
+    const [energy, setEnergy] = useState(Math.floor(Math.random() * 50) + 25);
+
+    const energyColor = (energy) => {
+        if (energy > 50) return  "green" ;
+        if (energy >= 25 && energy <= 50) return "#fb9120";
+        return  "red";
+      };
+   
     return (
         <>
             <h2>Player component</h2>
             <div>
-                Work in progress
+          
+                <label>
+                    Name:
+                    <input 
+                        type="text" 
+                        value={name} 
+                        onChange={(e) => setName(e.target.value)} 
+                    />
+                </label>
+
+                {name && (
+                    <>
+                        <h3>{name}</h3>
+                        <img src={`https://api.dicebear.com/8.x/bottts/svg?seed=${name}`} alt={`${name}'s player`} className="avatar" />
+                        <p className="energy" style={{ color: energyColor(energy) }}>
+                            Energy Level: {energy}
+                        </p>
+                        <button onClick={() => setEnergy(Math.floor(Math.random() * 50) + 25)}>
+                            Change Energy
+                        </button>
+                    </>
+                )}
             </div>
         </>
     )
