@@ -1,7 +1,7 @@
 import './MapTile.css'
 
 function MapTile(props) {
-    const { row, col, visited, requiredEnergy } = props.data;
+    const { row, col, visited, requiredEnergy, yieldValue } = props.data;
     return (
         <div className="map-tile">
             <div>
@@ -9,6 +9,9 @@ function MapTile(props) {
             </div>
             <div>
                 ⚡: {requiredEnergy}
+            </div>
+            <div>
+              🍀 : {yieldValue}
             </div>
             <div>
                 Visited: {String(visited)}

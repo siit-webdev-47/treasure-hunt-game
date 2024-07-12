@@ -10,7 +10,8 @@ function generateMapTiles(rows, cols){
         row: i,
         col: j,
         visited: false,
-        requiredEnergy: Math.floor(Math.random() * 5 + 1)
+        requiredEnergy: Math.floor(Math.random() * 5 + 1),
+        yieldValue: Math.floor(Math.random() * 30 - 15)
       })
     }
   }
