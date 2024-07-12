@@ -1,20 +1,25 @@
-import './Map.css'
-import MapTile from "../MapTile/MapTile"
+import "./Map.css";
+import MapTile from "../MapTile/MapTile";
 
 function Map(props) {
-    const { rows, cols, tiles } = props.data;
+  const { rows, cols, tiles } = props.data;
+  console.log("Tiles:");
+  console.log(tiles);
 
-    console.log(tiles);
-
-    return (
-        <>
-            <h2>Map Component</h2>
-            <div>Work in progress</div>
-            <div className="game-map" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
-                {tiles.map((tile, i) => <MapTile data={tile} key={i} />)}
-            </div>
-        </>
-    )
+  return (
+    <>
+      <h2>Map Component</h2>
+      <div>Work in progress</div>
+      <div
+        className="game-map"
+        style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}
+      >
+        {tiles.map((row, i) =>
+          row.map((tile, j) => <MapTile data={tile} key={[i, j]} />)
+        )}
+      </div>
+    </>
+  );
 }
 
-export default Map
+export default Map;
