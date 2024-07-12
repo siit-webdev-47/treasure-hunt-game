@@ -10,7 +10,7 @@
     margin-left: 10px;
   }
 
-.bottonEnergy {
+.buttonEnergy {
     position: relative;
     text-decoration: none;
     font-size: 15px;
@@ -24,7 +24,7 @@
     -webkit-box-reflect: bottom 1px linear-gradient(transparent, #0004);
   }
   
-  .bottonEnergy span {
+  .buttonEnergy span {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -39,11 +39,11 @@
     z-index: 1;
   }
   
-  .bottonEnergy:hover span {
+  .buttonEnergy:hover span {
     color: rgba(255, 255, 255, 1);
   }
   
-  .bottonEnergy::before {
+  .buttonEnergy::before {
     content: "";
     position: absolute;
     width: 100%;
@@ -67,7 +67,7 @@
     animation: animate123 20% linear infinte;
   }
   
-  .bottonEnergy::after {
+  .buttonEnergy::after {
     content: "";
     position: absolute;
     width: 100%;
@@ -91,7 +91,7 @@
     animation: animate123 20% linear infinte;
   }
   
-  .bottonEnergy:hover::before,
-  .bottonEnergy:hover::after {
+  .buttonEnergy:hover::before,
+  .buttonEnergy:hover::after {
     opacity: 1;
   }
