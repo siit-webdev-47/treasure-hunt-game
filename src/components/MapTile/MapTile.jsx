@@ -2,18 +2,20 @@ import "./MapTile.css";
 
 function MapTile(props) {
   const { row, col, visited, requiredEnergy, yieldValue } = props.data;
-  console.log("Props");
-  console.log(props.data);
+  const tileClass = visited ? 'visited' : 'unvisited';
+
   return (
-    <div className="map-tile">
+    <div className={`map-tile ${tileClass}`}>
       <div>
-        <small>
-          {row},{col}
-        </small>
+        <div className="tile-coordinates">
+          <small>Tile: {row},{col}</small>
+        </div>
       </div>
       <div>⚡: {requiredEnergy}</div>
       <div>🍀 : {yieldValue}</div>
-      <div>Visited: {String(visited)}</div>
+      <div className="tile-visited-property">
+        Visited: {String(visited)}
+      </div>
     </div>
   );
 }
