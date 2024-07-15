@@ -1,10 +1,10 @@
 import "./Map.css";
 import MapTile from "../MapTile/MapTile";
+import { useContext } from "react";
+import { MapContext } from "../../App";
 
-function Map(props) {
-  const { rows, cols, tiles } = props.data;
-  console.log("Tiles:");
-  console.log(tiles);
+function Map() {
+  const { cols, tiles } = useContext(MapContext);
 
   return (
     <>
