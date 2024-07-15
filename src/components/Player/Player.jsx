@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./Player.css";
+import { MapContext } from "../../App";
+
 
 function Player() {
   const [name, setName] = useState("");
 
   const [energy, setEnergy] = useState(Math.floor(Math.random() * 50) + 25);
+
+  const { tiles } = useContext(MapContext);
+  console.log({tiles});
+
 
   const energyColor = (energy) => {
     if (energy > 50) {

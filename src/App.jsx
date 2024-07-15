@@ -46,10 +46,10 @@ function App() {
 
   return (
     <>
-      <Player />
       <MapContext.Provider value={map}>
         <h1>Treasure Hunt</h1>
         <div>Coming soon...</div>
+        <Player />
         <Map />
       </MapContext.Provider>
     </>
