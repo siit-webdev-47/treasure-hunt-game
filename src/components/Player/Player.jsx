@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import "./Player.css";
-// import { MapContext } from "../../App";
+import { MapContext } from "../../App";
 
 
 function Player() {
@@ -8,8 +8,9 @@ function Player() {
 
   const [energy, setEnergy] = useState(Math.floor(Math.random() * 50) + 25);
 
-  // const { tiles } = useContext(MapContext);
+  const { setPlayerName } = useContext(MapContext);
   // console.log({tiles});
+
 
 
   const energyColor = (energy) => {
@@ -33,7 +34,10 @@ function Player() {
           <input
             type="text"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value)
+              setPlayerName(e.target.value)
+            }} // update the name to the state sent in the context with the name provided by the user
             className="nameAvatar"
           />
         </label>

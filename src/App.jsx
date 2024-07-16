@@ -31,7 +31,14 @@ function App() {
     rows,
     cols,
     tiles: generateMapTiles(rows, cols),
+    playerPosition: {
+      row: 0,
+      col: 0
+    }
   });
+
+  // created a state for the playerName to be able to use it on other components
+  const [playerName, setPlayerName] = useState('')
 
   useEffect(() => {
     const tileUpdate = setTimeout(() => {
@@ -46,14 +53,15 @@ function App() {
 
   return (
     <>
-      <Player />
-      <MapContext.Provider value={map}>
-        <h1>Treasure Hunt</h1>
-        <div>Coming soon...</div>
-        <Map />
-        {/* <Player /> */}
+      <h1>Treasure Hunt</h1>
+      <div>Coming soon...</div>
+      {/* <Player /> */}
+      <MapContext.Provider value={{...map, setPlayerName, playerName}}>
+        <Player />
+        <Map /> 
       </MapContext.Provider>
     </>
+    // moved Player component back inside the context so I can use player's name on mapTile component
   );
 }
 
