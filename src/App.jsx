@@ -56,7 +56,7 @@ function App() {
       <h1>Treasure Hunt</h1>
       <div>Coming soon...</div>
       {/* <Player /> */}
-      <MapContext.Provider value={{...map, setPlayerName, playerName}}>
+      <MapContext.Provider value={{map, setPlayerName, playerName}}>
         <Player />
         <Map /> 
       </MapContext.Provider>

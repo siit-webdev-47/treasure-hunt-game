@@ -4,8 +4,11 @@ import { useContext } from "react";
 import { MapContext } from "../../App";
 
 function Map() {
-  const { cols, tiles, playerPosition, playerName } = useContext(MapContext);
+  const { map, playerName } = useContext(MapContext);
+  
   // added playerPosition and playerName from the context and sent it as props to MapTile
+
+  const {cols, tiles, playerPosition} = map;
   return (
     <>
       <h2>Map Component</h2>
