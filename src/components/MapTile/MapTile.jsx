@@ -4,7 +4,7 @@ function MapTile(props) {
   const { row, col, visited, requiredEnergy, yieldValue } = props.data;
   const tileClass = visited ? "visited" : "unvisited";
   const yieldValueEmojiClass =
-    yieldValue > 0 ? "yield-value-positive" : "yield-value-negative";
+    yieldValue >= 0 ? "yield-value-positive" : "yield-value-negative";
 
   return (
     <div className={`map-tile ${tileClass}`}>
