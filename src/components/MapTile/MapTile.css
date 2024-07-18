@@ -1,36 +1,47 @@
-.map-tile{
-    /* width: 3rem; */
-    aspect-ratio: 1;
-    border: 1px solid lightgray;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+.map-tile {
+  aspect-ratio: 1;
+  border: 1px solid lightgray;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .map-tile.unvisited {
-    background-color: darkgrey;
-    box-shadow: none;
+  background-color: #e6e6e6;
+  box-shadow: none;
 }
 
 .map-tile.visited {
-    background-color: yellow;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+  background-color: #ffffb8;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .tile-coordinates {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    padding: 0.1rem;
-    font-size: 0.8rem;
-    color: grey;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.1rem;
+  font-size: 0.8rem;
+  color: grey;
 }
 
-.tile-visited-property {
-    font-size: 0.8rem;
-    margin-top: 0.2rem;
+.tile-text-size {
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+.yield-value-positive::before {
+  content: "🍀 ";
+}
+
+.yield-value-negative::before {
+  content: "🍄 ";
+}
+
+.energy-emoji::before {
+  content: "⚡ ";
 }
