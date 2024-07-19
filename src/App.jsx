@@ -1,7 +1,8 @@
+
+import  { createContext, useState, useEffect } from 'react';
 import "./App.css";
 import Map from "./components/Map/Map";
 import Player from "./components/Player/Player";
-import { createContext, useState, useEffect } from 'react';
 
 export const MapContext = createContext();
 
@@ -23,39 +24,38 @@ function generateMapTiles(rows, cols) {
   return tiles;
 }
 
-
-
 function App() {
-  const rows = 5
-  const cols = 8
+  const rows = 5;
+  const cols = 8;
 
   const [map, setMap] = useState({
     rows,
     cols,
-    tiles: generateMapTiles(rows, cols)
-  })
+    tiles: generateMapTiles(rows, cols),
+  });
+
+  const [name] = useState("Player1");
+  const [energy, setEnergy] = useState(Math.floor(Math.random() * 50) + 25);
 
   useEffect(() => {
     const tileUpdate = setTimeout(() => {
       map.tiles[0][3].visited = true;
-      setMap({ ...map, tiles:map.tiles });
+      setMap({ ...map, tiles: map.tiles });
     }, 3000);
 
     return () => clearTimeout(tileUpdate);
-  }, []);
-
+  }, [map]);
 
   return (
     <>
       <MapContext.Provider value={{ map, setMap }}>
         <h1>Treasure Hunt</h1>
         <div>Coming soon...</div>
-        <Player />
+        <Player name={name} energy={energy} setEnergy={setEnergy} />
         <Map data={map} />
       </MapContext.Provider>
     </>
-
-  )
+  );
 }
 
 export default App;
