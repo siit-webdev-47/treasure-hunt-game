@@ -20,16 +20,16 @@ function Player() {
     <>
       <h2>Player component</h2>
       <div>
-        <label>
-          Name :
+        <label htmlFor="name">  Name : </label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="name-avatar"
             disabled={nameConfirmed}
+            id="name"
           />
-        </label>
+        
         {!nameConfirmed && (
           <button onClick={confirmName} className="confirm-name-button">
             Confirm Name
@@ -44,14 +44,16 @@ function Player() {
               alt={`${name}'s player`}
               className="avatar"
             />
+
             <p className={energyLevel(energy)}>
               Energy Level : {energy}
             </p>
+
             <button
               onClick={() => setEnergy(Math.floor(Math.random() * 75))}
               className="button-energy"
             >
-              <span>Change Energy</span>
+            <span>Change Energy</span>
             </button>
           </>
         )}
