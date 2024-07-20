@@ -16,11 +16,18 @@ function generateMapTiles(rows, cols) {
         visited: false,
         requiredEnergy: Math.floor(Math.random() * 5 + 1),
         yieldValue: Math.floor(Math.random() * 30 - 15),
+        hasTreasure: false,
       };
     }
   }
-
+  generateTreasure(tiles, rows, cols);
   return tiles;
+}
+
+function generateTreasure(tiles, rows, cols) {
+  let treasureRow = Math.floor(Math.random() * rows);
+  let treasureCol = Math.floor(Math.random() * cols);
+  tiles[treasureRow][treasureCol].hasTreasure = true;
 }
 
 

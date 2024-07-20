@@ -1,8 +1,9 @@
 import "./MapTile.css";
 
 function MapTile(props) {
-  const { row, col, visited, requiredEnergy, yieldValue } = props.data;
+  const { row, col, visited, requiredEnergy, yieldValue, hasTreasure } = props.data;
   const tileClass = visited ? 'visited' : 'unvisited';
+  let treasure = hasTreasure ? "🏆" : ""
 
   return (
     <div className={`map-tile ${tileClass}`}>
@@ -16,6 +17,9 @@ function MapTile(props) {
       <div className="tile-visited-property">
         Visited: {String(visited)}
       </div>
+      <div> {treasure}</div>
+
+
     </div>
   );
 }
