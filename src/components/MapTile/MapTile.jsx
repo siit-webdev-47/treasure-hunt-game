@@ -1,4 +1,5 @@
 import "./MapTile.css";
+import PropTypes from 'prop-types';
 
 function MapTile(props) {
   const { row, col, visited, requiredEnergy, yieldValue, hasTreasure } = props.data;
@@ -25,3 +26,7 @@ function MapTile(props) {
 }
 
 export default MapTile;
+
+MapTile.propTypes = {
+data: PropTypes.any,
+}

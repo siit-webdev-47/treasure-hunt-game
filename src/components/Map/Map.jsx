@@ -1,5 +1,6 @@
 import "./Map.css";
 import MapTile from "../MapTile/MapTile";
+import PropTypes from 'prop-types';
 
 function Map(props) {
   const { rows, cols, tiles } = props.data;
@@ -23,3 +24,7 @@ function Map(props) {
 }
 
 export default Map;
+
+Map.propTypes = {
+  data: PropTypes.any,
+  }
