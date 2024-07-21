@@ -4,23 +4,24 @@ import PropTypes from 'prop-types';
 function MapTile(props) {
   const { row, col, visited, requiredEnergy, yieldValue, hasTreasure } = props.data;
   const tileClass = visited ? 'visited' : 'unvisited';
-  let treasure = hasTreasure ? "🏆" : ""
+  const treasureIconClass = hasTreasure ? 'treasure-icon' : '';
+  const treasureTileClass = hasTreasure ? 'treasure-tile' : '';
+  const yieldValueEmojiClass =
+    yieldValue >= 0 ? 'yield-value-positive' : 'yield-value-negative';
 
   return (
-    <div className={`map-tile ${tileClass}`}>
+    <div className={`map-tile ${tileClass} ${treasureTileClass}`}>
       <div>
         <div className="tile-coordinates">
-          <small>Tile: {row},{col}</small>
+          <small>
+            Tile: {row},{col}
+          </small>
         </div>
       </div>
-      <div>⚡: {requiredEnergy}</div>
-      <div>🍀 : {yieldValue}</div>
-      <div className="tile-visited-property">
-        Visited: {String(visited)}
-      </div>
-      <div> {treasure}</div>
-
-
+      <div className="tile-text-size energy-emoji"> : {requiredEnergy}</div>
+      <div className={`tile-text-size ${yieldValueEmojiClass}`}> : {yieldValue}</div>
+      <div className="tile-text-size">Visited: {String(visited)}</div>
+    <div className={`${treasureIconClass}`}></div>
     </div>
   );
 }
@@ -28,5 +29,5 @@ function MapTile(props) {
 export default MapTile;
 
 MapTile.propTypes = {
-data: PropTypes.any,
+  data: PropTypes.any,
 }
