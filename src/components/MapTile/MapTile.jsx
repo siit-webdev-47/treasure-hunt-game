@@ -1,32 +1,39 @@
 import "./MapTile.css";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
+function MapTile(props) {
+  const { row, col, visited, requiredEnergy, yieldValue, hasTreasure} = props.mapTileData;
+  const playerPosition = props.playerPosition;
+  const player = props.playerData;
 
-function MapTile({data, playerPosition, playerName}) {
-  const { row, col, visited, requiredEnergy, yieldValue } = data;
   const tileClass = visited ? 'visited' : 'unvisited';
+  const treasureIconClass = hasTreasure ? 'treasure-icon' : '';
+  const treasureTileClass = hasTreasure ? 'treasure-tile' : '';
+  const yieldValueEmojiClass =
+    yieldValue >= 0 ? 'yield-value-positive' : 'yield-value-negative';
 
   //checking if the player has a name  and is the playerPosition is on specific tile
-  const playerOnTile = playerName && playerPosition.row === row && playerPosition.col === col;
+  const playerOnTile = playerPosition.row === row && playerPosition.col === col;
 
 
   return (
-    <div className={`map-tile ${tileClass}`}>
+    <div className={`map-tile ${tileClass} ${treasureTileClass}`}>
       <div>
         <div className="tile-coordinates">
-          <small>Tile: {row},{col}</small>
+          <small>
+            Tile: {row},{col}
+          </small>
         </div>
         {playerOnTile && <img
-              src={`https://api.dicebear.com/9.x/micah/svg?seed=${playerName}`} // use playerName to generate the same avatar on a specific tile
-              alt={`${playerName}'s player`}
+              src={player.playerAvatar} 
+              alt={`${player.playerName}'s player`}
               className="avatar"
             />}
       </div>
-      <div>⚡: {requiredEnergy}</div>
-      <div>🍀 : {yieldValue}</div>
-      <div className="tile-visited-property">
-        Visited: {String(visited)}
-      </div>
+      <div className="tile-text-size energy-emoji"> : {requiredEnergy}</div>
+      <div className={`tile-text-size ${yieldValueEmojiClass}`}> : {yieldValue}</div>
+      <div className="tile-text-size">Visited: {String(visited)}</div>
+    <div className={`${treasureIconClass}`}></div>
     </div>
   );
 }
@@ -38,7 +45,8 @@ MapTile.propTypes = {
   
 };
 
-
 export default MapTile;
 
-
+MapTile.propTypes = {
+  data: PropTypes.any,
+}

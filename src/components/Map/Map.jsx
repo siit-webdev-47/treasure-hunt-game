@@ -1,24 +1,19 @@
 import "./Map.css";
 import MapTile from "../MapTile/MapTile";
-import { useContext } from "react";
-import { MapContext } from "../../App";
+import PropTypes from 'prop-types';
 
-function Map() {
-  const { map, playerName } = useContext(MapContext);
-  
-  // added playerPosition and playerName from the context and sent it as props to MapTile
+function Map(props) {
+  const {cols, tiles, playerPosition} = props.mapData;
 
-  const {cols, tiles, playerPosition} = map;
   return (
     <>
       <h2>Map Component</h2>
-      <div>Work in progress</div>
       <div
         className="game-map"
         style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}
       >
         {tiles.map((row, i) =>
-          row.map((tile, j) => <MapTile data={tile} playerPosition={playerPosition} playerName={playerName} key={[i, j]} />)
+          row.map((tile, j) => <MapTile mapTileData={tile} playerPosition={playerPosition} playerData={props.playerData} key={[i, j]} />)
         )}
       </div>
     </>
@@ -26,3 +21,7 @@ function Map() {
 }
 
 export default Map;
+
+Map.propTypes = {
+  data: PropTypes.any,
+}
