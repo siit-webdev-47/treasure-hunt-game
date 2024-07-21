@@ -19,7 +19,11 @@ function App() {
     }
   });
 
-  const [player, setPlayer] = useState({ playerName: 'Ion', playerEnergy: 15, playerAvatar: `https://api.dicebear.com/9.x/micah/svg?seed=Bob` });
+  const [player, setPlayer] = useState({ 
+    playerName: 'Ion', 
+    playerEnergy: 15, 
+    playerAvatar: `https://api.dicebear.com/9.x/micah/svg?seed=Ion` 
+  });
 
   useEffect(() => {
     const tileUpdate = setTimeout(() => {
