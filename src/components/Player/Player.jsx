@@ -1,21 +1,14 @@
-import { useState } from "react";
+import PropTypes from "prop-types";
 import "./Player.css";
 
-
 function Player(props) {
-  const {playerName, playerEnergy, playerAvatar} = props.playerData;
+  const { playerName, playerEnergy, playerAvatar } = props.playerData;
 
-  const energyColor = (energy) => {
-    if (energy > 50) {
-      return "green";
-    } else {
-      if (energy >= 25 && energy <= 50) {
-        return "yellow";
-      } else {
-        return "red";
-      }
-    }
-  };
+  const energyLevel = (energy) => {
+      if (energy > 50) return "high-energy";
+      if (energy >= 25 && energy <= 50) return "mid-energy";
+     return "low-energy";
+    };
 
   return (
     <>
@@ -25,11 +18,19 @@ function Player(props) {
         alt={`${playerName}'s player`}
         className="avatar"
       />
-      <p className="energy" style={{ color: energyColor(playerEnergy) }}>
+      <p className="energy" style={{ color: energyLevel(playerEnergy) }}>
         Energy Level : {playerEnergy}
       </p>
     </>
   );
 }
+
+Player.propTypes = {
+  playerData: PropTypes.shape({
+    playerName: PropTypes.string.isRequired,
+    playerEnergy: PropTypes.number.isRequired,
+    playerAvatar: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default Player;
