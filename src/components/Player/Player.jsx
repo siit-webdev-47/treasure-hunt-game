@@ -18,9 +18,10 @@ function Player(props) {
         alt={`${playerName}'s player`}
         className="avatar"
       />
-      <p className="energy" style={{ color: energyLevel(playerEnergy) }}>
-        Energy Level : {playerEnergy}
-      </p>
+      <p className={energyLevel(playerEnergy)}>
+             Energy Level : {playerEnergy}
+           </p>
+
     </>
   );
 }
