@@ -2,23 +2,21 @@ import "./MapTile.css";
 import PropTypes from 'prop-types';
 
 function MapTile(props) {
-  const { row, col, visited, requiredEnergy, yieldValue, hasTreasure} = props.mapTileData;
+  const { row, col, visited, requiredEnergy, yieldValue, hasTreasure } = props.mapTileData;
   const playerPosition = props.playerPosition;
   const player = props.playerData;
 
   const tileClass = visited ? 'visited' : 'unvisited';
   const treasureIconClass = hasTreasure ? 'treasure-icon' : '';
   const treasureTileClass = hasTreasure ? 'treasure-tile' : '';
-  const yieldValueEmojiClass =
-    yieldValue >= 0 ? 'yield-value-positive' : 'yield-value-negative';
+  const yieldValueEmojiClass = yieldValue >= 0 ? 'yield-value-positive' : 'yield-value-negative';
 
-  //checking if the player has a name  and is the playerPosition is on specific tile
   const playerOnTile = playerPosition.row === row && playerPosition.col === col;
-  
+
   const energyLevel = (energy) => {
     if (energy > 50) return "high-energy";
     if (energy >= 25 && energy <= 50) return "mid-energy";
-    return "low-energy"
+    return "low-energy";
   }
 
   return (
@@ -38,20 +36,29 @@ function MapTile(props) {
       <div className="tile-text-size energy-emoji"> : {requiredEnergy}</div>
       <div className={`tile-text-size ${yieldValueEmojiClass}`}> : {yieldValue}</div>
       <div className="tile-text-size">Visited: {String(visited)}</div>
-    <div className={`${treasureIconClass}`}></div>
+      <div className={`${treasureIconClass}`}></div>
     </div>
   );
 }
 
 MapTile.propTypes = {
-  data: PropTypes.any,
-  playerPosition : PropTypes.any,
-  playerName : PropTypes.any
-  
+  mapTileData: PropTypes.shape({
+    row: PropTypes.number.isRequired,
+    col: PropTypes.number.isRequired,
+    visited: PropTypes.bool.isRequired,
+    requiredEnergy: PropTypes.number.isRequired,
+    yieldValue: PropTypes.number.isRequired,
+    hasTreasure: PropTypes.bool.isRequired
+  }).isRequired,
+  playerPosition: PropTypes.shape({
+    row: PropTypes.number.isRequired,
+    col: PropTypes.number.isRequired
+  }).isRequired,
+  playerData: PropTypes.shape({
+    playerAvatar: PropTypes.string.isRequired,
+    playerName: PropTypes.string.isRequired,
+    playerEnergy: PropTypes.number.isRequired
+  }).isRequired
 };
 
 export default MapTile;
-
-MapTile.propTypes = {
-  data: PropTypes.any,
-}
