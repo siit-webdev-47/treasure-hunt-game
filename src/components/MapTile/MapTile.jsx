@@ -14,7 +14,12 @@ function MapTile(props) {
 
   //checking if the player has a name  and is the playerPosition is on specific tile
   const playerOnTile = playerPosition.row === row && playerPosition.col === col;
-
+  
+  const energyLevel = (energy) => {
+    if (energy > 50) return "high-energy";
+    if (energy >= 25 && energy <= 50) return "mid-energy";
+    return "low-energy"
+  }
 
   return (
     <div className={`map-tile ${tileClass} ${treasureTileClass}`}>
@@ -27,7 +32,7 @@ function MapTile(props) {
         {playerOnTile && <img
               src={player.playerAvatar} 
               alt={`${player.playerName}'s player`}
-              className="avatar"
+              className={`tile-avatar ${energyLevel(player.playerEnergy)}`}
             />}
       </div>
       <div className="tile-text-size energy-emoji"> : {requiredEnergy}</div>

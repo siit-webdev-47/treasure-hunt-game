@@ -20,7 +20,7 @@ function Player(props) {
       />
       <p className={energyLevel(playerEnergy)}>
              Energy Level : {playerEnergy}
-     </p>
+      </p>
 
     </>
   );
