@@ -1,27 +1,20 @@
-.avatar-mid-energy {
+.avatar {
   background-color: teal;
   height: 5rem;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   margin-top: 1rem;
-  border: 5px solid orange ;
 }
 
-.avatar-high-energy {
-  background-color: teal;
-  height: 5rem;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  margin-top: 1rem;
+.avatar.high-energy {
   border: 5px solid green;
 }
 
-.avatar-low-energy {
-  background-color: teal;
-  height: 5rem;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  margin-top: 1rem;
+.avatar.mid-energy {
+  border: 5px solid orange ;
+}
+
+.avatar.low-energy {
   border: 5px solid red;
 }
 

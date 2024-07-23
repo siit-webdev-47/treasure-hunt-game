@@ -16,7 +16,7 @@ function Player(props) {
       <img
         src={playerAvatar}
         alt={`${playerName}'s player`}
-        className = { `avatar-${energyLevel(playerEnergy)}` }
+        className = { `avatar ${energyLevel(playerEnergy)}`}
       />
       <p className={energyLevel(playerEnergy)}>
              Energy Level : {playerEnergy}
