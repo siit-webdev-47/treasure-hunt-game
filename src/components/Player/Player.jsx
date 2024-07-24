@@ -1,14 +1,10 @@
 import PropTypes from "prop-types";
 import "./Player.css";
+import energyLevel from "../Functions/energyLevel";
 
 function Player(props) {
   const { playerName, playerEnergy, playerAvatar } = props.playerData;
 
-  const energyLevel = (energy) => {
-      if (energy > 50) return "high-energy";
-      if (energy >= 25 && energy <= 50) return "mid-energy";
-     return "low-energy";
-    };
 
   return (
     <>

@@ -1,3 +1,4 @@
+import energyLevel from "../Functions/energyLevel";
 import "./MapTile.css";
 import PropTypes from 'prop-types';
 
@@ -13,11 +14,7 @@ function MapTile(props) {
 
   const playerOnTile = playerPosition.row === row && playerPosition.col === col;
 
-  const energyLevel = (energy) => {
-    if (energy > 50) return "high-energy";
-    if (energy >= 25 && energy <= 50) return "mid-energy";
-    return "low-energy";
-  }
+
 
   return (
     <div className={`map-tile ${tileClass} ${treasureTileClass}`}>

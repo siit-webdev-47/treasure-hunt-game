@@ -21,7 +21,7 @@ function App() {
 
   const [player, setPlayer] = useState({ 
     playerName: 'Ion', 
-    playerEnergy:40, 
+    playerEnergy: 40, 
     playerAvatar: `https://api.dicebear.com/9.x/micah/svg?seed=Ion` 
   });
 
