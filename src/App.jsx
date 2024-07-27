@@ -2,7 +2,7 @@ import "./App.css";
 import generateMapTiles from "./components/Functions/generateMapTiles";
 import Map from "./components/Map/Map";
 import Player from "./components/Player/Player";
-import { useState, useEffect, createContext } from "react";
+import { useState, createContext } from "react";
 import usePlayerMovement from "./components/Custom-Hooks/usePlayerMovement";
 
 export const PlayerContext = createContext();
