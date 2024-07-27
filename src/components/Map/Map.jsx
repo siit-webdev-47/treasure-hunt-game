@@ -23,5 +23,6 @@ function Map(props) {
 export default Map;
 
 Map.propTypes = {
-  data: PropTypes.any,
+  mapData: PropTypes.any,
+  playerData : PropTypes.any
 }

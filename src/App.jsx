@@ -2,8 +2,9 @@ import "./App.css";
 import generateMapTiles from "./components/Functions/generateMapTiles";
 import Map from "./components/Map/Map";
 import Player from "./components/Player/Player";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 
+export const PlayerContext = createContext();
 
 function App() {
   const rows = 5;
@@ -19,7 +20,13 @@ function App() {
     }
   });
 
-  const [player, setPlayer] = useState({ playerName: 'Ion', playerEnergy: 15, playerAvatar: `https://api.dicebear.com/9.x/micah/svg?seed=Bob` });
+  const [player, setPlayer] = useState({ 
+    playerName: 'Rodica', 
+    playerEnergy: 15, 
+    get playerAvatar(){
+      return  `https://api.dicebear.com/9.x/micah/svg?seed=${this.playerName}` 
+    }
+  });
 
   useEffect(() => {
     const tileUpdate = setTimeout(() => {
@@ -33,8 +40,10 @@ function App() {
   return (
     <>
       <h1>Treasure Hunt</h1>
-      <Player playerData={player} />
-      <Map mapData={map} playerData={player}/>
+      <PlayerContext.Provider value={player}>
+        <Player />
+        <Map mapData={map} />
+      </PlayerContext.Provider>
     </>
   );
 }

@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext} from "react";
 import "./Player.css";
+import { PlayerContext } from "../../App";
 
 
-function Player(props) {
-  const {playerName, playerEnergy, playerAvatar} = props.playerData;
+function Player() {
+  // const {playerName, playerEnergy, playerAvatar} = props.playerData;
+  const player = useContext(PlayerContext);
+  const {playerName, playerEnergy, playerAvatar} = player;
 
   const energyColor = (energy) => {
     if (energy > 50) {
