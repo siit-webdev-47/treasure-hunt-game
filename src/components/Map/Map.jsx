@@ -24,4 +24,5 @@ export default Map;
 
 Map.propTypes = {
   mapData: PropTypes.any,
+  playerData : PropTypes.any
 }

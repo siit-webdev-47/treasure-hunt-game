@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import "./MapTile.css";
 import PropTypes from 'prop-types';
+import { PlayerContext } from "../../App";
 
 function MapTile(props) {
   const { row, col, visited, requiredEnergy, yieldValue, hasTreasure} = props.mapTileData;
   const playerPosition = props.playerPosition;
-  const player = props.playerData;
+
+  const player = useContext(PlayerContext);
 
   const tileClass = visited ? 'visited' : 'unvisited';
   const treasureIconClass = hasTreasure ? 'treasure-icon' : '';
@@ -48,5 +51,5 @@ MapTile.propTypes = {
 export default MapTile;
 
 MapTile.propTypes = {
-  data: PropTypes.any,
+  mapTileData: PropTypes.any,
 }
