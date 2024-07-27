@@ -4,7 +4,7 @@ const usePlayerMovement = (setMap, rows, cols) => {
   console.log(rows,cols);
   useEffect(() => {
     const handleKey = (event) => {
-      console.log({event});
+      // console.log({event});
       setMap((prevMap) => {
         const { row, col } = prevMap.playerPosition;
         let newRow = row;
