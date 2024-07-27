@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import "./MapTile.css";
 import PropTypes from 'prop-types';
-import { PlayerContext } from "../../App";
+import { PlayerContext } from "../Game/Game";
 
 function MapTile(props) {
   const { row, col, visited, requiredEnergy, yieldValue, hasTreasure} = props.mapTileData;

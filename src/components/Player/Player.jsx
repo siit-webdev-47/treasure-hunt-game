@@ -1,7 +1,6 @@
 import { useContext} from "react";
 import "./Player.css";
-import { PlayerContext } from "../../App";
-
+import { PlayerContext } from "../Game/Game";
 
 function Player() {
   // const {playerName, playerEnergy, playerAvatar} = props.playerData;
