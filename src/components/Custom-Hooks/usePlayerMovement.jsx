@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 const usePlayerMovement = (setMap, rows, cols) => {
-  console.log(rows,cols);
+  // console.log(rows,cols);
   useEffect(() => {
     const handleKey = (event) => {
       // console.log({event});
