@@ -1,23 +1,11 @@
-import { useContext} from "react";
 import "./Player.css";
 import { PlayerContext } from "../Game/Game";
+import { useContext } from "react";
+import energyLevel from "../Functions/energyLevel";
 
 function Player() {
-  // const {playerName, playerEnergy, playerAvatar} = props.playerData;
   const player = useContext(PlayerContext);
-  const {playerName, playerEnergy, playerAvatar} = player;
-
-  const energyColor = (energy) => {
-    if (energy > 50) {
-      return "green";
-    } else {
-      if (energy >= 25 && energy <= 50) {
-        return "yellow";
-      } else {
-        return "red";
-      }
-    }
-  };
+  const { playerName, playerEnergy, playerAvatar } = player;
 
   return (
     <>
@@ -25,11 +13,12 @@ function Player() {
       <img
         src={playerAvatar}
         alt={`${playerName}'s player`}
-        className="avatar"
+        className={`avatar ${energyLevel(playerEnergy)}`}
       />
-      <p className="energy" style={{ color: energyColor(playerEnergy) }}>
+      <p className={energyLevel(playerEnergy)}>
         Energy Level : {playerEnergy}
       </p>
+
     </>
   );
 }
