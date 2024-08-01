@@ -1,10 +1,12 @@
-import PropTypes from "prop-types";
 import "./Player.css";
+import { useContext} from "react";
+import { PlayerContext } from "../../App";
 import energyLevel from "../Functions/energyLevel";
 
-function Player(props) {
-  const { playerName, playerEnergy, playerAvatar } = props.playerData;
 
+function Player() {
+  const player = useContext(PlayerContext);
+  const {playerName, playerEnergy, playerAvatar} = player;
 
   return (
     <>
@@ -21,13 +23,5 @@ function Player(props) {
     </>
   );
 }
-
-Player.propTypes = {
-  playerData: PropTypes.shape({
-    playerName: PropTypes.string.isRequired,
-    playerEnergy: PropTypes.number.isRequired,
-    playerAvatar: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default Player;

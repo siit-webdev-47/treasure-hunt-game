@@ -1,3 +1,5 @@
 .game-map{
     display: grid;
+    margin: 0.5rem auto;
+    gap: 0.1rem;
 }

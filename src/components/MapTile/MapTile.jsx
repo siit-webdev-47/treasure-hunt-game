@@ -1,11 +1,14 @@
-import energyLevel from "../Functions/energyLevel";
 import "./MapTile.css";
+import { useContext } from "react";
 import PropTypes from 'prop-types';
+import { PlayerContext } from "../../App";
+import energyLevel from "../Functions/energyLevel";
 
 function MapTile(props) {
   const { row, col, visited, requiredEnergy, yieldValue, hasTreasure } = props.mapTileData;
   const playerPosition = props.playerPosition;
-  const player = props.playerData;
+
+  const player = useContext(PlayerContext);
 
   const tileClass = visited ? 'visited' : 'unvisited';
   const treasureIconClass = hasTreasure ? 'treasure-icon' : '';
@@ -38,24 +41,9 @@ function MapTile(props) {
   );
 }
 
-MapTile.propTypes = {
-  mapTileData: PropTypes.shape({
-    row: PropTypes.number.isRequired,
-    col: PropTypes.number.isRequired,
-    visited: PropTypes.bool.isRequired,
-    requiredEnergy: PropTypes.number.isRequired,
-    yieldValue: PropTypes.number.isRequired,
-    hasTreasure: PropTypes.bool.isRequired
-  }).isRequired,
-  playerPosition: PropTypes.shape({
-    row: PropTypes.number.isRequired,
-    col: PropTypes.number.isRequired
-  }).isRequired,
-  playerData: PropTypes.shape({
-    playerAvatar: PropTypes.string.isRequired,
-    playerName: PropTypes.string.isRequired,
-    playerEnergy: PropTypes.number.isRequired
-  }).isRequired
-};
-
 export default MapTile;
+
+MapTile.propTypes = {
+  mapTileData: PropTypes.any,
+  playerPosition: PropTypes.any
+}
