@@ -1,5 +1,5 @@
-import { useContext, useEffect } from "react";
-import Player from "../Player/Player";
+import {  useEffect } from "react";
+
 
 const usePlayerMovement = (setMap, rows, cols, player) => {
   // console.log(rows,cols);

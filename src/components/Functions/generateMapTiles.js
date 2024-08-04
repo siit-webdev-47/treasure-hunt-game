@@ -26,7 +26,7 @@ function generateMapTiles(rows, cols) {
     } else {
       treasureCol = Math.floor(Math.random() * cols);
     }
-    console.log(treasureRow,treasureCol);
+
     tiles[treasureRow][treasureCol].hasTreasure = true;
   }
 
