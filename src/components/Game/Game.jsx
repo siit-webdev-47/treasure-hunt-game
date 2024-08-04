@@ -28,7 +28,7 @@ function Game() {
         },
     });
     
-    usePlayerMovement(setMap, rows, cols);
+    usePlayerMovement(setMap, rows, cols, player);
   
     return (
     <PlayerContext.Provider value={player}>

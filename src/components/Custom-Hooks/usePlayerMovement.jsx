@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from "react";
+import Player from "../Player/Player";
 
-const usePlayerMovement = (setMap, rows, cols) => {
+const usePlayerMovement = (setMap, rows, cols, player) => {
   // console.log(rows,cols);
   useEffect(() => {
     const handleKey = (event) => {
@@ -41,12 +42,18 @@ const usePlayerMovement = (setMap, rows, cols) => {
 
         const updatedTiles = prevMap.tiles.map((rowTiles, rowIndex) =>
           rowTiles.map((tile, colIndex) => {
+            tile.req;
             if (rowIndex === newRow && colIndex === newCol) {
               return { ...tile, visited: true };
             }
             return tile;
           })
         );
+
+        const tileEnergy =
+          prevMap.tiles[newRow][newCol].yieldValue -
+          prevMap.tiles[newRow][newCol].requiredEnergy;
+        player.playerEnergy += tileEnergy;
 
         return {
           ...prevMap,
@@ -62,9 +69,9 @@ const usePlayerMovement = (setMap, rows, cols) => {
     document.addEventListener("keyup", handleKey);
 
     return () => {
-      document.removeEventListener('keyup', handleKey);
+      document.removeEventListener("keyup", handleKey);
     };
-  }, [setMap, cols, rows]);
+  }, [setMap, cols, rows, player]);
 };
 
 export default usePlayerMovement;
