@@ -19,7 +19,14 @@ function generateMapTiles(rows, cols) {
   
   function generateTreasure(tiles, rows, cols) {
     let treasureRow = Math.floor(Math.random() * rows);
-    let treasureCol = Math.floor(Math.random() * cols);
+    let treasureCol;
+    if (treasureRow < 3) {
+      let minDiff = 3 - treasureRow;
+      treasureCol = Math.floor(Math.random() * (cols-minDiff)) + minDiff;
+    } else {
+      treasureCol = Math.floor(Math.random() * cols);
+    }
+    console.log(treasureRow,treasureCol);
     tiles[treasureRow][treasureCol].hasTreasure = true;
   }
 
