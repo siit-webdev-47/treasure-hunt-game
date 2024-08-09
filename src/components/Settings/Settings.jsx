@@ -4,12 +4,19 @@ import PropTypes from "prop-types";
 function Settings({ onStartGame }) {
  
   const [playerName, setPlayerName] = useState("Rodica");
-
+  const [rows, setRows] = useState(6); 
+  const [cols, setCols] = useState(6);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onStartGame(playerName);
+    if (rows <= 5 || cols <= 5) {
+      alert("Rows and columns must be greater than 5.");
+      return;
+    }
+
+    
+    onStartGame(playerName, rows, cols);
   };
 
   return (
@@ -25,7 +32,26 @@ function Settings({ onStartGame }) {
             onChange={(e) => setPlayerName(e.target.value)}
           />
         </div>
-  
+        <div className="form-group">
+          <label htmlFor="rows">Rows:</label>
+          <input
+            type="number"
+            id="rows"
+            value={rows}
+            onChange={(e) => setRows(Number(e.target.value))}
+            min="6"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="cols">Columns:</label>
+          <input
+            type="number"
+            id="cols"
+            value={cols}
+            onChange={(e) => setCols(Number(e.target.value))}
+            min="6" 
+          />
+        </div>
         <button type="submit">Start Game</button>
       </form>
     </div>
