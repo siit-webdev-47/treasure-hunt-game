@@ -14,13 +14,6 @@ function Game() {
       return `https://api.dicebear.com/9.x/micah/svg?seed=${this.playerName}`;
     },
   });
-
-
-
-// console.log('game component');
-
-// console.log(player.playerEnergy);
-
   
   const rows = 5;
   const cols = 5;
@@ -35,21 +28,13 @@ function Game() {
         },
     });
 
-
-
-    console.log('tiles');
-    console.log(map.tiles[1][2].hasTreasure);
-    console.log(map.playerPosition);
-    
-    
-    
-    
-    
+    // console.log('tiles');
+    // console.log(map.tiles[1][2].hasTreasure);
+    // console.log(map.playerPosition);
     
     usePlayerMovement(setMap, rows, cols,player,setPlayer);
     // console.log(usePlayerMovement(setMap, rows, cols));
     
-  
     return (
     <PlayerContext.Provider value={player}>
       <GameOver map={map}/>
