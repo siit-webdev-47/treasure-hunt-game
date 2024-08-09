@@ -4,37 +4,53 @@ import Player from "../Player/Player";
 import { createContext, useState } from "react";
 import generateMapTiles from "../Functions/generateMapTiles";
 import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
+import Settings from "../Settings/Settings";
 
 function Game() {
-  const [player, setPlayer] = useState({
-    playerName: "Rodica",
-    playerEnergy: 15,
-    get playerAvatar() {
-      return `https://api.dicebear.com/9.x/micah/svg?seed=${this.playerName}`;
-    },
-  });
+  const [player, setPlayer] = useState(null);
+  const [map, setMap] = useState(null);
 
-  
-  const rows = 5;
-  const cols = 7;
-  
-  const [map, setMap] = useState({
+  const [gameStarted, setGameStarted] = useState(false);
+
+ 
+  const startGame = (playerName, rows, cols) => {
+    const playerConfig = {
+      playerName,
+      playerEnergy: 100, 
+      get playerAvatar() {
+        return `https://api.dicebear.com/9.x/micah/svg?seed=${this.playerName}`;
+      },
+    };
+
+    const mapConfig = {
       rows,
       cols,
       tiles: generateMapTiles(rows, cols),
       playerPosition: {
-          row: 0,
-          col: 0,
-        },
-    });
-    
-    usePlayerMovement(setMap, rows, cols, player);
-  
-    return (
-    <PlayerContext.Provider value={player}>
-      <Player />
-      <Map mapData={map} />
-    </PlayerContext.Provider>
+        row: 0,
+        col: 0,
+      },
+    };
+
+    setPlayer(playerConfig);
+    setMap(mapConfig);
+    setGameStarted(true);
+  };
+
+ 
+  usePlayerMovement(setMap, map?.rows, map?.cols, player);
+
+  return (
+    <div className="game-container">
+      {!gameStarted ? (
+        <Settings onStartGame={startGame} />
+      ) : (
+        <PlayerContext.Provider value={player}>
+          <Player />
+          <Map mapData={map} />
+        </PlayerContext.Provider>
+      )}
+    </div>
   );
 }
 
