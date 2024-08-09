@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const usePlayerMovement = (setMap, rows, cols) => {
+const usePlayerMovement = (setMap, rows, cols,player, setPlayer) => {
   // console.log(rows,cols);
   useEffect(() => {
     const handleKey = (event) => {
@@ -9,6 +9,11 @@ const usePlayerMovement = (setMap, rows, cols) => {
         const { row, col } = prevMap.playerPosition;
         let newRow = row;
         let newCol = col;
+
+      
+        if(player.playerEnergy <= 0 || prevMap.tiles[row][col].hasTreasure){
+          return prevMap;
+        }
 
         switch (event.key) {
           case "ArrowLeft":
@@ -47,6 +52,21 @@ const usePlayerMovement = (setMap, rows, cols) => {
             return tile;
           })
         );
+        // console.log(updatedTiles);
+        
+        const tileEnergy =
+          prevMap.tiles[newRow][newCol].yieldValue -
+          prevMap.tiles[newRow][newCol].requiredEnergy;
+        const newPlayerEnergy = player.playerEnergy + tileEnergy;
+
+        setPlayer((prevPlayer)=>({
+          ...prevPlayer,
+          playerEnergy: newPlayerEnergy
+        }))
+
+        
+        
+        
 
         return {
           ...prevMap,
@@ -64,7 +84,7 @@ const usePlayerMovement = (setMap, rows, cols) => {
     return () => {
       document.removeEventListener('keyup', handleKey);
     };
-  }, [setMap, cols, rows]);
+  }, [setMap, cols, rows,player,setPlayer]);
 };
 
 export default usePlayerMovement;
