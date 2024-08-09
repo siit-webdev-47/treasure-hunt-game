@@ -6,14 +6,12 @@ import PropTypes from 'prop-types';
 export default function GameOver({map}){
     const player = useContext(PlayerContext);
     // console.log(map.playerPosition);
-    
     const [gameOver, setGameOver] = useState(false);
     const [gameOverMsg, setGameOverMsg] = useState('');
 
    const { row, col} = map.playerPosition;
 
-   console.log(player.playerEnergy);
-   
+//    console.log(player.playerEnergy);
 
     useEffect(() => {
         if (player.playerEnergy <= 0 ){

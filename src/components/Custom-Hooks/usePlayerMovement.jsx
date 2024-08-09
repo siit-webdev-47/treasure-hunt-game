@@ -7,7 +7,7 @@ const usePlayerMovement = (setMap, rows, cols, player, setPlayer) => {
       // console.log({event});
       setMap((prevMap) => {
         
-        const { row, col } = prevMap.playerPosition; 
+        const { row, col } = prevMap.playerPosition;         
         
         if(player.playerEnergy <= 0 || prevMap.tiles[row][col].hasTreasure){ 
           return prevMap;
@@ -54,8 +54,14 @@ const usePlayerMovement = (setMap, rows, cols, player, setPlayer) => {
           const tileEnergy =
             prevMap.tiles[newRow][newCol].yieldValue -
             prevMap.tiles[newRow][newCol].requiredEnergy;
-          const newPlayerEnergy = player.playerEnergy + tileEnergy;
+          
+          // const tileEnergy =
+          // (prevMap.tiles[row][col].yieldValue - prevMap.tiles[row][col].requiredEnergy) +
+          //   (prevMap.tiles[newRow][newCol].yieldValue - prevMap.tiles[newRow][newCol].requiredEnergy)
 
+          const newPlayerEnergy = player.playerEnergy + tileEnergy;        
+          console.log(newPlayerEnergy);
+          
           setPlayer((prevPlayer)=>({
             ...prevPlayer,
             playerEnergy: newPlayerEnergy
