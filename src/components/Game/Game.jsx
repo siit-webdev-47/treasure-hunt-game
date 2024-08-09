@@ -14,30 +14,30 @@ function Game() {
       return `https://api.dicebear.com/9.x/micah/svg?seed=${this.playerName}`;
     },
   });
-  
+
   const rows = 5;
   const cols = 5;
-  
-  const [map, setMap] = useState({
-      rows,
-      cols,
-      tiles: generateMapTiles(rows, cols),
-      playerPosition: {
-          row: 0,
-          col: 0,
-        },
-    });
 
-    // console.log('tiles');
-    // console.log(map.tiles[1][2].hasTreasure);
-    // console.log(map.playerPosition);
-    
-    usePlayerMovement(setMap, rows, cols,player,setPlayer);
-    // console.log(usePlayerMovement(setMap, rows, cols));
-    
-    return (
+  const [map, setMap] = useState({
+    rows,
+    cols,
+    tiles: generateMapTiles(rows, cols),
+    playerPosition: {
+      row: 0,
+      col: 0,
+    },
+  });
+
+  // console.log('tiles');
+  // console.log(map.tiles[1][2].hasTreasure);
+  // console.log(map.playerPosition);
+
+  usePlayerMovement(setMap, rows, cols, player, setPlayer);
+  // console.log(usePlayerMovement(setMap, rows, cols));
+
+  return (
     <PlayerContext.Provider value={player}>
-      <GameOver map={map}/>
+      <GameOver map={map} />
       <Player />
       <Map mapData={map} />
     </PlayerContext.Provider>
