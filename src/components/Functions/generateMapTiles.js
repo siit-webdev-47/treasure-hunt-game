@@ -30,10 +30,4 @@ function generateMapTiles(rows, cols) {
     tiles[treasureRow][treasureCol].hasTreasure = true;
   }
   
-  // function generateTreasure(tiles, rows, cols) {
-  //   let treasureRow = Math.floor(Math.random() * rows);
-  //   let treasureCol = Math.floor(Math.random() * cols);
-  //   tiles[treasureRow][treasureCol].hasTreasure = true;
-  // }
-
   export default generateMapTiles;

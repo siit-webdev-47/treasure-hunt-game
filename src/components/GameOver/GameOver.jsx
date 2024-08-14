@@ -1,28 +1,42 @@
 import { useContext, useEffect, useState } from "react";
 import "./GameOver.css";
-import { PlayerContext } from "../Game/Game";
+// import { PlayerContext } from "../Game/Game";
 import PropTypes from "prop-types";
 
-export default function GameOver({ map }) {
-  const player = useContext(PlayerContext);
-  // console.log(map.playerPosition);
+export default function GameOver({ player, map }) {
+  // const player = useContext(PlayerContext);
+  // console.log({player});
+  // console.log({map});
+  
   const [gameOver, setGameOver] = useState(false);
   const [gameOverMsg, setGameOverMsg] = useState("");
-
+  
   const { row, col } = map.playerPosition;
-
-  //    console.log(player.playerEnergy);
+  
+  console.log(map.playerPosition);
+  console.log(`treasure is found: ${map.tiles[row][col].hasTreasure}`);
 
   useEffect(() => {
     if (player.playerEnergy <= 0) {
+      // console.log(player.playerEnergy)  
+      console.log("energy is 0 or less. triggering game over.");
       setGameOver(true);
-      setGameOverMsg("Sorry!You're dead!");
+      setGameOverMsg("Well, you ran out of energy and you're dead!🪦");
+      return;
     }
     if (map.tiles[row][col].hasTreasure) {
+      // console.log(map.tiles[row][col].hasTreasure);
+      console.log("treasure found. triggering game over.");
+
       setGameOver(true);
-      setGameOverMsg("Yey!You won!🏆");
+      setGameOverMsg("Yey, you found the treasure!🏆💰");
+      return;
     }
   }, [player.playerEnergy, col, row, map.tiles]);
+
+  // console.log({gameOver});
+  // console.log({gameOverMsg});
+  
 
   return (
     <>
@@ -30,8 +44,10 @@ export default function GameOver({ map }) {
         <div className="game-over-container">
           <p>Game Over!</p>
           <p>{gameOverMsg}</p>
-          <button>Reset Round</button>
-          <button>Reset Game</button>
+          <div className="game-over-buttons">
+            <button className="reset round">Reset Round</button>
+            <button className="reset game">Reset Game</button>
+          </div>
         </div>
       )}
     </>
@@ -39,5 +55,6 @@ export default function GameOver({ map }) {
 }
 
 GameOver.propTypes = {
-  map: PropTypes.any,
+  player: PropTypes.object.isRequired,
+  map: PropTypes.object.isRequired,
 };
