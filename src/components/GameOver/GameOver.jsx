@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./GameOver.css";
 // import { PlayerContext } from "../Game/Game";
 import PropTypes from "prop-types";
@@ -17,6 +17,8 @@ export default function GameOver({ player, map }) {
   console.log(`treasure is found: ${map.tiles[row][col].hasTreasure}`);
 
   useEffect(() => {
+    console.log('checking game over conditions');
+    
     if (player.playerEnergy <= 0) {
       // console.log(player.playerEnergy)  
       console.log("energy is 0 or less. triggering game over.");
@@ -32,10 +34,13 @@ export default function GameOver({ player, map }) {
       setGameOverMsg("Yey, you found the treasure!🏆💰");
       return;
     }
+
+    console.log('no game over condition is met, resetting game');
+    
+    setGameOver(false)
   }, [player.playerEnergy, col, row, map.tiles]);
 
-  // console.log({gameOver});
-  // console.log({gameOverMsg});
+  console.log("GameOver:", { gameOver, gameOverMsg });
   
 
   return (
