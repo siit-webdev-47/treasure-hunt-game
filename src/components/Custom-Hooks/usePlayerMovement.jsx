@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import {  useEffect } from "react";
 
 const usePlayerMovement = (setMap, rows, cols, player, setPlayer) => {
   // console.log(rows,cols);
@@ -55,12 +55,7 @@ const usePlayerMovement = (setMap, rows, cols, player, setPlayer) => {
             prevMap.tiles[newRow][newCol].yieldValue -
             prevMap.tiles[newRow][newCol].requiredEnergy;
           
-          // const tileEnergy =
-          // (prevMap.tiles[row][col].yieldValue - prevMap.tiles[row][col].requiredEnergy) +
-          //   (prevMap.tiles[newRow][newCol].yieldValue - prevMap.tiles[newRow][newCol].requiredEnergy)
-
           const newPlayerEnergy = player.playerEnergy + tileEnergy;        
-          console.log(newPlayerEnergy);
           
           setPlayer((prevPlayer)=>({
             ...prevPlayer,

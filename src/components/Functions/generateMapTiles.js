@@ -22,10 +22,11 @@ function generateMapTiles(rows, cols) {
     let treasureCol;
     if (treasureRow < 3) {
       let minDiff = 3 - treasureRow;
-      treasureCol = Math.floor(Math.random() * (cols-minDiff)) + minDiff;     
+      treasureCol = Math.floor(Math.random() * (cols-minDiff)) + minDiff;
     } else {
       treasureCol = Math.floor(Math.random() * cols);
     }
+
     tiles[treasureRow][treasureCol].hasTreasure = true;
   }
   
