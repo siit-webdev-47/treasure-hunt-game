@@ -8,6 +8,8 @@ const usePlayerMovement = (setMap, rows, cols, player) => {
       // console.log({event});
       setMap((prevMap) => {
         const { row, col } = prevMap.playerPosition;
+        console.log(prevMap.tiles[row][col]);
+        prevMap.tiles[row][col].yieldValue = 0;
         let newRow = row;
         let newCol = col;
 
@@ -40,20 +42,20 @@ const usePlayerMovement = (setMap, rows, cols, player) => {
             return prevMap;
         }
 
-        const updatedTiles = prevMap.tiles.map((rowTiles, rowIndex) =>
-          rowTiles.map((tile, colIndex) => {
-            tile.req;
-            if (rowIndex === newRow && colIndex === newCol) {
-              return { ...tile, visited: true };
-            }
-            return tile;
-          })
-        );
-
         const tileEnergy =
           prevMap.tiles[newRow][newCol].yieldValue -
           prevMap.tiles[newRow][newCol].requiredEnergy;
         player.playerEnergy += tileEnergy;
+        
+        const updatedTiles = prevMap.tiles.map((rowTiles, rowIndex) =>
+          rowTiles.map((tile, colIndex) => {
+            tile.req;
+            if (rowIndex === newRow && colIndex === newCol) {
+              return { ...tile, visited: true};
+            }
+            return tile;
+          })
+        );
 
         return {
           ...prevMap,
