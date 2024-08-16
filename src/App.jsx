@@ -37,6 +37,7 @@ function App() {
         // setRows={setRows}
         // setCols={setCols}
       />
+      <GameOver player={player} map={map} />
       <Game
         player={player}
         setPlayer={setPlayer}
@@ -45,7 +46,7 @@ function App() {
         map={map}
         setMap={setMap}
       />
-      <GameOver player={player} map={map} />
+      
     </>
   );
 }

@@ -5,10 +5,13 @@ import { PlayerContext } from "../Game/Game";
 import energyLevel from "../Functions/energyLevel";
 
 function MapTile(props) {
-  const { row, col, visited, requiredEnergy, yieldValue, hasTreasure } = props.mapTileData;
+  const { row, col, visited, requiredEnergy :initialRequiredEnergy, yieldValue:initialYieldValue , hasTreasure } = props.mapTileData;
   const playerPosition = props.playerPosition;
 
   const player = useContext(PlayerContext);
+
+  const requiredEnergy = (row === 0 && col === 0) ? 0 : initialRequiredEnergy;
+  const yieldValue = (row === 0 && col === 0) ? 0 : initialYieldValue;
 
   const tileClass = visited ? 'visited' : 'unvisited';
   const treasureIconClass = hasTreasure ? 'treasure-icon' : '';
