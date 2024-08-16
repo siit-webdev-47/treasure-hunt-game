@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import "./GameOver.css";
 // import { PlayerContext } from "../Game/Game";
 import PropTypes from "prop-types";
+import generateMapTiles from "../Functions/generateMapTiles";
 
-export default function GameOver({ player, map }) {
+export default function GameOver({ player, map, setPlayer, setMap }) {
   // const player = useContext(PlayerContext);
   // console.log({player});
   // console.log({map});
@@ -42,16 +43,34 @@ export default function GameOver({ player, map }) {
 
   console.log("GameOver:", { gameOver, gameOverMsg });
   
+  function handleResetRound(){
+    setPlayer({
+      playerName: "Rodica",
+      playerEnergy: 15,
+      get playerAvatar() {
+        return `https://api.dicebear.com/9.x/micah/svg?seed=${this.playerName}`;
+      }})
+      setMap((prevMap) => ({
+        ...prevMap,
+        tiles: generateMapTiles(prevMap.rows, prevMap.cols), 
+        playerPosition: {
+          row: 0,
+          col: 0,
+        },
+      }));
+  }
 
   return (
     <>
       {gameOver && (
-        <div className="game-over-container">
-          <p>Game Over!</p>
-          <p>{gameOverMsg}</p>
-          <div className="game-over-buttons">
-            <button className="reset round">Reset Round</button>
-            <button className="reset game">Reset Game</button>
+        <div className="game-over-wrapper">
+          <div className="game-over-container">
+            <p>Game Over!</p>
+            <p>{gameOverMsg}</p>
+            <div className="game-over-buttons">
+              <button onClick={handleResetRound} className="reset round">Reset Round</button>
+              <button className="reset game">Reset Game</button>
+            </div>
           </div>
         </div>
       )}
@@ -62,4 +81,6 @@ export default function GameOver({ player, map }) {
 GameOver.propTypes = {
   player: PropTypes.object.isRequired,
   map: PropTypes.object.isRequired,
+  setPlayer: PropTypes.any,
+  setMap: PropTypes.any,
 };
