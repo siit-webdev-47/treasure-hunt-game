@@ -20,8 +20,6 @@ function MapTile(props) {
 
   const playerOnTile = playerPosition.row === row && playerPosition.col === col;
 
-
-
   return (
     <div className={`map-tile ${tileClass} ${treasureTileClass}`}>
       <div>

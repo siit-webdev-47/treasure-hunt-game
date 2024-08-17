@@ -1,4 +1,4 @@
-function Settings ({ player, setPlayer, rows, cols, setRows, setCols }) {
+function Settings () {
     return(
         <>
             <h2>Settings</h2>

@@ -1,10 +1,8 @@
 import {  useEffect } from "react";
 
 const usePlayerMovement = (setMap, rows, cols, player, setPlayer) => {
-  // console.log(rows,cols);
   useEffect(() => {
     const handleKey = (event) => {
-      // console.log({event});
       setMap((prevMap) => {
         
         const { row, col } = prevMap.playerPosition;         
