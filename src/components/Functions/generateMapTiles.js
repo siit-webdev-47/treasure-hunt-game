@@ -1,4 +1,4 @@
-function generateMapTiles(rows, cols) {
+function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
     const tiles = [];
     for (let i = 0; i < rows; i++) {
       tiles[i] = [];
@@ -7,8 +7,8 @@ function generateMapTiles(rows, cols) {
           row: i,
           col: j,
           visited: false,
-          requiredEnergy: Math.floor(Math.random() * 5 + 1),
-          yieldValue: Math.floor(Math.random() * 30 - 15),
+          requiredEnergy: i == initRow &&  j == initCol ? 0 : Math.floor(Math.random() * 5 + 1),
+          yieldValue: i == initRow &&  j == initCol ? 0 : Math.floor(Math.random() * 30 - 15),
           hasTreasure: false,
         };
       }
