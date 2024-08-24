@@ -13,19 +13,16 @@ function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
         };
       }
     }
-    generateTreasure(tiles, rows, cols);
+    generateTreasure(tiles, rows, cols, initRow, initCol);
     return tiles;
   }
 
-  function generateTreasure(tiles, rows, cols) {
+  function generateTreasure(tiles, rows, cols, initRow = 0, initCol = 0, initDistace = 3) {
+    // TODO - implement the logic for any starting position, currently is implemented for starting position 0, 0 
     let treasureRow = Math.floor(Math.random() * rows);
-    let treasureCol;
-    if (treasureRow < 3) {
-      let minDiff = 3 - treasureRow;
-      treasureCol = Math.floor(Math.random() * (cols-minDiff)) + minDiff;
-    } else {
-      treasureCol = Math.floor(Math.random() * cols);
-    }
+    let minDiff = treasureRow < 3 ? 3 - treasureRow : 0;
+    let treasureCol = Math.floor(Math.random() * (cols - minDiff)) + minDiff;
+
 
     tiles[treasureRow][treasureCol].hasTreasure = true;
   }
