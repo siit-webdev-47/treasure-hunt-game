@@ -26,8 +26,6 @@ function App() {
       col: 0,
     },
   });
-
-  console.log(player);
   
   return (
     <>
