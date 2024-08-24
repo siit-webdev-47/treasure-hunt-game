@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createContext} from "react";
 import Game from "./components/Game/Game";
 import GameOver from "./components/GameOver/GameOver";
 import Settings from "./components/Settings/Settings";
@@ -26,29 +27,27 @@ function App() {
     },
   });
 
+  console.log(player);
+  
   return (
     <>
       <h1>Treasure Hunt</h1>
-      <Settings
-        // player={player}
-        // setPlayer={setPlayer}
-        // rows={rows}
-        // cols={cols}
-        // setRows={setRows}
-        // setCols={setCols}
-      />
-      <GameOver player={player} map={map} setPlayer={setPlayer} setMap={setMap}/>
-      <Game
-        player={player}
-        setPlayer={setPlayer}
-        rows={rows}
-        cols={cols}
-        map={map}
-        setMap={setMap}
-      />
+      <AppSettingsContext.Provider value={{player, setPlayer, map, setMap}}>
+        <Settings
+          // player={player}
+          // setPlayer={setPlayer}
+          // rows={rows}
+          // cols={cols}
+          // setRows={setRows}
+          // setCols={setCols}
+        />
+        <GameOver />
+        <Game />
+      </AppSettingsContext.Provider>
       
     </>
   );
 }
 
+export const AppSettingsContext = createContext();
 export default App;

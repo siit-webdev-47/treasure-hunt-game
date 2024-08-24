@@ -1,23 +1,24 @@
 import "../../App.css";
 import Map from "../Map/Map";
 import Player from "../Player/Player";
-import { createContext} from "react";
 import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { AppSettingsContext } from "../../App";
 
-function Game({ player, setPlayer, rows, cols, map, setMap }) {
+function Game() {
+  const { player, setPlayer, map, setMap } = useContext(AppSettingsContext);
 
-  usePlayerMovement(setMap, rows, cols, player, setPlayer);
+  usePlayerMovement(setMap, map.rows, map.cols, player, setPlayer);
 
   return (
-    <PlayerContext.Provider value={player}>
+    <>
       <Player />
       <Map mapData={map} />
-    </PlayerContext.Provider>
+    </>
   );
 }
 
-export const PlayerContext = createContext();
 export default Game;
 
 Game.propTypes = {

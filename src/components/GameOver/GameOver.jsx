@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./GameOver.css";
 import PropTypes from "prop-types";
 import generateMapTiles from "../Functions/generateMapTiles";
+import { AppSettingsContext } from "../../App";
 
-export default function GameOver({ player, map, setPlayer, setMap }) {
-  
+export default function GameOver() {
+  const { player, map, setPlayer, setMap } = useContext(AppSettingsContext);
+
   const [gameOver, setGameOver] = useState(false);
   const [gameOverMsg, setGameOverMsg] = useState("");
   
@@ -61,9 +63,9 @@ export default function GameOver({ player, map, setPlayer, setMap }) {
   );
 }
 
-GameOver.propTypes = {
-  player: PropTypes.object.isRequired,
-  map: PropTypes.object.isRequired,
-  setPlayer: PropTypes.any,
-  setMap: PropTypes.any,
-};
+// GameOver.propTypes = {
+//   player: PropTypes.object.isRequired,
+//   map: PropTypes.object.isRequired,
+//   setPlayer: PropTypes.any,
+//   setMap: PropTypes.any,
+// };

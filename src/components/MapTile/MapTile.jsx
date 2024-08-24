@@ -1,14 +1,14 @@
 import "./MapTile.css";
 import { useContext } from "react";
+import { AppSettingsContext } from "../../App";
 import PropTypes from 'prop-types';
-import { PlayerContext } from "../Game/Game";
 import energyLevel from "../Functions/energyLevel";
 
 function MapTile(props) {
   const { row, col, visited, requiredEnergy, yieldValue, hasTreasure } = props.mapTileData;
   const playerPosition = props.playerPosition;
 
-  const player = useContext(PlayerContext);
+  const { player } = useContext(AppSettingsContext);
 
   const tileClass = visited ? 'visited' : 'unvisited';
   const treasureIconClass = hasTreasure ? 'treasure-icon' : '';
@@ -26,10 +26,10 @@ function MapTile(props) {
           </small>
         </div>
         {playerOnTile && <img
-              src={player.playerAvatar} 
-              alt={`${player.playerName}'s player`}
-              className={`tile-avatar ${energyLevel(player.playerEnergy)}`}
-            />}
+          src={player.playerAvatar}
+          alt={`${player.playerName}'s player`}
+          className={`tile-avatar ${energyLevel(player.playerEnergy)}`}
+        />}
       </div>
       <div className="tile-text-size energy-emoji"> : {requiredEnergy}</div>
       <div className={`tile-text-size ${yieldValueEmojiClass}`}> : {yieldValue}</div>

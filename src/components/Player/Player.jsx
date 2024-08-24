@@ -1,10 +1,10 @@
 import "./Player.css";
-import { PlayerContext } from "../Game/Game";
 import { useContext } from "react";
+import { AppSettingsContext } from "../../App";
 import energyLevel from "../Functions/energyLevel";
 
 function Player() {
-  const player = useContext(PlayerContext);
+  const { player } = useContext(AppSettingsContext);
   const { playerName, playerEnergy, playerAvatar } = player;
 
   return (
