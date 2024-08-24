@@ -41,8 +41,8 @@ function App() {
           // setRows={setRows}
           // setCols={setCols}
         />
-        <GameOver />
         <Game />
+        <GameOver />
       </AppSettingsContext.Provider>
       
     </>
