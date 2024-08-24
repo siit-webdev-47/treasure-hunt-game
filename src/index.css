@@ -6,4 +6,15 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --color1: #e6e6e6;
+  --color2: #ffffb8;
+  --color3:#31383b;
+}
+
+body,html,#root{
+  margin: auto;
+  /* padding: 0; */
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
 }

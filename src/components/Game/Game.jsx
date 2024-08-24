@@ -1,36 +1,15 @@
 import "../../App.css";
 import Map from "../Map/Map";
 import Player from "../Player/Player";
-import { createContext, useState } from "react";
-import generateMapTiles from "../Functions/generateMapTiles";
+import { createContext} from "react";
 import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
+import PropTypes from "prop-types";
 
-function Game() {
-  const [player, setPlayer] = useState({
-    playerName: "Rodica",
-    playerEnergy: 15,
-    get playerAvatar() {
-      return `https://api.dicebear.com/9.x/micah/svg?seed=${this.playerName}`;
-    },
-  });
+function Game({ player, setPlayer, rows, cols, map, setMap }) {
 
-  
-  const rows = 5;
-  const cols = 7;
-  
-  const [map, setMap] = useState({
-      rows,
-      cols,
-      tiles: generateMapTiles(rows, cols),
-      playerPosition: {
-          row: 0,
-          col: 0,
-        },
-    });
-    
-    usePlayerMovement(setMap, rows, cols, player);
-  
-    return (
+  usePlayerMovement(setMap, rows, cols, player, setPlayer);
+
+  return (
     <PlayerContext.Provider value={player}>
       <Player />
       <Map mapData={map} />
@@ -40,3 +19,12 @@ function Game() {
 
 export const PlayerContext = createContext();
 export default Game;
+
+Game.propTypes = {
+  player: PropTypes.any,
+  map: PropTypes.any,
+  setMap: PropTypes.any,
+  setPlayer: PropTypes.any,
+  rows: PropTypes.any,
+  cols: PropTypes.any
+};

@@ -1,4 +1,4 @@
-function generateMapTiles(rows, cols) {
+function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
     const tiles = [];
     for (let i = 0; i < rows; i++) {
       tiles[i] = [];
@@ -7,27 +7,24 @@ function generateMapTiles(rows, cols) {
           row: i,
           col: j,
           visited: false,
-          requiredEnergy: Math.floor(Math.random() * 5 + 1),
-          yieldValue: Math.floor(Math.random() * 30 - 15),
+          requiredEnergy: i == initRow &&  j == initCol ? 0 : Math.floor(Math.random() * 5 + 1),
+          yieldValue: i == initRow &&  j == initCol ? 0 : Math.floor(Math.random() * 30 - 15),
           hasTreasure: false,
         };
       }
     }
-    generateTreasure(tiles, rows, cols);
+    generateTreasure(tiles, rows, cols, initRow, initCol);
     return tiles;
   }
-  
-  function generateTreasure(tiles, rows, cols) {
+
+  function generateTreasure(tiles, rows, cols, initRow = 0, initCol = 0, initDistace = 3) {
+    // TODO - implement the logic for any starting position, currently is implemented for starting position 0, 0 
     let treasureRow = Math.floor(Math.random() * rows);
-    let treasureCol;
-    if (treasureRow < 3) {
-      let minDiff = 3 - treasureRow;
-      treasureCol = Math.floor(Math.random() * (cols-minDiff)) + minDiff;
-    } else {
-      treasureCol = Math.floor(Math.random() * cols);
-    }
+    let minDiff = treasureRow < 3 ? 3 - treasureRow : 0;
+    let treasureCol = Math.floor(Math.random() * (cols - minDiff)) + minDiff;
+
 
     tiles[treasureRow][treasureCol].hasTreasure = true;
   }
-
+  
   export default generateMapTiles;
