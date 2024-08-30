@@ -2,7 +2,6 @@ import { useState } from "react";
 import { createContext} from "react";
 import Game from "./components/Game/Game";
 import GameOver from "./components/GameOver/GameOver";
-import Settings from "./components/Settings/Settings";
 import generateMapTiles from "./components/Functions/generateMapTiles";
 
 function App() {
@@ -31,14 +30,6 @@ function App() {
     <>
       <h1>Treasure Hunt</h1>
       <AppSettingsContext.Provider value={{player, setPlayer, map, setMap}}>
-        <Settings
-          // player={player}
-          // setPlayer={setPlayer}
-          // rows={rows}
-          // cols={cols}
-          // setRows={setRows}
-          // setCols={setCols}
-        />
         <Game />
         <GameOver />
       </AppSettingsContext.Provider>
