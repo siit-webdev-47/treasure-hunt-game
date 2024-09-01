@@ -6,7 +6,7 @@ import energyLevel from "../Functions/energyLevel";
 function Player() {
   const { player } = useContext(AppSettingsContext);
   const { playerName, playerEnergy, playerAvatar } = player;
-
+  
   return (
     <>
       <h3>{playerName}</h3>
