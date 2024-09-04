@@ -26,11 +26,11 @@ function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
         if ((Math.abs(initRow - i) + Math.abs(initCol - j)) > initDistace) 
         possibleTreasure.push([i,j]);
         
-      };
-      console.log(rows, cols);
+      }
+      // console.log(rows, cols);
       
     }
-    console.log(possibleTreasure);
+    // console.log(possibleTreasure);
     
     let treasurePos = Math.floor(Math.random() * possibleTreasure.length);
     // let minDiff = treasureRow < 3 ? 3 - treasureRow : 0;
@@ -38,7 +38,7 @@ function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
 
 
     // tiles[treasureRow][treasureCol].hasTreasure = true;
-    console.log(treasurePos,possibleTreasure[treasurePos][0],possibleTreasure[treasurePos][1]);
+    // console.log(treasurePos,possibleTreasure[treasurePos][0],possibleTreasure[treasurePos][1]);
     
     tiles[possibleTreasure[treasurePos][0]][possibleTreasure[treasurePos][1]].hasTreasure = true;
   }
