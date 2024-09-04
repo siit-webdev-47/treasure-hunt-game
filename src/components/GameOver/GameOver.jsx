@@ -1,60 +1,48 @@
 import { useContext, useEffect, useState } from "react";
 import "./GameOver.css";
 import PropTypes from "prop-types";
-import generateMapTiles from "../Functions/generateMapTiles";
 import { AppSettingsContext } from "../../App";
 
-export default function GameOver() {
-  const { player, map, setPlayer, setMap } = useContext(AppSettingsContext);
+export default function GameOver({setGamePhase, newGame, resetGame}) {
+  const { player, map, gamePhase } = useContext(AppSettingsContext);
 
-  const [gameOver, setGameOver] = useState(false);
   const [gameOverMsg, setGameOverMsg] = useState("");
   
   const { row, col } = map.playerPosition;
   
   useEffect(() => {
     if (player.playerEnergy <= 0) {
-      setGameOver(true);
+      setGamePhase('gameOver');
       setGameOverMsg("Well, you ran out of energy and you're dead!🪦");
       return;
     }
     if (map.tiles[row][col].hasTreasure) {
-      setGameOver(true);
+      setGamePhase('gameOver');
       setGameOverMsg("Yey, you found the treasure!🏆💰");
       return;
     }
 
-    setGameOver(false)
-  }, [player.playerEnergy, col, row, map.tiles]);
+  }, [player.playerEnergy, col, row, map.tiles, setGamePhase]);
 
   
   function handleResetRound(){
-    setPlayer({
-      playerName: "Rodica",
-      playerEnergy: 15,
-      get playerAvatar() {
-        return `https://api.dicebear.com/9.x/micah/svg?seed=${this.playerName}`;
-      }})
-      setMap((prevMap) => ({
-        ...prevMap,
-        tiles: generateMapTiles(prevMap.rows, prevMap.cols), 
-        playerPosition: {
-          row: 0,
-          col: 0,
-        },
-      }));
+    resetGame();
+  }
+
+  function handleResetGame(){
+    newGame();
   }
 
   return (
     <>
-      {gameOver && (
+      {gamePhase === 'gameOver' && (
         <div className="game-over-wrapper">
           <div className="game-over-container">
             <p>Game Over!</p>
             <p>{gameOverMsg}</p>
             <div className="game-over-buttons">
-              <button onClick={handleResetRound} className="reset round">Reset Round</button>
-              <button className="reset game">Reset Game</button>
+              <button onClick={handleResetRound}  className="reset round">Reset Round</button>
+              <button onClick={handleResetGame} className="reset game">Reset Game</button>
             </div>
           </div>
         </div>
@@ -63,9 +51,8 @@ export default function GameOver() {
   );
 }
 
-// GameOver.propTypes = {
-//   player: PropTypes.object.isRequired,
-//   map: PropTypes.object.isRequired,
-//   setPlayer: PropTypes.any,
-//   setMap: PropTypes.any,
-// };
+GameOver.propTypes = {
+  setGamePhase: PropTypes.object.isRequired,
+  newGame: PropTypes.object.isRequired,
+  resetGame: PropTypes.any,
+};

@@ -5,7 +5,7 @@ import Game from "./components/Game/Game";
 import GameOver from "./components/GameOver/GameOver";
 import generateMapTiles from "./components/Functions/generateMapTiles";
 
-const playerFactory = (playerName = "Anony Moose", playerEnergy = 15) => ({
+ const playerFactory = (playerName = "Anony Moose", playerEnergy = 15) => ({
   playerName,
   playerEnergy,
   get playerAvatar() {
@@ -13,7 +13,7 @@ const playerFactory = (playerName = "Anony Moose", playerEnergy = 15) => ({
   }
 });
 
-const mapFactory = (rows = 6, cols = 6, playerPosition = {row: 0, col: 0}) => ({
+ const mapFactory = (rows, cols, playerPosition = {row: 0, col: 0}) => ({
     rows,
     cols,
     playerPosition,
@@ -23,15 +23,35 @@ const mapFactory = (rows = 6, cols = 6, playerPosition = {row: 0, col: 0}) => ({
 function App() {
   const [gamePhase, setGamePhase] = useState('SETTINGS');
   const [player, setPlayer] = useState(playerFactory());
-  const [rows, setRows] = useState(5);
-  const [cols, setCols] = useState(5);
-
-  const [map, setMap] = useState(mapFactory(rows, cols));
+  const [map, setMap] = useState(mapFactory(6, 6));
 
   const startGame = () => {
     setMap({...map, tiles: generateMapTiles(map.rows, map.cols)});
     setPlayer(playerFactory(player.playerName, player.playerEnergy));
     setGamePhase('ONGOING');
+  };
+
+  const resetGame = () => {
+    setMap((prevMap)=>({
+      ...prevMap,
+      playerPosition : {
+        row: 0, 
+        col: 0
+      },
+      tiles: generateMapTiles(prevMap.rows, prevMap.cols)
+    }));
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      playerEnergy : 15
+    }));
+    setGamePhase('ONGOING');
+    
+  };
+
+  const newGame = () => {
+   setMap(mapFactory(6, 6));
+   setPlayer(playerFactory())
+   setGamePhase('SETTINGS')
   };
 
 
@@ -48,7 +68,7 @@ function App() {
       <AppSettingsContext.Provider value={{player, setPlayer, map, setMap, gamePhase}}>
         <Settings onStartGame={startGame} />
         <Game />
-        <GameOver />
+        <GameOver setGamePhase={setGamePhase} newGame={newGame} resetGame={resetGame} />
       </AppSettingsContext.Provider>
       
     </>
