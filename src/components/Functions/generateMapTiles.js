@@ -26,11 +26,8 @@ function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
         if ((Math.abs(initRow - i) + Math.abs(initCol - j)) > initDistace) 
         possibleTreasure.push([i,j]);
         
-      }
-      // console.log(rows, cols);
-      
+      }      
     }
-    // console.log(possibleTreasure);
     
     let treasurePos = Math.floor(Math.random() * possibleTreasure.length);
     // let minDiff = treasureRow < 3 ? 3 - treasureRow : 0;
