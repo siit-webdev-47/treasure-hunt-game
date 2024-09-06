@@ -45,21 +45,28 @@
 }
 
 .game-over-container p:first-of-type{
-    font-size: 2.2rem;
+    /* font-size: 2.2rem;
     color: var(--color2);
+    margin: 0; */
+    font-size: 1.8rem;
+    color: var(--color3);
     margin: 0;
+    font-weight: bold;
 }
 
 .game-over-container p:nth-of-type(2){
-    font-size: 1.2rem;
-    color: var(--color3);
+    /* font-size: 1.2rem;
+    color: var(--color3); */
+    font-size: 2.2rem;
+    color: var(--color2);
+    margin: 0;
 }
 
 .game-over-buttons {
     display: flex;
     gap: 1.5rem;
     justify-content: center;
-    
+    margin-top: 0.5rem;
 }
 .reset {
     padding: 0.5rem;
