@@ -23,8 +23,8 @@ const mapFactory = (rows = 6, cols = 6, playerPosition = {row: 0, col: 0}) => ({
 function App() {
   const [gamePhase, setGamePhase] = useState('SETTINGS');
   const [player, setPlayer] = useState(playerFactory());
-  const [rows, setRows] = useState(5);
-  const [cols, setCols] = useState(5);
+  const [rows, setRows] = useState(6);
+  const [cols, setCols] = useState(6);
 
   const [map, setMap] = useState(mapFactory(rows, cols));
 
