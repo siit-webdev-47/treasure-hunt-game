@@ -3,7 +3,6 @@ import {  useEffect } from "react";
 const usePlayerMovement = (row, col, rows, cols, handlePlayerMove) => {
   useEffect(() => { 
     const handleKey = (event) => {
-      // console.log(event);
       
         let newRow = row;
         let newCol = col;
