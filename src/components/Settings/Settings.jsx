@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { AppSettingsContext } from "../../App";
+import "./Settings.css";
+
 
 function Settings({ onStartGame }) {
   const { player, setPlayer, map, setMap, gamePhase } = useContext(AppSettingsContext);
@@ -14,11 +16,12 @@ function Settings({ onStartGame }) {
     <> 
       {gamePhase === 'SETTINGS' && (
         <div className="settings">
-          <h2>Settings</h2>
+          <h2 className="settings-title">Settings</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="playerName">Player Name:</label>
               <input
+                className="input-settings"
                 type="text"
                 id="playerName"
                 value={player.playerName}
@@ -29,6 +32,7 @@ function Settings({ onStartGame }) {
             <div className="form-group">
               <label htmlFor="rows">Rows:</label>
               <input
+                className="input-settings"
                 type="number"
                 id="rows"
                 value={map.rows}
@@ -40,6 +44,7 @@ function Settings({ onStartGame }) {
             <div className="form-group">
               <label htmlFor="cols">Columns:</label>
               <input
+                className="input-settings"
                 type="number"
                 id="cols"
                 value={map.cols}
@@ -48,7 +53,7 @@ function Settings({ onStartGame }) {
               />
             </div>
 
-            <button type="submit">Start Game</button>
+            <button className="button-settings"type="submit">Start Game</button>
 
           </form>
         </div>
