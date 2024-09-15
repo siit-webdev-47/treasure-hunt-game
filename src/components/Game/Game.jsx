@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { AppSettingsContext } from "../../App";
 
 function Game({ onPlayerMove }) {
-  const { player, setPlayer, map, setMap, gamePhase } = useContext(AppSettingsContext);
+  const { player, setPlayer, map, setMap } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
 
   function handlePlayerMove(newRow, newCol) {
@@ -17,27 +17,27 @@ function Game({ onPlayerMove }) {
     const newPlayerEnergy = player.playerEnergy + tileEnergy;
 
 
-    if (player.playerEnergy > 0 && newPlayerEnergy > 0 && !map.tiles[row][col].hasTreasure) {      
-       setMap((prevMap) => {        
-          const updatedTiles = prevMap.tiles.map((rowTiles, rowIndex) =>
-            rowTiles.map((tile, colIndex) => {
-              if (
-                (rowIndex === row && colIndex === col) ||  (rowIndex === newRow && colIndex === newCol)
-              ) {
-                return { ...tile, visited: true, yieldValue: 0};
-              }
-              return tile;
-            })
-          );
-          return{
-            ...prevMap,
-            playerPosition: {
-              row: newRow,
-              col: newCol,
-            },
-            tiles: updatedTiles,
-          }  
-        })
+    if (player.playerEnergy > 0 && newPlayerEnergy > 0 && !map.tiles[row][col].hasTreasure) {
+      setMap((prevMap) => {
+        const updatedTiles = prevMap.tiles.map((rowTiles, rowIndex) =>
+          rowTiles.map((tile, colIndex) => {
+            if (
+              (rowIndex === row && colIndex === col) || (rowIndex === newRow && colIndex === newCol)
+            ) {
+              return { ...tile, visited: true, yieldValue: 0 };
+            }
+            return tile;
+          })
+        );
+        return {
+          ...prevMap,
+          playerPosition: {
+            row: newRow,
+            col: newCol,
+          },
+          tiles: updatedTiles,
+        }
+      })
     }
 
     setPlayer((prevPlayer) => ({
@@ -51,14 +51,10 @@ function Game({ onPlayerMove }) {
   usePlayerMovement(row, col, map.rows, map.cols, handlePlayerMove);
 
   return (
-    <>
-      {gamePhase === "ONGOING" && (
-        <div className="game-container">
-          <Player />
-          <Map mapData={map} />
-        </div>
-      )}
-    </>
+    <div className="game-container">
+      <Player />
+      <Map mapData={map} />
+    </div>
   );
 }
 

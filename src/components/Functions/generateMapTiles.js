@@ -13,24 +13,32 @@ function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
         };
       }
     }
-    generateTreasure(tiles, rows, cols, initRow, initCol);
+
+    const treasureCoordinates = generateTreasure(rows, cols, initRow, initCol);
+    tiles[treasureCoordinates.row][treasureCoordinates.col].hasTreasure = true;
+
+    console.log(`Setting the treasure coordinates for a map of ${rows} rows and ${cols} cols`);
+    console.log(treasureCoordinates);
+    console.log(tiles[treasureCoordinates.row][treasureCoordinates.col]);
+    
     return tiles;
   }
 
-  function generateTreasure(tiles, rows, cols, initRow = 0, initCol = 0, initDistace = 3) {
+
+  function generateTreasure(rows, cols, initRow = 0, initCol = 0, initDistace = 3) {
     let possibleTreasure = [];
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
-
         if ((Math.abs(initRow - i) + Math.abs(initCol - j)) > initDistace) 
-        possibleTreasure.push([i,j]);
-        
+          possibleTreasure.push([i, j]);
       }
     }
 
     let treasurePos = Math.floor(Math.random() * possibleTreasure.length);
-
-    tiles[possibleTreasure[treasurePos][0]][possibleTreasure[treasurePos][1]].hasTreasure = true;
+    return {
+      row: possibleTreasure[treasurePos][0],
+      col: possibleTreasure[treasurePos][1]
+    };
   }
   
   export default generateMapTiles;
