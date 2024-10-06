@@ -7,10 +7,13 @@ import generateMapTiles from "./components/Functions/generateMapTiles";
 import mapFactory from "./components/Functions/mapFactory";
 import playerFactory from "./components/Functions/playerFactory";
 
+const defaultMap = mapFactory(6, 6);
+const defaultPlayer = playerFactory('Anony Moose', 20);
+
 function App() {
   const [gamePhase, setGamePhase] = useState('SETTINGS');
-  const [player, setPlayer] = useState(playerFactory());
-  const [map, setMap] = useState(mapFactory(6, 6));
+  const [player, setPlayer] = useState(defaultPlayer);
+  const [map, setMap] = useState(defaultMap);
   const [gameOverMsg, setGameOverMsg] = useState('')
 
   const startGame = () => {
@@ -18,6 +21,7 @@ function App() {
     setPlayer(playerFactory(player.playerName, player.playerEnergy));
     setGamePhase('ONGOING');
   };
+
 
   const resetGame = () => {
     setMap((prevMap) => ({
@@ -28,19 +32,22 @@ function App() {
       },
       tiles: generateMapTiles(prevMap.rows, prevMap.cols)
     }));
+
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
       playerEnergy: 15
     }));
-    setGamePhase('ONGOING');
 
+    setGamePhase('ONGOING');
   };
+
 
   const newGame = () => {
-    setMap(mapFactory(6, 6));
-    setPlayer(playerFactory())
+    setMap(defaultMap);
+    setPlayer(defaultPlayer)
     setGamePhase('SETTINGS')
   };
+
 
   const evaluateGameState = (energy, position) => {
     const { row, col } = position;

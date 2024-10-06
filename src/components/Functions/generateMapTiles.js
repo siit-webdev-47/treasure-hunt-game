@@ -17,10 +17,6 @@ function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
     const treasureCoordinates = generateTreasure(rows, cols, initRow, initCol);
     tiles[treasureCoordinates.row][treasureCoordinates.col].hasTreasure = true;
 
-    console.log(`Setting the treasure coordinates for a map of ${rows} rows and ${cols} cols`);
-    console.log(treasureCoordinates);
-    console.log(tiles[treasureCoordinates.row][treasureCoordinates.col]);
-    
     return tiles;
   }
 
