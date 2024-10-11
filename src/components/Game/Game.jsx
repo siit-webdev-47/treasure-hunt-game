@@ -17,12 +17,15 @@ function Game({ onPlayerMove }) {
       map.tiles[newRow][newCol].requiredEnergy;
     const newPlayerEnergy = player.playerEnergy + tileEnergy;
 
-    for (let i = 0; i < map.rows; i++) {
-      for (let j = 0; j < map.cols; j++) {
-        map.tiles[i][j].visible = false;
-      }
-    }
-    console.log(map.tiles);
+
+    // In case we want to let only the cells around the player to be visible,
+    // like light around a torch
+
+    // for (let i = 0; i < map.rows; i++) {
+    //   for (let j = 0; j < map.cols; j++) {
+    //     map.tiles[i][j].visible = false;
+    //   }
+    // }
     
     for (let i = -1; i <= 1; i++) {
       for (let j = -1; j <= 1; j++) {
