@@ -18,6 +18,15 @@ function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
     const treasureCoordinates = generateTreasure(rows, cols, initRow, initCol);
     tiles[treasureCoordinates.row][treasureCoordinates.col].hasTreasure = true;
 
+    for (let i = -1; i <= 1; i++) {
+      for (let j = -1; j <= 1; j++) {
+        if (((initRow+i) >= 0) && ((initCol+j) >= 0) &&
+         ((initRow+i) < rows) && ((initCol+j) < cols)) {
+          tiles[initRow+i][initCol+j].visible = true;
+        }
+      }
+    }
+
     return tiles;
   }
 
