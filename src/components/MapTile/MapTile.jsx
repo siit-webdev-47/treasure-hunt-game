@@ -6,8 +6,7 @@ import energyLevel from "../Functions/energyLevel";
 
 function MapTile(props) {
   const { player } = useContext(AppSettingsContext);
-  const { playerName, playerEnergy, playerAvatar } = player;
-  
+  const { playerEnergy } = player;
 
   const {
     row,
@@ -51,7 +50,6 @@ function MapTile(props) {
           </>
         )}
       </div>
-      {/* <div> */}
       {visible && (
         <>
           <div className="tile-text-size energy-emoji"> : {requiredEnergy}</div>
@@ -64,7 +62,6 @@ function MapTile(props) {
           </div>
         </>
       )}
-      {/* </div> */}
     </div>
   );
 }

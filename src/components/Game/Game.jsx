@@ -20,13 +20,16 @@ function Game({ onPlayerMove }) {
 
     // In case we want to let only the cells around the player to be visible,
     // like light around a torch
-
-    // for (let i = 0; i < map.rows; i++) {
-    //   for (let j = 0; j < map.cols; j++) {
-    //     map.tiles[i][j].visible = false;
-    //   }
-    // }
     
+    for (let i = -2; i <= 2; i++) {
+      for (let j = -2; j <= 2; j++) {
+        if (((newRow+i) >= 0) && ((newCol+j) >= 0) &&
+         ((newRow+i) < map.rows) && ((newCol+j) < map.cols)) {
+          map.tiles[newRow+i][newCol+j].visible = false;
+        }
+      }
+    }
+
     for (let i = -1; i <= 1; i++) {
       for (let j = -1; j <= 1; j++) {
         if (((newRow+i) >= 0) && ((newCol+j) >= 0) &&
@@ -35,7 +38,6 @@ function Game({ onPlayerMove }) {
         }
       }
     }
-
 
     if (player.playerEnergy > 0 && newPlayerEnergy > 0 && !map.tiles[row][col].hasTreasure) {
       setMap((prevMap) => {
