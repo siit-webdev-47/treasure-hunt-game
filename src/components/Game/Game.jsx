@@ -20,15 +20,6 @@ function Game({ onPlayerMove }) {
     if (player.playerEnergy > 0 && newPlayerEnergy > 0 && !map.tiles[row][col].hasTreasure) {      
        setMap((prevMap) => {   
         const updatedTiles = [...prevMap.tiles] 
-        
-        if (updatedTiles[row] !== updatedTiles[newRow]) {
-          console.log('ROW & COL are different');
-          
-          updatedTiles[row] = [...updatedTiles[row]]
-          updatedTiles[newRow] = [...updatedTiles[newRow]]
-        }
-
-        updatedTiles[row][col] = { ...updatedTiles[row][col], visited: true, yieldValue: 0 };
         updatedTiles[newRow][newCol] = { ...updatedTiles[newRow][newCol], visited: true, yieldValue: 0 };
 
           return{
@@ -69,15 +60,3 @@ export default Game;
 Game.propTypes = {
   onPlayerMove: PropTypes.func.isRequired,
 };
-
-
-// const updatedTiles = prevMap.tiles.map((rowTiles, rowIndex) =>
-//   rowTiles.map((tile, colIndex) => {
-//     if (
-//       (rowIndex === row && colIndex === col) ||  (rowIndex === newRow && colIndex === newCol)
-//     ) {
-//       return { ...tile, visited: true, yieldValue: 0};
-//     }
-//     return tile;
-//   })
-// );
