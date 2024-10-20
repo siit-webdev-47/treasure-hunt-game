@@ -16,28 +16,20 @@ function Game({ onPlayerMove }) {
       map.tiles[newRow][newCol].requiredEnergy;
     const newPlayerEnergy = player.playerEnergy + tileEnergy;
 
+    if (player.playerEnergy > 0 && newPlayerEnergy > 0 && !map.tiles[row][col].hasTreasure) {      
+       setMap((prevMap) => {   
+        const updatedTiles = [...prevMap.tiles] 
+        updatedTiles[newRow][newCol] = { ...updatedTiles[newRow][newCol], visited: true, yieldValue: 0 };
 
-    if (player.playerEnergy > 0 && newPlayerEnergy > 0 && !map.tiles[row][col].hasTreasure) {
-      setMap((prevMap) => {
-        const updatedTiles = prevMap.tiles.map((rowTiles, rowIndex) =>
-          rowTiles.map((tile, colIndex) => {
-            if (
-              (rowIndex === row && colIndex === col) || (rowIndex === newRow && colIndex === newCol)
-            ) {
-              return { ...tile, visited: true, yieldValue: 0 };
-            }
-            return tile;
-          })
-        );
-        return {
-          ...prevMap,
-          playerPosition: {
-            row: newRow,
-            col: newCol,
-          },
-          tiles: updatedTiles,
-        }
-      })
+          return{
+            ...prevMap,
+            playerPosition: {
+              row: newRow,
+              col: newCol,
+            },
+            tiles: updatedTiles,
+          }  
+        })
     }
 
     setPlayer((prevPlayer) => ({
