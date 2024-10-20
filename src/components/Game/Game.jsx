@@ -18,39 +18,33 @@ function Game({ onPlayerMove }) {
     const newPlayerEnergy = player.playerEnergy + tileEnergy;
 
 
-    // In case we want to let only the cells around the player to be visible,
-    // like light around a torch
 
-    for (let i = -2; i <= 2; i++) {
-      for (let j = -2; j <= 2; j++) {
-        if (((newRow + i) >= 0) && ((newCol + j) >= 0) &&
-          ((newRow + i) < map.rows) && ((newCol + j) < map.cols)) {
-          map.tiles[newRow + i][newCol + j].visible = false;
-        }
-      }
-    }
-
-    for (let i = -1; i <= 1; i++) {
-      for (let j = -1; j <= 1; j++) {
-        if (((newRow + i) >= 0) && ((newCol + j) >= 0) &&
-          ((newRow + i) < map.rows) && ((newCol + j) < map.cols)) {
-          map.tiles[newRow + i][newCol + j].visible = true;
-        }
-      }
-    }
-
+    // set tiles as visited and clears the energy yeld if the player moved
     if (player.playerEnergy > 0 && newPlayerEnergy > 0 && !map.tiles[row][col].hasTreasure) {
+      // clears the visible property for the tiles around the player (2 tiles around)
+      for (let i = -2; i <= 2; i++) {
+        for (let j = -2; j <= 2; j++) {
+          if (((newRow + i) >= 0) && ((newCol + j) >= 0) &&
+            ((newRow + i) < map.rows) && ((newCol + j) < map.cols)) {
+            map.tiles[newRow + i][newCol + j].visible = false;
+          }
+        }
+      }
+
+      // sets the visible property for the tiles around the player (1 tile around)
+      for (let i = -1; i <= 1; i++) {
+        for (let j = -1; j <= 1; j++) {
+          if (((newRow + i) >= 0) && ((newCol + j) >= 0) &&
+            ((newRow + i) < map.rows) && ((newCol + j) < map.cols)) {
+            map.tiles[newRow + i][newCol + j].visible = true;
+          }
+        }
+      }
+
       setMap((prevMap) => {
-        const updatedTiles = prevMap.tiles.map((rowTiles, rowIndex) =>
-          rowTiles.map((tile, colIndex) => {
-            if (
-              (rowIndex === row && colIndex === col) || (rowIndex === newRow && colIndex === newCol)
-            ) {
-              return { ...tile, visited: true, yieldValue: 0 };
-            }
-            return tile;
-          })
-        );
+        const updatedTiles = [...prevMap.tiles]
+        updatedTiles[newRow][newCol] = { ...updatedTiles[newRow][newCol], visited: true, yieldValue: 0 };
+
         return {
           ...prevMap,
           playerPosition: {
