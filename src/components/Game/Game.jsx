@@ -1,5 +1,6 @@
 import "../../App.css";
 import Map from "../Map/Map";
+import Question from "../Question/Question";
 import Player from "../Player/Player";
 import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
 import PropTypes from "prop-types";
@@ -17,8 +18,9 @@ function Game({ onPlayerMove }) {
       map.tiles[newRow][newCol].requiredEnergy;
     const newPlayerEnergy = player.playerEnergy + tileEnergy;
 
-
-
+    Question() ;
+  
+    
     // set tiles as visited and clears the energy yeld if the player moved
     if (player.playerEnergy > 0 && newPlayerEnergy > 0 && !map.tiles[row][col].hasTreasure) {
       // clears the visible property for the tiles around the player (2 tiles around)
@@ -68,7 +70,7 @@ function Game({ onPlayerMove }) {
 
   return (
     <div className="game-container">
-      <Player />
+      {/* <Player /> */}
       <Map mapData={map} />
     </div>
   );
