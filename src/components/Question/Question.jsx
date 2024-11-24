@@ -1,4 +1,4 @@
-function Question() {
+function Question(objQuestion) {
     
     const handleDelete = () => {
       if (window.confirm("Are you sure you want to delete this item?")) {
@@ -7,13 +7,23 @@ function Question() {
         console.log("Action cancelled!");
       }
     };
-  console.log("test");
+  console.log(objQuestion);
   
+  let confirmation = confirm(objQuestion);
+
+  if (confirmation) {
+    // Delete the item
+    console.log("Item deleted.Question.jsx");
+  } else {
+    console.log("Deletion canceled.");
+  }
     return (
       <div>
         <button onClick={handleDelete}>Delete Item</button>
       </div>
     );
+
+
   }
   
   export default Question;

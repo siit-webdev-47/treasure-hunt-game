@@ -1,11 +1,13 @@
 import "../../App.css";
 import Map from "../Map/Map";
 import Question from "../Question/Question";
-import Player from "../Player/Player";
+// import Player from "../Player/Player";
 import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import { AppSettingsContext } from "../../App";
+import fetchQuestion from "../Functions/fetchQuestion";
+import question from "../Functions/question";
 
 function Game({ onPlayerMove }) {
   const { player, setPlayer, map, setMap } = useContext(AppSettingsContext);
@@ -18,10 +20,27 @@ function Game({ onPlayerMove }) {
       map.tiles[newRow][newCol].requiredEnergy;
     const newPlayerEnergy = player.playerEnergy + tileEnergy;
 
-    Question() ;
-  
+
+    // var question;
+    // fetchQuestion().then(myData => {
+    //   if (myData) {
+    //     question = myData;      
+    //   }
+    //   return question[0];
+    // })
+    // .then(
+    //   data => {
+    //     console.log('Response 3',data.question);
+    //     Question(data) ;
+        
+    //   }
+    // );
     
-    // set tiles as visited and clears the energy yeld if the player moved
+    let q = question();
+    console.log(q);
+    
+    
+     // set tiles as visited and clears the energy yeld if the player moved
     if (player.playerEnergy > 0 && newPlayerEnergy > 0 && !map.tiles[row][col].hasTreasure) {
       // clears the visible property for the tiles around the player (2 tiles around)
       for (let i = -2; i <= 2; i++) {

@@ -1,19 +1,63 @@
+import fetchQuestion from "./fetchQuestion";
+import question from "./question";
+
 function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
   const tiles = [];
-  for (let i = 0; i < rows; i++) {
-    tiles[i] = [];
-    for (let j = 0; j < cols; j++) {
+  
+  var question;
+  let result = fetchQuestion(rows * cols)
+  .then(myData => {
+      if (myData) {
+          question = myData; 
+          console.log(question);     
+      }
+      return question;
+  })
+  .then(
+      data => {
+          console.log('Response 3',data[0].question);
+          questionVect = data;
+
+  
+          for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+            
+              let questionObj = questionVect[i * j + j];
+              console.log('index', i * j + j);
+             
+              console.log('questionObj',questionObj);
+              
+              tiles[i][j].question = questionObj.question;
+              tiles[i][j].trueAnsw = questionObj.correctAnswer;
+              tiles[i][j].falseAnsw = questionObj.correctAnswer;
+              };
+            }
+
+          return(data)  
+      }
+  );
+  
+  
+  let questionVect =[];
+ 
+
+for (let i = 0; i < rows; i++) {
+  tiles[i] = [];
+  for (let j = 0; j < cols; j++) {
       tiles[i][j] = {
-        row: i,
-        col: j,
-        visited: i == initRow && j == initCol ? true : false,
-        visible: i == initRow && j == initCol ? true : false,
-        requiredEnergy: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 5 + 1),
-        yieldValue: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 30 - 15),
-        hasTreasure: false,
-      };
-    }
+      row: i,
+      col: j,
+      visited: i == initRow && j == initCol ? true : false,
+      visible: i == initRow && j == initCol ? true : false,
+      requiredEnergy: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 5 + 1),
+      yieldValue: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 30 - 15),
+      hasTreasure: false,
+      question: "",
+      trueAnsw: "",
+      falseAnsw: [],
+    };
   }
+}
 
   const treasureCoordinates = generateTreasure(rows, cols, initRow, initCol);
   tiles[treasureCoordinates.row][treasureCoordinates.col].hasTreasure = true;
