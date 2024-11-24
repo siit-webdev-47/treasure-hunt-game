@@ -71,7 +71,7 @@ function Game({ onPlayerMove }) {
 
   return (
     <div className="game-container">
-      <QuestionWindow></QuestionWindow>
+      {/* <QuestionWindow></QuestionWindow> */}
       {/* <Player /> */}
       <Map mapData={map} />
     </div>
