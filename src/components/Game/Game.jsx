@@ -20,25 +20,7 @@ function Game({ onPlayerMove }) {
       map.tiles[newRow][newCol].requiredEnergy;
     const newPlayerEnergy = player.playerEnergy + tileEnergy;
 
-
-    // var question;
-    // fetchQuestion().then(myData => {
-    //   if (myData) {
-    //     question = myData;      
-    //   }
-    //   return question[0];
-    // })
-    // .then(
-    //   data => {
-    //     console.log('Response 3',data.question);
-    //     Question(data) ;
-        
-    //   }
-    // );
-    
-    let q = question();
-    console.log(q);
-    
+   
     
      // set tiles as visited and clears the energy yeld if the player moved
     if (player.playerEnergy > 0 && newPlayerEnergy > 0 && !map.tiles[row][col].hasTreasure) {

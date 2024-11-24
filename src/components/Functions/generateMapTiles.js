@@ -23,13 +23,13 @@ function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
             for (let j = 0; j < cols; j++) {
             
               let questionObj = questionVect[i * j + j];
-              console.log('index', i * j + j);
+              console.log('i=',i,'j=',j,'index=', i * j + j);
              
               console.log('questionObj',questionObj);
               
               tiles[i][j].question = questionObj.question;
               tiles[i][j].trueAnsw = questionObj.correctAnswer;
-              tiles[i][j].falseAnsw = questionObj.correctAnswer;
+              tiles[i][j].falseAnsw = questionObj.incorrectAnswers;
               };
             }
 
