@@ -5,7 +5,8 @@ function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
   const tiles = [];
   
   var question;
-  let result = fetchQuestion(rows * cols)
+  let number = rows * cols
+  let result = fetchQuestion(number)
   .then(myData => {
       if (myData) {
           question = myData; 
@@ -22,8 +23,8 @@ function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
           for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
             
-              let questionObj = questionVect[i * j + j];
-              console.log('i=',i,'j=',j,'index=', i * j + j);
+              let questionObj = questionVect[i * cols + j];
+              console.log('i=',i,'j=',j,'index=', i * cols + j);
              
               console.log('questionObj',questionObj);
               
@@ -50,7 +51,7 @@ for (let i = 0; i < rows; i++) {
       visited: i == initRow && j == initCol ? true : false,
       visible: i == initRow && j == initCol ? true : false,
       requiredEnergy: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 5 + 1),
-      yieldValue: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 30 - 15),
+      yieldValue: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 15),
       hasTreasure: false,
       question: "",
       trueAnsw: "",

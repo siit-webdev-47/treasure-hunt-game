@@ -35,11 +35,11 @@ function MapTile(props) {
   return (
     <div className={`map-tile ${tileClass} ${treasureTileClass}`}>
       <div>
-        <div className="tile-coordinates">
+        {/* <div className="tile-coordinates">
           <small>
             Tile: {row},{col}
           </small>
-        </div>
+        </div> */}
         {playerOnTile && (
           <>
             <img
