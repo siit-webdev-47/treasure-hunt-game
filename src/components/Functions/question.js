@@ -1,4 +1,4 @@
-import Question from "../Question/Question";
+import Question from "../Question/QuestionWindow";
 import fetchQuestion from "./fetchQuestion";
 
 function question(){

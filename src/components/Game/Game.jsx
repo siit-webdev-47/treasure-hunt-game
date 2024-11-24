@@ -1,6 +1,5 @@
 import "../../App.css";
 import Map from "../Map/Map";
-import Question from "../Question/Question";
 // import Player from "../Player/Player";
 import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
 import PropTypes from "prop-types";
@@ -8,6 +7,7 @@ import { useContext } from "react";
 import { AppSettingsContext } from "../../App";
 import fetchQuestion from "../Functions/fetchQuestion";
 import question from "../Functions/question";
+import QuestionWindow from "../Question/QuestionWindow";
 
 function Game({ onPlayerMove }) {
   const { player, setPlayer, map, setMap } = useContext(AppSettingsContext);
@@ -71,6 +71,7 @@ function Game({ onPlayerMove }) {
 
   return (
     <div className="game-container">
+      <QuestionWindow></QuestionWindow>
       {/* <Player /> */}
       <Map mapData={map} />
     </div>
