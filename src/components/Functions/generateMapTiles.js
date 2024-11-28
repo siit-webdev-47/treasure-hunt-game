@@ -4,32 +4,26 @@ import question from "./question";
 function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
   const tiles = [];
   let questionVect =[];
-  let question;
   let number = rows * cols
 
-  let result = fetchQuestion(number)
+  fetchQuestion(number)
   .then(myData => {
-      if (myData) {
-          question = myData; 
-      }
-      return question;
+      return myData;
   })
-  .then(
-      data => {
+  .then(data => {
           questionVect = data;
 
             for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
             
               let questionObj = questionVect[i * cols + j];
-                            
+                
               tiles[i][j].question = questionObj.question;
               tiles[i][j].trueAnsw = questionObj.correctAnswer;
               tiles[i][j].falseAnsw = questionObj.incorrectAnswers;
+              tiles[i][j].category = questionObj.category;
               };
             }
-
-          // return(data)  
       }
   );
   
@@ -48,6 +42,7 @@ for (let i = 0; i < rows; i++) {
       yieldValue: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 15),
       hasTreasure: false,
       question: "",
+      category: "",
       trueAnsw: "",
       falseAnsw: [],
     };

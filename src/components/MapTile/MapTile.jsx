@@ -19,6 +19,7 @@ function MapTile(props) {
     question,
     trueAnsw,
     falseAnsw,
+    category,
   } = props.mapTileData;
   const playerPosition = props.playerPosition;
 
@@ -60,6 +61,7 @@ function MapTile(props) {
           <div >{` ${question}`}</div>
           <div >{` ${trueAnsw}`}</div>
           <div >{` ${falseAnsw}`}</div>
+          <div >{` ${category}`}</div>
           <div className={`${treasureIconClass}`}></div>
         </>
       )}

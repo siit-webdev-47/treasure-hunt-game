@@ -1,14 +1,14 @@
 import Question from "../Question/QuestionWindow";
 import fetchQuestion from "./fetchQuestion";
 
-function question(){
+function questionTest(){
 
-    
-    var question;
-    let result = fetchQuestion(2).then(myData => {
+    let question;
+    let result = fetchQuestion(2)
+    .then(myData => {
         if (myData) {
             question = myData; 
-            console.log(question);
+            console.log(`Question : ${question}`);
                  
         }
         return question[0];
@@ -24,4 +24,4 @@ function question(){
     return result;
 }
 
-export default question;
+export default questionTest;
