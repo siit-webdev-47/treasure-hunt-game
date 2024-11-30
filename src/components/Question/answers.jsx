@@ -18,23 +18,21 @@ function Answers(props) {
 
   const handleSubmit = () => {
     setIsSubmitted(true);
-    // Add your logic to send the selected option here
-    selectedOption == trueAnsw ? map.tiles[row][col].correctAnsw = true : map.tiles[row][col].correctAnsw = false;
-    console.log("Selected option:", selectedOption);
+    selectedOption == trueAnsw
+      ? (map.tiles[row][col].correctAnsw = true)
+      : (map.tiles[row][col].correctAnsw = false);
   };
 
   const handleKey = () => {
     setIsSubmitted(false);
-  }
+  };
 
-  document.addEventListener('keyup', handleKey);
+  document.addEventListener("keyup", handleKey);
   return (
     <>
       <p>Question : {question}</p>
       <>
-        {
-        !isSubmitted && 
-        (
+        {!isSubmitted && (
           <>
             <div className="answersRadio">
               <input
@@ -75,15 +73,14 @@ function Answers(props) {
           </>
         )}
       </>
-      {isSubmitted && 
-      <div>
+      {isSubmitted && (
+        <div>
           <p>You selected: {selectedOption}</p>
           <p>The correct answer: {trueAnsw}</p>
-          {selectedOption == trueAnsw && <p>Correct</p>} 
-          {selectedOption != trueAnsw && <p>False</p>} 
-
-      </div>
-      }
+          {selectedOption == trueAnsw && <p>Correct! You gained {map.tiles[row][col].yieldValue} energy!</p>}
+          {selectedOption != trueAnsw && <p>False! You lost {map.tiles[row][col].yieldValue} energy!</p>}
+        </div>
+      )}
     </>
   );
 }

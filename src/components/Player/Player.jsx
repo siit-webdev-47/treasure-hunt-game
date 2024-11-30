@@ -12,9 +12,7 @@ function Player() {
   const { row, col } = map.playerPosition;
   const { visited, trueAnsw, falseAnsw } = map.tiles[row][col];
 
-  let listAnsw = randomizeAnsw(trueAnsw, falseAnsw);
-  console.log(visited);
-  
+  let listAnsw = randomizeAnsw(trueAnsw, falseAnsw);  
 
   return (
     <>

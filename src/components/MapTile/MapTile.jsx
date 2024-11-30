@@ -16,9 +16,6 @@ function MapTile(props) {
     requiredEnergy,
     yieldValue,
     hasTreasure,
-    question,
-    trueAnsw,
-    falseAnsw,
     category,
   } = props.mapTileData;
   const playerPosition = props.playerPosition;
