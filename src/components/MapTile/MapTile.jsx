@@ -32,9 +32,9 @@ function MapTile(props) {
     yieldValue >= 0 ? "yield-value-positive" : "yield-value-negative";
 
   const playerOnTile = playerPosition.row === row && playerPosition.col === col;
-
+  const playerOnTileClass = playerOnTile ? "playerOnTile" : "";
   return (
-    <div className={`map-tile ${tileClass} ${treasureTileClass}`}>
+    <div className={`map-tile ${tileClass} ${treasureTileClass} ${energyLevel(player.playerEnergy)} ${playerOnTileClass}`}>
       <div>
         {/* <div className="tile-coordinates">
           <small>
@@ -58,7 +58,7 @@ function MapTile(props) {
         <>
           <div className="tile-text-size energy-emoji">{` : ${requiredEnergy}`}</div>
           <div className={`tile-text-size ${yieldValueEmojiClass}`}>{` : ${yieldValue}`}</div>
-          <div >{` ${category}`}</div>
+          <div className={`tile-text-size`}>{` ${category}`}</div>
           <div className={`${treasureIconClass}`}></div>
         </>
       )}

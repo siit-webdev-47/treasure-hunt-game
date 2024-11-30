@@ -9,11 +9,16 @@
   text-align: center;
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   border-radius: 1.5rem;
+  color: black;
+
 }
 
 .map-tile.unvisited {
   background-color: #e6e6e6;
   box-shadow: none;
+}
+.map-tile.playerOnTile {
+  border : 3px solid black;
 }
 
 .map-tile.visited {
@@ -31,8 +36,9 @@
 }
 
 .tile-text-size {
-  font-size: 0.8rem;
+  font-size: 1rem;
   margin-top: 0.2rem;
+  color: black;
 }
 
 .treasure-tile{
@@ -72,5 +78,16 @@
 }
 
 .tile-avatar.low-energy {
+  border : 3px solid red;
+}
+.map-tile.playerOnTile.high-energy {
+  border : 3px solid green;
+}
+
+.playerOnTile.mid-energy {
+  border : 3px solid orange;
+}
+
+.map-tile.playerOnTile.low-energy {
   border : 3px solid red;
 }
