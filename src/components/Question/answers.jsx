@@ -19,6 +19,7 @@ function Answers(props) {
   const handleSubmit = () => {
     setIsSubmitted(true);
     // Add your logic to send the selected option here
+    selectedOption == trueAnsw ? map.tiles[row][col].correctAnsw = true : map.tiles[row][col].correctAnsw = false;
     console.log("Selected option:", selectedOption);
   };
 
