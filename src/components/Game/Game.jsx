@@ -1,13 +1,12 @@
 import "../../App.css";
 import Map from "../Map/Map";
-// import Player from "../Player/Player";
+import Player from "../Player/Player";
 import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import { AppSettingsContext } from "../../App";
-import fetchQuestion from "../Functions/fetchQuestion";
-import question from "../Functions/question";
-import QuestionWindow from "../Question/QuestionWindow";
+// import fetchQuestion from "../Functions/fetchQuestion";
+// import QuestionWindow from "../Question/QuestionWindow";
 
 function Game({ onPlayerMove }) {
   const { player, setPlayer, map, setMap } = useContext(AppSettingsContext);
@@ -15,8 +14,11 @@ function Game({ onPlayerMove }) {
 
   function handlePlayerMove(newRow, newCol) {
 
+    let correctAnswer = false;
+
+    let correctVar = correctAnswer ? 1 : -1 ;   
     const tileEnergy =
-      map.tiles[newRow][newCol].yieldValue -
+      correctVar * map.tiles[newRow][newCol].yieldValue -
       map.tiles[newRow][newCol].requiredEnergy;
     const newPlayerEnergy = player.playerEnergy + tileEnergy;
 
@@ -72,7 +74,7 @@ function Game({ onPlayerMove }) {
   return (
     <div className="game-container">
       {/* <QuestionWindow /> */}
-      {/* <Player /> */}
+      <Player />
       <Map mapData={map} />
     </div>
   );

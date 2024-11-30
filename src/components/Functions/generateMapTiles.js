@@ -1,5 +1,4 @@
 import fetchQuestion from "./fetchQuestion";
-import question from "./question";
 
 function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
   const tiles = [];
