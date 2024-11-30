@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { AppSettingsContext } from "../../App";
 import "./Answers.css";
 
@@ -7,10 +7,9 @@ function Answers(props) {
   const { listAnsw } = props;
   const { map } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
-  const { question } = map.tiles[row][col];
+  const { question, trueAnsw } = map.tiles[row][col];
 
-  
-  const [selectedOption, setSelectedOption] = useState("option1");
+  const [selectedOption, setSelectedOption] = useState(listAnsw[0]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -25,49 +24,63 @@ function Answers(props) {
   return (
     <>
       <p>Question : {question}</p>
-      <div className="answersRadio">
-        <input
-          type="radio"
-          value="option1"
-          checked={selectedOption === "option1"}
-          onChange={handleOptionChange}
-        />
-        <label>{listAnsw[0]}</label>
-        <br />
-        <input
-          type="radio"
-          value="option2"
-          checked={selectedOption === "option2"}
-          onChange={handleOptionChange}
-        />
-        <label>{listAnsw[1]}</label>
-        <br />
-        <input
-          type="radio"
-          value="option3"
-          checked={selectedOption === "option3"}
-          onChange={handleOptionChange}
-        />
-        <label>{listAnsw[2]}</label>
-        <br />
-        <input
-          type="radio"
-          value="option4"
-          checked={selectedOption === "option4"}
-          onChange={handleOptionChange}
-        />
-        <label>{listAnsw[3]}</label>
-        <br />
+      <>
+        {
+        // !isSubmitted && 
+        (
+          <>
+            <div className="answersRadio">
+              <input
+                type="radio"
+                value={listAnsw[0]}
+                checked={selectedOption === listAnsw[0]}
+                onChange={handleOptionChange}
+              />
+              <label>{listAnsw[0]}</label>
+              <br />
+              <input
+                type="radio"
+                value={listAnsw[1]}
+                checked={selectedOption === listAnsw[1]}
+                onChange={handleOptionChange}
+              />
+              <label>{listAnsw[1]}</label>
+              <br />
+              <input
+                type="radio"
+                value={listAnsw[2]}
+                checked={selectedOption === listAnsw[2]}
+                onChange={handleOptionChange}
+              />
+              <label>{listAnsw[2]}</label>
+              <br />
+              <input
+                type="radio"
+                value={listAnsw[3]}
+                checked={selectedOption === listAnsw[3]}
+                onChange={handleOptionChange}
+              />
+              <label>{listAnsw[3]}</label>
+              <br />
+            </div>
+
+            <button onClick={handleSubmit}>Submit</button>
+          </>
+        )}
+      </>
+      {isSubmitted && 
+      <div>
+          <p>You selected: {selectedOption}</p>
+          <p>The correct answer: {trueAnsw}</p>
+
       </div>
-      <button onClick={handleSubmit}>Submit</button>
-      {isSubmitted && <p>You selected: {selectedOption}</p>}
+      }
     </>
   );
 }
 
 export default Answers;
 
-
 Answers.propTypes = {
-    listAnsw: PropTypes.any,
-  }
+  listAnsw: PropTypes.any,
+};
