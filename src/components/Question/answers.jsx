@@ -28,6 +28,9 @@ function Answers(props) {
   };
 
   document.addEventListener("keyup", handleKey);
+
+  let goodAnsw = selectedOption == trueAnsw ? true : false;
+
   return (
     <>
       <p>Question : {question}</p>
@@ -74,11 +77,16 @@ function Answers(props) {
         )}
       </>
       {isSubmitted && (
-        <div>
+        <div className={`answer ${goodAnsw}`}>
           <p>You selected: {selectedOption}</p>
           <p>The correct answer: {trueAnsw}</p>
-          {selectedOption == trueAnsw && <p>Correct! You gained {map.tiles[row][col].yieldValue} energy!</p>}
-          {selectedOption != trueAnsw && <p>False! You lost {map.tiles[row][col].yieldValue} energy!</p>}
+          {goodAnsw && (
+            <p>Correct! You gained {map.tiles[row][col].yieldValue} energy!</p>
+          )}
+          {!goodAnsw && (
+            <p>False! You lost {map.tiles[row][col].yieldValue} energy!</p>
+          )}
+          <p>Choose your next tile!</p>
         </div>
       )}
     </>

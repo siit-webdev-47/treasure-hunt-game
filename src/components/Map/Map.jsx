@@ -7,7 +7,7 @@ function Map(props) {
 
   return (
     <>
-      <h2>Map Component</h2>
+      {/* <h2>Map Component</h2> */}
       <div
         className="game-map"
         style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}

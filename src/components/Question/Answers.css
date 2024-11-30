@@ -4,3 +4,13 @@
     align-items: center;
     justify-content: center;
   }
+
+.answer.true {
+  color: darkgreen;
+}
+.answer.false {
+  color: red;
+}
+.answer{
+  font-weight: bold;
+}
