@@ -10,9 +10,11 @@ function Player() {
   const { player, map } = useContext(AppSettingsContext);
   const { playerName, playerEnergy, playerAvatar } = player;
   const { row, col } = map.playerPosition;
-  const { question, trueAnsw, falseAnsw } = map.tiles[row][col];
+  const { visited, trueAnsw, falseAnsw } = map.tiles[row][col];
 
   let listAnsw = randomizeAnsw(trueAnsw, falseAnsw);
+  console.log(visited);
+  
 
   return (
     <>
@@ -23,7 +25,7 @@ function Player() {
         className={`avatar ${energyLevel(playerEnergy)}`}
       />
       <p className={energyLevel(playerEnergy)}>Energy Level : {playerEnergy}</p>
-      <Answers listAnsw={listAnsw}/>
+      {!visited && <Answers listAnsw={listAnsw}/>}
       
     </>
   );

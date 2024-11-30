@@ -13,6 +13,7 @@ function Answers(props) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
+    setIsSubmitted(false);
   };
 
   const handleSubmit = () => {
@@ -21,12 +22,17 @@ function Answers(props) {
     console.log("Selected option:", selectedOption);
   };
 
+  const handleKey = () => {
+    setIsSubmitted(false);
+  }
+
+  document.addEventListener('keyup', handleKey);
   return (
     <>
       <p>Question : {question}</p>
       <>
         {
-        // !isSubmitted && 
+        !isSubmitted && 
         (
           <>
             <div className="answersRadio">
@@ -72,6 +78,8 @@ function Answers(props) {
       <div>
           <p>You selected: {selectedOption}</p>
           <p>The correct answer: {trueAnsw}</p>
+          {selectedOption == trueAnsw && <p>Correct</p>} 
+          {selectedOption != trueAnsw && <p>False</p>} 
 
       </div>
       }

@@ -33,7 +33,7 @@ const usePlayerMovement = (row, col, rows, cols, handlePlayerMove) => {
         }
 
        if(newRow !== row || newCol !== col){
-        handlePlayerMove(newRow, newCol)
+        handlePlayerMove(newRow, newCol, row, col)
        }
         
     };

@@ -12,9 +12,9 @@ function Game({ onPlayerMove }) {
   const { player, setPlayer, map, setMap } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
 
-  function handlePlayerMove(newRow, newCol) {
+  function handlePlayerMove(newRow, newCol, row, col) {
 
-    let correctAnswer = false;
+    let correctAnswer = true;
 
     let correctVar = correctAnswer ? 1 : -1 ;   
     const tileEnergy =
@@ -48,7 +48,7 @@ function Game({ onPlayerMove }) {
 
       setMap((prevMap) => {
         const updatedTiles = [...prevMap.tiles]
-        updatedTiles[newRow][newCol] = { ...updatedTiles[newRow][newCol], visited: true, yieldValue: 0 };
+        updatedTiles[row][col] = { ...updatedTiles[row][col], visited: true, yieldValue: 0 };
 
         return {
           ...prevMap,
