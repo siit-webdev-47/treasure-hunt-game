@@ -17,9 +17,15 @@ function App() {
   const [gameOverMsg, setGameOverMsg] = useState('')
 
   const startGame = () => {
-    setMap({ ...map, tiles: generateMapTiles(map.rows, map.cols) });
-    setPlayer(playerFactory(player.playerName, player.playerEnergy));
-    setGamePhase('ONGOING');
+    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols);
+    setMap({ ...map, tiles });
+
+    questionListUpdatePromise
+      .then(updatedTiles => {
+        setMap({ ...map, updatedTiles })
+        setPlayer(playerFactory(player.playerName, player.playerEnergy));
+        setGamePhase('ONGOING');
+      })
   };
 
 
@@ -30,7 +36,7 @@ function App() {
         row: 0,
         col: 0
       },
-      tiles: generateMapTiles(prevMap.rows, prevMap.cols)
+      tiles: generateMapTiles(prevMap.rows, prevMap.cols).tiles
     }));
 
     setPlayer((prevPlayer) => ({

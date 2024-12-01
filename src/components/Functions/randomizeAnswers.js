@@ -1,4 +1,4 @@
-function randomizeAnsw (trueA, falseA) {
+function randomizeAnswers (trueA, falseA) {
     let listAnsw = [];
     listAnsw.push(trueA);
     for (let index = 0; index < falseA.length; index++) {
@@ -12,4 +12,4 @@ function randomizeAnsw (trueA, falseA) {
 
     return listAnsw;
 }
-export default randomizeAnsw;
+export default randomizeAnswers;

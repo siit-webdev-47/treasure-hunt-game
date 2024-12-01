@@ -2,15 +2,17 @@ import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { AppSettingsContext } from "../../App";
 import "./Answers.css";
+import randomizeAnswers from "../Functions/randomizeAnswers";
 
-function Answers(props) {
-  const { listAnsw } = props;
+function Answers() {
   const { map } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
-  const { question, trueAnsw } = map.tiles[row][col];
+  const { question, trueAnsw, falseAnsw } = map.tiles[row][col];
+  const listAnsw = randomizeAnswers(trueAnsw, falseAnsw);
 
   const [selectedOption, setSelectedOption] = useState(listAnsw[0]);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
     setIsSubmitted(false);

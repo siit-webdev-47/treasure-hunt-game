@@ -1,53 +1,40 @@
-import fetchQuestion from "./fetchQuestion";
+import fetchQuestionList from "./fetchQuestionList";
 
 function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
   const tiles = [];
-  let questionVect =[];
   let number = rows * cols
 
-  fetchQuestion(number)
-  .then(myData => {
-      return myData;
-  })
-  .then(data => {
-          questionVect = data;
-
-            for (let i = 0; i < rows; i++) {
-            for (let j = 0; j < cols; j++) {
-            
-              let questionObj = questionVect[i * cols + j];
-                
-              tiles[i][j].question = questionObj.question;
-              tiles[i][j].trueAnsw = questionObj.correctAnswer;
-              tiles[i][j].falseAnsw = questionObj.incorrectAnswers;
-              tiles[i][j].category = questionObj.category;
-              };
-            }
+  const questionListUpdatePromise = fetchQuestionList(number)
+    .then(questionVect => {
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          // adding question info to the tile 
+          tiles[i][j] = { ...tiles[i][j], ...questionVect[i * cols + j] };
+        };
       }
-  );
-  
-  
- 
 
-for (let i = 0; i < rows; i++) {
-  tiles[i] = [];
-  for (let j = 0; j < cols; j++) {
+      return [...tiles]
+    });
+
+  for (let i = 0; i < rows; i++) {
+    tiles[i] = [];
+    for (let j = 0; j < cols; j++) {
       tiles[i][j] = {
-      row: i,
-      col: j,
-      visited: i == initRow && j == initCol ? true : false,
-      visible: i == initRow && j == initCol ? true : false,
-      requiredEnergy: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 5 + 1),
-      yieldValue: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 15),
-      hasTreasure: false,
-      question: "",
-      category: "",
-      trueAnsw: "",
-      falseAnsw: [],
-      correctAnsw: false,
-    };
+        row: i,
+        col: j,
+        visited: i == initRow && j == initCol ? true : false,
+        visible: i == initRow && j == initCol ? true : false,
+        requiredEnergy: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 5 + 1),
+        yieldValue: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 15),
+        hasTreasure: false,
+        question: "",
+        category: "",
+        trueAnsw: "",
+        falseAnsw: [],
+        correctAnsw: false,
+      };
+    }
   }
-}
 
   const treasureCoordinates = generateTreasure(rows, cols, initRow, initCol);
   tiles[treasureCoordinates.row][treasureCoordinates.col].hasTreasure = true;
@@ -61,7 +48,10 @@ for (let i = 0; i < rows; i++) {
     }
   }
 
-  return tiles;
+  return {
+    tiles,
+    questionListUpdatePromise
+  }
 }
 
 

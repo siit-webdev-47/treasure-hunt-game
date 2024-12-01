@@ -4,7 +4,7 @@ const mapFactory = (rows, cols, playerPosition = {row: 0, col: 0}) => ({
     rows,
     cols,
     playerPosition,
-    tiles: generateMapTiles(rows, cols),
+    tiles: generateMapTiles(rows, cols).tiles,
 });
 
 export default mapFactory;
