@@ -5,7 +5,8 @@ import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import { AppSettingsContext } from "../../App";
-import Answers from "../Question/Answers";
+
+import AnswerWindow from "../Question/AnswerWindow";
 // import fetchQuestion from "../Functions/fetchQuestion";
 // import QuestionWindow from "../Question/QuestionWindow";
 
@@ -78,7 +79,7 @@ function Game({ onPlayerMove }) {
     <div className="game-container">
       {/* <QuestionWindow /> */}
       <Player />
-      {!visited && <Answers/>}
+      {!visited && <AnswerWindow/>}
       <Map mapData={map} />
     </div>
   );

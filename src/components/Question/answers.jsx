@@ -4,11 +4,11 @@ import { AppSettingsContext } from "../../App";
 import "./Answers.css";
 import randomizeAnswers from "../Functions/randomizeAnswers";
 
-function Answers() {
+function Answers(props) {
   const { map } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
   const { question, trueAnsw, falseAnsw } = map.tiles[row][col];
-  const listAnsw = randomizeAnswers(trueAnsw, falseAnsw);
+  const listAnsw = props.listAnsw;
 
   const [selectedOption, setSelectedOption] = useState(listAnsw[0]);
   const [isSubmitted, setIsSubmitted] = useState(false);
