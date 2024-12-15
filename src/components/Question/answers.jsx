@@ -2,12 +2,11 @@ import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { AppSettingsContext } from "../../App";
 import "./Answers.css";
-import randomizeAnswers from "../Functions/randomizeAnswers";
 
 function Answers(props) {
   const { map } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
-  const { question, trueAnsw, falseAnsw } = map.tiles[row][col];
+  const { question, trueAnsw } = map.tiles[row][col];
   const listAnsw = props.listAnsw;
 
   const [selectedOption, setSelectedOption] = useState(listAnsw[0]);
@@ -34,7 +33,7 @@ function Answers(props) {
   let goodAnsw = selectedOption == trueAnsw ? true : false;
 
   return (
-    <>
+    <div className="answerWindow">
       <p>Question : {question}</p>
       <>
         {!isSubmitted && (
@@ -91,7 +90,7 @@ function Answers(props) {
           <p>Choose your next tile!</p>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

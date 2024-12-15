@@ -14,3 +14,13 @@
 .answer{
   font-weight: bold;
 }
+.answerWindow{
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  padding: 20px;
+}
