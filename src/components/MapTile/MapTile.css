@@ -91,3 +91,15 @@
 .map-tile.playerOnTile.low-energy {
   border : 3px solid red;
 }
+
+.tile-text-size.easy {
+  color: rgb(3, 213, 3);
+}
+
+.tile-text-size.medium {
+  color: rgb(0, 162, 255);
+}
+
+.tile-text-size.hard {
+  color: red;
+}

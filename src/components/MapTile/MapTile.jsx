@@ -56,7 +56,7 @@ function MapTile(props) {
         <>
           <div className="tile-text-size energy-emoji">{` : ${requiredEnergy}`}</div>
           <div className={`tile-text-size ${yieldValueEmojiClass}`}>{` : ${yieldValue}`}</div>
-          <div className={`tile-text-size`}>{` ${category}`}</div>
+          <div className={`tile-text-size ${difficulty}`}>{` ${category}`}</div>
           <div className={`tile-text-size`}>{` ${difficulty}`}</div>
           <div className={`${treasureIconClass}`}></div>
         </>

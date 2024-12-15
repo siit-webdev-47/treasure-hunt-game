@@ -24,3 +24,15 @@
   border: 1px solid #011e9d;
   padding: 20px;
 }
+
+.easy {
+  color: green;
+}
+
+.medium{
+  color: orange;
+}
+
+.hard {
+  color: red;
+}

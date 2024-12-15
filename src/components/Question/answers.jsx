@@ -6,7 +6,7 @@ import "./Answers.css";
 function Answers(props) {
   const { map } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
-  const { question, trueAnsw } = map.tiles[row][col];
+  const { question, trueAnsw, difficulty } = map.tiles[row][col];
   const listAnsw = props.listAnsw;
 
   const [selectedOption, setSelectedOption] = useState(listAnsw[0]);
@@ -33,7 +33,7 @@ function Answers(props) {
   let goodAnsw = selectedOption == trueAnsw ? true : false;
 
   return (
-    <div className="answerWindow">
+    <div className={`answerWindow`}>
       <p>Question : {question}</p>
       <>
         {!isSubmitted && (
