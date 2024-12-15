@@ -10,7 +10,7 @@ function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
         for (let j = 0; j < cols; j++) {
           // adding question info to the tile 
           tiles[i][j] = { ...tiles[i][j], ...questionVect[i * cols + j] };
-        };
+        }
       }
 
       return [...tiles]
@@ -30,6 +30,7 @@ function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
         question: "",
         category: "",
         trueAnsw: "",
+        difficulty: "",
         falseAnsw: [],
         correctAnsw: false,
       };

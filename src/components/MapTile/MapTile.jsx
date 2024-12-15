@@ -17,6 +17,7 @@ function MapTile(props) {
     yieldValue,
     hasTreasure,
     category,
+    difficulty,
   } = props.mapTileData;
   const playerPosition = props.playerPosition;
 
@@ -56,6 +57,7 @@ function MapTile(props) {
           <div className="tile-text-size energy-emoji">{` : ${requiredEnergy}`}</div>
           <div className={`tile-text-size ${yieldValueEmojiClass}`}>{` : ${yieldValue}`}</div>
           <div className={`tile-text-size`}>{` ${category}`}</div>
+          <div className={`tile-text-size`}>{` ${difficulty}`}</div>
           <div className={`${treasureIconClass}`}></div>
         </>
       )}
