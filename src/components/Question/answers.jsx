@@ -33,7 +33,7 @@ function Answers(props) {
   let goodAnsw = selectedOption == trueAnsw ? true : false;
 
   return (
-    <div className={`answerWindow`}>
+    <div className={`answerWindow ${difficulty}`}>
       <p>Question : {question}</p>
       <>
         {!isSubmitted && (

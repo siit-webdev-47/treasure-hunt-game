@@ -21,18 +21,17 @@
   z-index: 100;
   transform: translate(-50%, -50%);
   background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid #011e9d;
   padding: 20px;
 }
 
-.easy {
-  color: green;
+.answerWindow.easy {
+  border: 2px solid green;
 }
 
-.medium{
-  color: orange;
+.answerWindow.medium{
+  border: 2px solid rgb(0, 85, 255);
 }
 
-.hard {
-  color: red;
+.answerWindow.hard {
+  border: 2px solid red;
 }
