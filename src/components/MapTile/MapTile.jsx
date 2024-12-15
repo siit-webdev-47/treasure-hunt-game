@@ -21,8 +21,6 @@ function MapTile(props) {
   } = props.mapTileData;
   const playerPosition = props.playerPosition;
 
-  // const { player } = useContext(AppSettingsContext);
-
   const tileClass = visited ? "visited" : "unvisited";
   const treasureIconClass = hasTreasure && visible ? "treasure-icon" : "";
   const treasureTileClass = hasTreasure && visible ? "treasure-tile" : "";

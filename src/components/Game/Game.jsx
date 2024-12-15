@@ -5,10 +5,7 @@ import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import { AppSettingsContext } from "../../App";
-
 import AnswerWindow from "../Answer/AnswerWindow";
-// import fetchQuestion from "../Functions/fetchQuestion";
-// import QuestionWindow from "../Question/QuestionWindow";
 
 function Game({ onPlayerMove }) {
   const { player, setPlayer, map, setMap } = useContext(AppSettingsContext);
