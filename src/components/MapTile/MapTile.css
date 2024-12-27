@@ -40,6 +40,12 @@
   margin-top: 0.2rem;
   color: black;
 }
+.tile-title-text-size {
+  font-size: 1.1rem;
+  margin-top: 0.2rem;
+  color: black;
+  font-weight: bold;
+}
 
 .treasure-tile{
   border: 2px solid gold;
@@ -102,4 +108,10 @@
 
 .tile-text-size.hard {
   color: red;
+}
+
+.energy{
+  display: flex;
+  flex-direction: row;
+
 }
