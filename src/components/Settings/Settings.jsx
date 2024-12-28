@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { AppSettingsContext } from "../../App";
 import "./Settings.css";
+// import { MAP_MIN_ROWS, MAP_MAX_ROWS, MAP_MIN_COLS, MAP_MAX_COLS } from "./generateMapTiles";
 
 function Settings({ onStartGame }) {
   const { player, map } = useContext(AppSettingsContext);

@@ -1,6 +1,28 @@
 import fetchQuestionList from "./fetchQuestionList";
 
+export const MAP_MIN_ROWS = 6;
+export const MAP_MAX_ROWS = 20;
+export const MAP_MIN_COLS = 6;
+export const MAP_MAX_COLS = 20;
+
 function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
+
+  if (rows < MAP_MIN_ROWS) {
+    console.log(`Rows too small!`);
+    rows = MAP_MIN_ROWS;
+  } else if (rows > MAP_MAX_ROWS) {
+    console.log(`Rows too large! `);
+    rows = MAP_MAX_ROWS;
+  }
+
+  if (cols < MAP_MIN_COLS) {
+    console.log(`Columns too small! `);
+    cols = MAP_MIN_COLS;
+  } else if (cols > MAP_MAX_COLS) {
+    console.log(`Columns too large! `);
+    cols = MAP_MAX_COLS;
+  }
+
   const tiles = [];
   let number = rows * cols
 
