@@ -44,7 +44,6 @@ function Settings({ onStartGame }) {
             id="rows"
             value={rows}
             onChange={(e) => setRows(Number(e.target.value))}
-            min="6"
           />
         </div>
 
@@ -56,7 +55,6 @@ function Settings({ onStartGame }) {
             id="cols"
             value={cols}
             onChange={(e) => setCols(Number(e.target.value))}
-            min="6"
           />
         </div>
 
