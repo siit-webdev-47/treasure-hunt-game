@@ -7,21 +7,15 @@ export const MAP_MAX_COLS = 20;
 
 function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
 
-  if (rows < MAP_MIN_ROWS) {
-    console.log(`Rows too small!`);
-    rows = MAP_MIN_ROWS;
-  } else if (rows > MAP_MAX_ROWS) {
-    console.log(`Rows too large! `);
-    rows = MAP_MAX_ROWS;
-  }
+  if (rows < MAP_MIN_ROWS || rows > MAP_MAX_ROWS) {
+    console.log(`Rows too small or too large!`);
+    return null;
+  } 
 
-  if (cols < MAP_MIN_COLS) {
+  if (cols < MAP_MIN_COLS || cols > MAP_MAX_COLS) {
     console.log(`Columns too small! `);
-    cols = MAP_MIN_COLS;
-  } else if (cols > MAP_MAX_COLS) {
-    console.log(`Columns too large! `);
-    cols = MAP_MAX_COLS;
-  }
+    return null;
+  } 
 
   const tiles = [];
   let number = rows * cols

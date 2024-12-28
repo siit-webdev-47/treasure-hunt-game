@@ -2,17 +2,26 @@ import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { AppSettingsContext } from "../../App";
 import "./Settings.css";
-// import { MAP_MIN_ROWS, MAP_MAX_ROWS, MAP_MIN_COLS, MAP_MAX_COLS } from "./generateMapTiles";
+import {MAP_MIN_ROWS,MAP_MAX_ROWS,MAP_MIN_COLS,MAP_MAX_COLS,} from "../Functions/generateMapTiles";
 
 function Settings({ onStartGame }) {
   const { player, map } = useContext(AppSettingsContext);
   const [rows, setRows] = useState(map.rows);
   const [cols, setCols] = useState(map.cols);
   const [playerName, setPlayerName] = useState(player.playerName);
+  const [errorMessage, setErrorMessage] = useState("");
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (rows < MAP_MIN_ROWS  || rows > MAP_MAX_ROWS  || cols < MAP_MIN_COLS || cols > MAP_MAX_COLS) {
+      setErrorMessage(`❗Rows and columns must be between ${MAP_MIN_ROWS} and ${MAP_MAX_ROWS}.❗`);
+      console.log("Error Message in if :", errorMessage);
+      return;
+    }
+    setErrorMessage("");
+    console.log("Error Message:", errorMessage);
 
     map.cols = cols;
     map.rows = rows;
@@ -24,6 +33,7 @@ function Settings({ onStartGame }) {
   return (
     <div className="settings">
       <h2 className="settings-title">Settings</h2>
+      {errorMessage && <p className="errorMessage">{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="playerName">Player Name:</label>
