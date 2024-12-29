@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { AppSettingsContext } from "../../App";
 import "./Answers.css";
-import resetAnswer from "../Functions/resetAnswer";
+
 
 function Answers(props) {
   const { map } = useContext(AppSettingsContext);
@@ -12,11 +12,17 @@ function Answers(props) {
 
   const [selectedOption, setSelectedOption] = useState(listAnsw[0]);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
     setIsSubmitted(false);
   };
+
+  const handleClick = () => {
+    setIsVisible(false);
+    
+  }
 
   const handleSubmit = () => {
     setIsSubmitted(true);
@@ -34,6 +40,8 @@ function Answers(props) {
   let goodAnsw = selectedOption == trueAnsw ? true : false;
 
   return (
+    <>
+    {isVisible && (
     <div className={`answerWindow ${difficulty}`}>
       <p>Question : {question}</p>
       <>
@@ -46,7 +54,7 @@ function Answers(props) {
                   value={listAnsw[0]}
                   checked={selectedOption === listAnsw[0]}
                   onChange={handleOptionChange}
-                />
+                  />
                 <label>{listAnsw[0]}</label>
               </div>
               {/* <br /> */}
@@ -56,7 +64,7 @@ function Answers(props) {
                   value={listAnsw[1]}
                   checked={selectedOption === listAnsw[1]}
                   onChange={handleOptionChange}
-                />
+                  />
                 <label>{listAnsw[1]}</label>
               </div>
               {/* <br /> */}
@@ -66,7 +74,7 @@ function Answers(props) {
                   value={listAnsw[2]}
                   checked={selectedOption === listAnsw[2]}
                   onChange={handleOptionChange}
-                />
+                  />
                 <label>{listAnsw[2]}</label>
               </div>
               {/* <br /> */}
@@ -76,7 +84,7 @@ function Answers(props) {
                   value={listAnsw[3]}
                   checked={selectedOption === listAnsw[3]}
                   onChange={handleOptionChange}
-                />
+                  />
                 <label>{listAnsw[3]}</label>
               </div>
               <br />
@@ -97,11 +105,13 @@ function Answers(props) {
             <p>False! You lost {map.tiles[row][col].yieldValue} energy!</p>
           )}
           <p>Choose your next tile!</p>
-          <button onClick={resetAnswer}>Continue</button>
+          <button onClick={handleClick}>Continue</button>
 
         </div>
       )}
     </div>
+)}
+</>
   );
 }
 
