@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { AppSettingsContext } from "../../App";
 import "./Settings.css";
@@ -10,6 +10,24 @@ function Settings({ onStartGame }) {
   const [cols, setCols] = useState(map.cols);
   const [playerName, setPlayerName] = useState(player.playerName);
   const [errorMessage, setErrorMessage] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  useEffect(() => {
+    fetch("https://the-trivia-api.com/v2/categories")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Raspuns API:", data);
+        const categoryList = Object.keys(data).map((key) => ({
+          name: key,
+        }));
+        console.log("Lista categorii:", categoryList);
+        setCategories(categoryList);
+      })
+      .catch((error) => console.error("Error fetching categories:", error));
+  }, []);
+
+
 
 
   const handleSubmit = (e) => {
@@ -26,6 +44,7 @@ function Settings({ onStartGame }) {
     map.cols = cols;
     map.rows = rows;
     player.playerName = playerName;
+    player.category = selectedCategory;
 
     onStartGame();
   };
@@ -66,6 +85,23 @@ function Settings({ onStartGame }) {
             value={cols}
             onChange={(e) => setCols(Number(e.target.value))}
           />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="category">Category:</label>
+          <select
+            id="category"
+            className="input-settings"
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            <option value="">Select a category</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <button className="button-settings" type="submit">Start Game</button>
