@@ -11,7 +11,7 @@ function Answers(props) {
 
   const [selectedOption, setSelectedOption] = useState(listAnsw[0]);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  
+
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
     setIsSubmitted(false);
@@ -39,37 +39,45 @@ function Answers(props) {
         {!isSubmitted && (
           <>
             <div className="answersRadio">
-              <input
-                type="radio"
-                value={listAnsw[0]}
-                checked={selectedOption === listAnsw[0]}
-                onChange={handleOptionChange}
-              />
-              <label>{listAnsw[0]}</label>
-              <br />
-              <input
-                type="radio"
-                value={listAnsw[1]}
-                checked={selectedOption === listAnsw[1]}
-                onChange={handleOptionChange}
-              />
-              <label>{listAnsw[1]}</label>
-              <br />
-              <input
-                type="radio"
-                value={listAnsw[2]}
-                checked={selectedOption === listAnsw[2]}
-                onChange={handleOptionChange}
-              />
-              <label>{listAnsw[2]}</label>
-              <br />
-              <input
-                type="radio"
-                value={listAnsw[3]}
-                checked={selectedOption === listAnsw[3]}
-                onChange={handleOptionChange}
-              />
-              <label>{listAnsw[3]}</label>
+              <div>
+                <input
+                  type="radio"
+                  value={listAnsw[0]}
+                  checked={selectedOption === listAnsw[0]}
+                  onChange={handleOptionChange}
+                />
+                <label>{listAnsw[0]}</label>
+              </div>
+              {/* <br /> */}
+              <div>
+                <input
+                  type="radio"
+                  value={listAnsw[1]}
+                  checked={selectedOption === listAnsw[1]}
+                  onChange={handleOptionChange}
+                />
+                <label>{listAnsw[1]}</label>
+              </div>
+              {/* <br /> */}
+              <div>
+                <input
+                  type="radio"
+                  value={listAnsw[2]}
+                  checked={selectedOption === listAnsw[2]}
+                  onChange={handleOptionChange}
+                />
+                <label>{listAnsw[2]}</label>
+              </div>
+              {/* <br /> */}
+              <div>
+                <input
+                  type="radio"
+                  value={listAnsw[3]}
+                  checked={selectedOption === listAnsw[3]}
+                  onChange={handleOptionChange}
+                />
+                <label>{listAnsw[3]}</label>
+              </div>
               <br />
             </div>
 
