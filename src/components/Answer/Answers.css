@@ -15,10 +15,10 @@
 }
 .answerWindow{
   position: fixed;
-  top: 15%;
+  top: 20px;
   left: 50%;
   z-index: 100;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 0%);
   background-color: rgba(255, 255, 255, 0.9);
   padding: 20px;
 }

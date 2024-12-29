@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { AppSettingsContext } from "../../App";
 import "./Answers.css";
+import resetAnswer from "../Functions/resetAnswer";
 
 function Answers(props) {
   const { map } = useContext(AppSettingsContext);
@@ -96,6 +97,8 @@ function Answers(props) {
             <p>False! You lost {map.tiles[row][col].yieldValue} energy!</p>
           )}
           <p>Choose your next tile!</p>
+          <button onClick={resetAnswer}>Continue</button>
+
         </div>
       )}
     </div>
