@@ -23,7 +23,7 @@ function App() {
     questionListUpdatePromise
       .then(updatedTiles => {
         setMap({ ...map, updatedTiles })
-        setPlayer(playerFactory(player.playerName, player.playerEnergy));
+        setPlayer(playerFactory(player.playerName, player.playerEnergy, player.playerEnergy, player.category));
         setGamePhase('ONGOING');
       })
   };

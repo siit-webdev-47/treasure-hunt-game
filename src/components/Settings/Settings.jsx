@@ -20,15 +20,13 @@ function Settings({ onStartGame }) {
         console.log("Raspuns API:", data);
         const categoryList = Object.keys(data).map((key) => ({
           name: key,
+          id: key ,
         }));
         console.log("Lista categorii:", categoryList);
         setCategories(categoryList);
       })
       .catch((error) => console.error("Error fetching categories:", error));
   }, []);
-
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,13 +36,18 @@ function Settings({ onStartGame }) {
       console.log("Error Message in if :", errorMessage);
       return;
     }
+
     setErrorMessage("");
     console.log("Error Message:", errorMessage);
 
     map.cols = cols;
     map.rows = rows;
-    player.playerName = playerName;
     player.category = selectedCategory;
+    player.playerName = playerName;
+
+    console.log(`Categorie selectata : ${selectedCategory}`);
+   
+
 
     onStartGame();
   };
@@ -94,6 +97,7 @@ function Settings({ onStartGame }) {
             className="input-settings"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
+          
           >
             <option value="">Select a category</option>
             {categories.map((category) => (
