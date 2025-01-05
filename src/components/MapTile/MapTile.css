@@ -59,7 +59,7 @@
 }
 
 .treasure-tile{
-  border: 2px solid gold;
+  border: 4px solid gold;
 }
 
 .yield-value-positive::before {
@@ -76,7 +76,7 @@
 
 .treasure-icon::before {
   content: " 🏆 ";
-  font-size: 1rem;
+  font-size: 3rem;
 }
 
 .tile-avatar {

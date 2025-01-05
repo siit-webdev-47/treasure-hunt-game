@@ -37,7 +37,7 @@ function MapTile(props) {
       difficultyIcon = "👩‍🎓";
       break;
     case "hard":
-      difficultyIcon = "☠";
+      difficultyIcon = "💀";
       break;
   }
 
