@@ -74,13 +74,16 @@ function App() {
   const onPlayerMove = (updatedEnergy, updatedPosition) => {
     evaluateGameState(updatedEnergy, updatedPosition);
   };
+  const onPlayerAnswer = (updatedEnergy, updatedPosition) => {
+    evaluateGameState(updatedEnergy, updatedPosition);
+  };
 
   return (
     <>
       <h1>Treasure Hunt</h1>
       <AppSettingsContext.Provider value={{ player, setPlayer, map, setMap, gamePhase }}>
         {gamePhase === 'SETTINGS' && <Settings onStartGame={startGame} />}
-        {gamePhase === "ONGOING" && <Game onPlayerMove={onPlayerMove} />}
+        {gamePhase === "ONGOING" && <Game onPlayerMove={onPlayerMove} onPlayerAnswer={onPlayerAnswer} />}
         {gamePhase === 'GAME_OVER' && <GameOver newGame={newGame} resetGame={resetGame} gameOverMsg={gameOverMsg} />}
       </AppSettingsContext.Provider>
 

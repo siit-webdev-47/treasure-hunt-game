@@ -9,7 +9,7 @@ import AnswerWindow from "../Answer/AnswerWindow";
 
 export const ClickContext = createContext();
 
-function Game({ onPlayerMove }) {
+function Game({ onPlayerMove } , { onPlayerAnswer }) {
   const { player, setPlayer, map, setMap } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
   const { visited } = map.tiles[row][col];
@@ -82,7 +82,7 @@ function Game({ onPlayerMove }) {
 
   usePlayerMovement(row, col, map.rows, map.cols, handlePlayerMove);
 
-  const handleChildClick = () => {
+  const handleContinueClick = () => {
     let correctAnswer = map.tiles[row][col].correctAnsw;
     let correctVar = correctAnswer ? 1 : -1;
     const tileEnergy =
@@ -94,11 +94,11 @@ function Game({ onPlayerMove }) {
         ...prevPlayer,
         playerEnergy: newPlayerEnergy,
       }));
-    
+      onPlayerMove(newPlayerEnergy, { row, col });
   };
 
   return (
-    <ClickContext.Provider value={handleChildClick}>
+    <ClickContext.Provider value={handleContinueClick}>
       <div className="game-container">
         <Player />
         {!visited && <AnswerWindow />}
