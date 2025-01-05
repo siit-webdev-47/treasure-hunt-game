@@ -9,10 +9,10 @@ function Answers(props) {
   const { row, col } = map.playerPosition;
   const { question, trueAnsw, difficulty } = map.tiles[row][col];
   const listAnsw = props.listAnsw;
-  const contextValue = useContext(ClickContext);
   const [selectedOption, setSelectedOption] = useState(listAnsw[0]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const contextValue = useContext(ClickContext);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);

@@ -9,7 +9,7 @@ import AnswerWindow from "../Answer/AnswerWindow";
 
 export const ClickContext = createContext();
 
-function Game({ onPlayerMove } , { onPlayerAnswer }) {
+function Game({ onPlayerMove , onPlayerAnswer } ) {
   const { player, setPlayer, map, setMap } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
   const { visited } = map.tiles[row][col];
@@ -94,7 +94,7 @@ function Game({ onPlayerMove } , { onPlayerAnswer }) {
         ...prevPlayer,
         playerEnergy: newPlayerEnergy,
       }));
-      onPlayerMove(newPlayerEnergy, { row, col });
+      onPlayerAnswer(newPlayerEnergy);
   };
 
   return (
@@ -112,4 +112,5 @@ export default Game;
 
 Game.propTypes = {
   onPlayerMove: PropTypes.func.isRequired,
+  onPlayerAnswer: PropTypes.func.isRequired,
 };

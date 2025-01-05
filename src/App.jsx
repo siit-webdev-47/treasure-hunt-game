@@ -55,7 +55,7 @@ function App() {
   };
 
 
-  const evaluateGameState = (energy, position) => {
+  const evaluateGameState = (energy, position = {row : 1 , col : 1} ) => {
     const { row, col } = position;
 
     if (energy <= 0) {
@@ -74,8 +74,8 @@ function App() {
   const onPlayerMove = (updatedEnergy, updatedPosition) => {
     evaluateGameState(updatedEnergy, updatedPosition);
   };
-  const onPlayerAnswer = (updatedEnergy, updatedPosition) => {
-    evaluateGameState(updatedEnergy, updatedPosition);
+  const onPlayerAnswer = (updatedEnergy) => {
+    evaluateGameState(updatedEnergy);
   };
 
   return (
