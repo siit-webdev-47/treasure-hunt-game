@@ -63,3 +63,4 @@ Find the hidden treasure before you run out of energy and die! 🡪 WINNER 🏆
 - **PENALTIES:** Decreases ENERGY from the player's existing energy level.
   - **Note:** Should we add something to the list like sending the player back to start or deducting extra points if we implement a points system?
 - **CHILL TILE:** No bonus, no penalty.
+###
