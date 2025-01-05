@@ -10,7 +10,7 @@
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   border-radius: 1.5rem;
   color: black;
-
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .map-tile.unvisited {
@@ -19,11 +19,12 @@
 }
 .map-tile.playerOnTile {
   border : 3px solid black;
+  box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.736);
+  z-index: 998;
 }
 
 .map-tile.visited {
   background-color: #ffffb8;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .tile-coordinates {
