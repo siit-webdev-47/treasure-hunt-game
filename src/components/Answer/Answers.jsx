@@ -2,14 +2,14 @@ import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { AppSettingsContext } from "../../App";
 import "./Answers.css";
-
+import { ClickContext } from "../Game/Game";
 
 function Answers(props) {
   const { map } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
   const { question, trueAnsw, difficulty } = map.tiles[row][col];
   const listAnsw = props.listAnsw;
-
+  const contextValue = useContext(ClickContext);
   const [selectedOption, setSelectedOption] = useState(listAnsw[0]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -21,8 +21,8 @@ function Answers(props) {
 
   const handleClick = () => {
     setIsVisible(false);
-    
-  }
+    contextValue();
+  };
 
   const handleSubmit = () => {
     setIsSubmitted(true);
@@ -33,6 +33,7 @@ function Answers(props) {
 
   const handleKey = () => {
     setIsSubmitted(false);
+    setIsVisible(true);
   };
 
   document.addEventListener("keyup", handleKey);
@@ -41,77 +42,77 @@ function Answers(props) {
 
   return (
     <>
-    {isVisible && (
-    <div className={`answerWindow ${difficulty}`}>
-      <p>Question : {question}</p>
-      <>
-        {!isSubmitted && (
+      {isVisible && (
+        <div className={`answerWindow ${difficulty}`}>
+          <p>Question : {question}</p>
           <>
-            <div className="answersRadio">
-              <div>
-                <input
-                  type="radio"
-                  value={listAnsw[0]}
-                  checked={selectedOption === listAnsw[0]}
-                  onChange={handleOptionChange}
-                  />
-                <label>{listAnsw[0]}</label>
-              </div>
-              {/* <br /> */}
-              <div>
-                <input
-                  type="radio"
-                  value={listAnsw[1]}
-                  checked={selectedOption === listAnsw[1]}
-                  onChange={handleOptionChange}
-                  />
-                <label>{listAnsw[1]}</label>
-              </div>
-              {/* <br /> */}
-              <div>
-                <input
-                  type="radio"
-                  value={listAnsw[2]}
-                  checked={selectedOption === listAnsw[2]}
-                  onChange={handleOptionChange}
-                  />
-                <label>{listAnsw[2]}</label>
-              </div>
-              {/* <br /> */}
-              <div>
-                <input
-                  type="radio"
-                  value={listAnsw[3]}
-                  checked={selectedOption === listAnsw[3]}
-                  onChange={handleOptionChange}
-                  />
-                <label>{listAnsw[3]}</label>
-              </div>
-              <br />
-            </div>
+            {!isSubmitted && (
+              <>
+                <div className="answersRadio">
+                  <div>
+                    <input
+                      type="radio"
+                      value={listAnsw[0]}
+                      checked={selectedOption === listAnsw[0]}
+                      onChange={handleOptionChange}
+                    />
+                    <label>{listAnsw[0]}</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      value={listAnsw[1]}
+                      checked={selectedOption === listAnsw[1]}
+                      onChange={handleOptionChange}
+                    />
+                    <label>{listAnsw[1]}</label>
+                  </div>
 
-            <button onClick={handleSubmit}>Submit</button>
+                  <div>
+                    <input
+                      type="radio"
+                      value={listAnsw[2]}
+                      checked={selectedOption === listAnsw[2]}
+                      onChange={handleOptionChange}
+                    />
+                    <label>{listAnsw[2]}</label>
+                  </div>
+
+                  <div>
+                    <input
+                      type="radio"
+                      value={listAnsw[3]}
+                      checked={selectedOption === listAnsw[3]}
+                      onChange={handleOptionChange}
+                    />
+                    <label>{listAnsw[3]}</label>
+                  </div>
+                  <br />
+                </div>
+
+                <button onClick={handleSubmit}>Submit</button>
+              </>
+            )}
           </>
-        )}
-      </>
-      {isSubmitted && (
-        <div className={`answer ${goodAnsw}`}>
-          <p>You selected: {selectedOption}</p>
-          <p>The correct answer: {trueAnsw}</p>
-          {goodAnsw && (
-            <p>Correct! You gained {map.tiles[row][col].yieldValue} energy!</p>
+          {isSubmitted && (
+            <div className={`answer ${goodAnsw}`}>
+              <p>You selected: {selectedOption}</p>
+              <p>The correct answer: {trueAnsw}</p>
+              {goodAnsw && (
+                <p>
+                  Correct! You gained {map.tiles[row][col].yieldValue} energy!
+                </p>
+              )}
+              {!goodAnsw && (
+                <p>False! You lost {map.tiles[row][col].yieldValue} energy!</p>
+              )}
+              <p>Choose your next tile!</p>
+              <button onClick={handleClick}>Continue</button>
+            </div>
           )}
-          {!goodAnsw && (
-            <p>False! You lost {map.tiles[row][col].yieldValue} energy!</p>
-          )}
-          <p>Choose your next tile!</p>
-          <button onClick={handleClick}>Continue</button>
-
         </div>
       )}
-    </div>
-)}
-</>
+    </>
   );
 }
 

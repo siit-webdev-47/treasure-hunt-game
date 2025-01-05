@@ -50,7 +50,7 @@ function App() {
 
   const newGame = () => {
     setMap(defaultMap);
-    setPlayer(defaultPlayer)
+    setPlayer(defaultPlayer);
     setGamePhase('SETTINGS')
   };
 
