@@ -8,12 +8,12 @@ export const MAP_MAX_COLS = 20;
 function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
 
   if (rows < MAP_MIN_ROWS || rows > MAP_MAX_ROWS) {
-    console.log(`Rows too small or too large!`);
+    console.error(`Rows too small or too large!`);
     return null;
   } 
 
   if (cols < MAP_MIN_COLS || cols > MAP_MAX_COLS) {
-    console.log(`Columns too small! `);
+    console.error(`Columns too small! `);
     return null;
   } 
 

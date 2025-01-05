@@ -33,21 +33,17 @@ function Settings({ onStartGame }) {
 
     if (rows < MAP_MIN_ROWS  || rows > MAP_MAX_ROWS  || cols < MAP_MIN_COLS || cols > MAP_MAX_COLS) {
       setErrorMessage(`❗Rows and columns must be between ${MAP_MIN_ROWS} and ${MAP_MAX_ROWS}.❗`);
-      console.log("Error Message in if :", errorMessage);
       return;
     }
 
+    // clears the error message
     setErrorMessage("");
-    console.log("Error Message:", errorMessage);
 
     map.cols = cols;
     map.rows = rows;
+    // TODO set the category as a propery of map
     player.category = selectedCategory;
     player.playerName = playerName;
-
-    console.log(`Categorie selectata : ${selectedCategory}`);
-   
-
 
     onStartGame();
   };
