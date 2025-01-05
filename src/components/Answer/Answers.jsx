@@ -53,39 +53,43 @@ function Answers(props) {
                     <input
                       type="radio"
                       value={listAnsw[0]}
+                      id={listAnsw[0]}
                       checked={selectedOption === listAnsw[0]}
                       onChange={handleOptionChange}
                     />
-                    <label>{listAnsw[0]}</label>
+                    <label htmlFor={listAnsw[0]} >{listAnsw[0]}</label>
                   </div>
                   <div>
                     <input
                       type="radio"
                       value={listAnsw[1]}
+                      id={listAnsw[1]}
                       checked={selectedOption === listAnsw[1]}
                       onChange={handleOptionChange}
                     />
-                    <label>{listAnsw[1]}</label>
+                    <label htmlFor={listAnsw[1]}>{listAnsw[1]}</label>
                   </div>
 
                   <div>
                     <input
                       type="radio"
                       value={listAnsw[2]}
+                      id={listAnsw[2]}
                       checked={selectedOption === listAnsw[2]}
                       onChange={handleOptionChange}
                     />
-                    <label>{listAnsw[2]}</label>
+                    <label htmlFor={listAnsw[2]}>{listAnsw[2]}</label>
                   </div>
 
                   <div>
                     <input
                       type="radio"
                       value={listAnsw[3]}
+                      id={listAnsw[3]}
                       checked={selectedOption === listAnsw[3]}
                       onChange={handleOptionChange}
                     />
-                    <label>{listAnsw[3]}</label>
+                    <label htmlFor={listAnsw[3]}>{listAnsw[3]}</label>
                   </div>
                   <br />
                 </div>

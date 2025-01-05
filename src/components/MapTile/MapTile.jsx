@@ -22,12 +22,13 @@ function MapTile(props) {
   const playerPosition = props.playerPosition;
 
   const tileClass = visited ? "visited" : "unvisited";
+  const tileVisible = visible ? "visible" : "invisible";
   const treasureIconClass = hasTreasure && visible ? "treasure-icon" : "";
   const treasureTileClass = hasTreasure && visible ? "treasure-tile" : "";
   const yieldValueEmojiClass =
     yieldValue >= 0 ? "yield-value-positive" : "yield-value-negative";
   let difficultyIcon;
-  
+
   switch (difficulty) {
     case "easy":
       difficultyIcon = "👶";
@@ -38,7 +39,6 @@ function MapTile(props) {
     case "hard":
       difficultyIcon = "☠";
       break;
-
   }
 
   const playerOnTile = playerPosition.row === row && playerPosition.col === col;
@@ -47,7 +47,7 @@ function MapTile(props) {
     <div
       className={`map-tile ${tileClass} ${treasureTileClass} ${energyLevel(
         player.playerEnergy
-      )} ${playerOnTileClass}`}
+      )} ${playerOnTileClass} ${difficulty} ${tileVisible}`}
     >
       <div>
         {/* <div className="tile-coordinates">
@@ -78,9 +78,9 @@ function MapTile(props) {
               className={`tile-text-size ${yieldValueEmojiClass}`}
             >{` : ${yieldValue}`}</div>
           </div>
-          <div
-            className={`tile-text-size ${difficulty}`}
-          >{`${difficultyIcon} ${difficulty}`}</div>
+          <div className={`tile-text-size ${difficulty}`}>
+            {`${difficultyIcon} ${difficulty}`}
+          </div>
           <div className={`${treasureIconClass}`}></div>
         </>
       )}

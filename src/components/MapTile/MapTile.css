@@ -12,10 +12,20 @@
   color: black;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
 }
+/* .map-tile.easy.visible {
+  border: 2px solid rgb(3, 213, 3);
+}
 
+.map-tile.medium.visible {
+  border: 2px solid rgb(0, 162, 255);
+}
+
+.map-tile.hard.visible {
+  border: 2px solid red;
+} */
 .map-tile.unvisited {
   background-color: #e6e6e6;
-  box-shadow: none;
+  /* box-shadow: none; */
 }
 .map-tile.playerOnTile {
   border : 3px solid black;
@@ -101,18 +111,21 @@
 
 .tile-text-size.easy {
   color: rgb(3, 213, 3);
+  font-size: 1rem;
 }
 
 .tile-text-size.medium {
   color: rgb(0, 162, 255);
+  font-size: 1rem;
 }
 
 .tile-text-size.hard {
   color: red;
+  font-size: 1rem;
 }
 
 .energy{
   display: flex;
   flex-direction: row;
-
 }
+
