@@ -24,16 +24,22 @@
   border-radius: 1rem;
   box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.736);
   z-index: 999;
+  background-position: center;
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
 }
 
 .answerWindow.easy {
   border: 2px solid green;
+  background-image: url('src/components/Img/easy2.png');
 }
 
 .answerWindow.medium{
   border: 2px solid rgb(0, 85, 255);
+  background-image: url('src/components/Img/medium.png');
 }
 
 .answerWindow.hard {
   border: 2px solid red;
+  background-image: url('src/components/Img/hard2.png');
 }
