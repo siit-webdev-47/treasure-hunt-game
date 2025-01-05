@@ -56,13 +56,13 @@ function App() {
 
 
   const evaluateGameState = (energy, position = {row : 1 , col : 1} ) => {
-    const { row, col } = position;
-
     if (energy <= 0) {
       setGamePhase('GAME_OVER');
       setGameOverMsg("You ran out of energy!🪦");
       return { gameOverMsg };
     }
+
+    const { row, col } = position;
 
     if (map.tiles[row][col].hasTreasure) {
       setGamePhase('GAME_OVER');
@@ -74,6 +74,7 @@ function App() {
   const onPlayerMove = (updatedEnergy, updatedPosition) => {
     evaluateGameState(updatedEnergy, updatedPosition);
   };
+  
   const onPlayerAnswer = (updatedEnergy) => {
     evaluateGameState(updatedEnergy);
   };

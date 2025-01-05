@@ -83,8 +83,7 @@ function Game({ onPlayerMove , onPlayerAnswer } ) {
   usePlayerMovement(row, col, map.rows, map.cols, handlePlayerMove);
 
   const handleContinueClick = () => {
-    let correctAnswer = map.tiles[row][col].correctAnsw;
-    let correctVar = correctAnswer ? 1 : -1;
+    let correctVar = map.tiles[row][col].correctAnsw ? 1 : -1;
     const tileEnergy =
       correctVar * map.tiles[row][col].yieldValue ;
 
