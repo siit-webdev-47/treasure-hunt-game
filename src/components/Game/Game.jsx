@@ -16,8 +16,11 @@ function Game({ onPlayerMove , onPlayerAnswer } ) {
 
   function handlePlayerMove(newRow, newCol, oldRow, oldCol) {
 
+    let correctVar = map.tiles[oldRow][oldCol].correctAnsw ? 1 : -1;
+    const tileEnergy =
+      correctVar * map.tiles[row][col].yieldValue ;
     const newPlayerEnergy = player.playerEnergy -
-    map.tiles[newRow][newCol].requiredEnergy;
+    map.tiles[newRow][newCol].requiredEnergy + tileEnergy;
 
     // set tiles as visited and clears the energy yeld if the player moved
     if (
@@ -88,7 +91,7 @@ function Game({ onPlayerMove , onPlayerAnswer } ) {
       correctVar * map.tiles[row][col].yieldValue ;
 
     const newPlayerEnergy = player.playerEnergy + tileEnergy
-
+    map.tiles[row][col].yieldValue = 0 ;
       setPlayer((prevPlayer) => ({
         ...prevPlayer,
         playerEnergy: newPlayerEnergy,
