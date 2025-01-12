@@ -6,27 +6,23 @@ import {MAP_MIN_ROWS,MAP_MAX_ROWS,MAP_MIN_COLS,MAP_MAX_COLS,} from "../Functions
 
 function Settings({ onStartGame }) {
   const { player, map } = useContext(AppSettingsContext);
+
   const [rows, setRows] = useState(map.rows);
   const [cols, setCols] = useState(map.cols);
+  const [selectedCategory, setSelectedCategory] = useState(map.category);
+
   const [playerName, setPlayerName] = useState(player.playerName);
+
   const [errorMessage, setErrorMessage] = useState("");
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     fetch("https://the-trivia-api.com/v2/categories")
       .then((response) => response.json())
-      .then((data) => {
-        console.log("Raspuns API:", data);
-        const categoryList = Object.keys(data).map((key) => ({
-          name: key,
-          id: key ,
-        }));
-        console.log("Lista categorii:", categoryList);
-        setCategories(categoryList);
-      })
+      .then((data) => setCategories(data))
       .catch((error) => console.error("Error fetching categories:", error));
   }, []);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,8 +37,7 @@ function Settings({ onStartGame }) {
 
     map.cols = cols;
     map.rows = rows;
-    // TODO set the category as a propery of map
-    player.category = selectedCategory;
+    map.category = categories[selectedCategory];
     player.playerName = playerName;
 
     onStartGame();
@@ -96,9 +91,9 @@ function Settings({ onStartGame }) {
           
           >
             <option value="">Select a category</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
+            {Object.keys(categories).map((category) => ( 
+              <option key={category} value={category}>
+                {category}
               </option>
             ))}
           </select>
