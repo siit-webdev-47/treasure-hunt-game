@@ -7,7 +7,8 @@ async function fetchQuestionList(number, categories) {
 
     const response = await fetch(apiUrl);
     const apiQuestionVect = await response.json();
-
+    console.log(apiQuestionVect);
+    
     return apiQuestionVect.map(questionData => ({
       question: questionData.question,
       category: questionData.category,

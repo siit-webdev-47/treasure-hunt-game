@@ -10,20 +10,31 @@
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   border-radius: 1.5rem;
   color: black;
-
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+}
+/* .map-tile.easy.visible {
+  border: 2px solid rgb(3, 213, 3);
 }
 
+.map-tile.medium.visible {
+  border: 2px solid rgb(0, 162, 255);
+}
+
+.map-tile.hard.visible {
+  border: 2px solid red;
+} */
 .map-tile.unvisited {
   background-color: #e6e6e6;
-  box-shadow: none;
+  /* box-shadow: none; */
 }
 .map-tile.playerOnTile {
   border : 3px solid black;
+  box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.736);
+  z-index: 998;
 }
 
 .map-tile.visited {
   background-color: #ffffb8;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .tile-coordinates {
@@ -40,9 +51,15 @@
   margin-top: 0.2rem;
   color: black;
 }
+.tile-title-text-size {
+  font-size: 1.1rem;
+  margin-top: 0.2rem;
+  color: black;
+  font-weight: bold;
+}
 
 .treasure-tile{
-  border: 2px solid gold;
+  border: 4px solid gold;
 }
 
 .yield-value-positive::before {
@@ -59,7 +76,7 @@
 
 .treasure-icon::before {
   content: " 🏆 ";
-  font-size: 1rem;
+  font-size: 3rem;
 }
 
 .tile-avatar {
@@ -94,12 +111,21 @@
 
 .tile-text-size.easy {
   color: rgb(3, 213, 3);
+  font-size: 1rem;
 }
 
 .tile-text-size.medium {
   color: rgb(0, 162, 255);
+  font-size: 1rem;
 }
 
 .tile-text-size.hard {
   color: red;
+  font-size: 1rem;
 }
+
+.energy{
+  display: flex;
+  flex-direction: row;
+}
+

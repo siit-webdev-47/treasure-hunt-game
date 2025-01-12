@@ -22,21 +22,39 @@ function MapTile(props) {
   const playerPosition = props.playerPosition;
 
   const tileClass = visited ? "visited" : "unvisited";
+  const tileVisible = visible ? "visible" : "invisible";
   const treasureIconClass = hasTreasure && visible ? "treasure-icon" : "";
   const treasureTileClass = hasTreasure && visible ? "treasure-tile" : "";
   const yieldValueEmojiClass =
     yieldValue >= 0 ? "yield-value-positive" : "yield-value-negative";
+  let difficultyIcon;
+
+  switch (difficulty) {
+    case "easy":
+      difficultyIcon = "👶";
+      break;
+    case "medium":
+      difficultyIcon = "👩‍🎓";
+      break;
+    case "hard":
+      difficultyIcon = "💀";
+      break;
+  }
 
   const playerOnTile = playerPosition.row === row && playerPosition.col === col;
   const playerOnTileClass = playerOnTile ? "playerOnTile" : "";
   return (
-    <div className={`map-tile ${tileClass} ${treasureTileClass} ${energyLevel(player.playerEnergy)} ${playerOnTileClass}`}>
+    <div
+      className={`map-tile ${tileClass} ${treasureTileClass} ${energyLevel(
+        player.playerEnergy
+      )} ${playerOnTileClass} ${difficulty} ${tileVisible}`}
+    >
       <div>
-        {/* <div className="tile-coordinates">
+        <div className="tile-coordinates">
           <small>
             Tile: {row},{col}
           </small>
-        </div> */}
+        </div>
         {playerOnTile && (
           <>
             <img
@@ -52,10 +70,17 @@ function MapTile(props) {
       </div>
       {visible && (
         <>
-          <div className="tile-text-size energy-emoji">{` : ${requiredEnergy}`}</div>
-          <div className={`tile-text-size ${yieldValueEmojiClass}`}>{` : ${yieldValue}`}</div>
-          <div className={`tile-text-size ${difficulty}`}>{` ${category}`}</div>
-          <div className={`tile-text-size`}>{` ${difficulty}`}</div>
+          <div className={`tile-title-text-size `}>{` ${category}`}</div>
+          <div className="energy">
+            <div className="tile-text-size energy-emoji">{` : ${requiredEnergy} `}</div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div
+              className={`tile-text-size ${yieldValueEmojiClass}`}
+            >{` : ${yieldValue}`}</div>
+          </div>
+          <div className={`tile-text-size ${difficulty}`}>
+            {`${difficultyIcon} ${difficulty}`}
+          </div>
           <div className={`${treasureIconClass}`}></div>
         </>
       )}

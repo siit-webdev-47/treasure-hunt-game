@@ -30,13 +30,16 @@ function App() {
 
 
   const resetGame = () => {
+    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols);
+    questionListUpdatePromise
+    .then(updatedTiles => {
     setMap((prevMap) => ({
       ...prevMap,
       playerPosition: {
         row: 0,
         col: 0
       },
-      tiles: generateMapTiles(prevMap.rows, prevMap.cols).tiles
+      tiles: updatedTiles,
     }));
 
     setPlayer((prevPlayer) => ({
@@ -45,24 +48,24 @@ function App() {
     }));
 
     setGamePhase('ONGOING');
-  };
+  })};
 
 
   const newGame = () => {
     setMap(defaultMap);
-    setPlayer(defaultPlayer)
+    setPlayer(defaultPlayer);
     setGamePhase('SETTINGS')
   };
 
 
-  const evaluateGameState = (energy, position) => {
-    const { row, col } = position;
-
+  const evaluateGameState = (energy, position = {row : 1 , col : 1} ) => {
     if (energy <= 0) {
       setGamePhase('GAME_OVER');
       setGameOverMsg("You ran out of energy!🪦");
       return { gameOverMsg };
     }
+
+    const { row, col } = position;
 
     if (map.tiles[row][col].hasTreasure) {
       setGamePhase('GAME_OVER');
@@ -74,13 +77,17 @@ function App() {
   const onPlayerMove = (updatedEnergy, updatedPosition) => {
     evaluateGameState(updatedEnergy, updatedPosition);
   };
+  
+  const onPlayerAnswer = (updatedEnergy) => {
+    evaluateGameState(updatedEnergy);
+  };
 
   return (
     <>
       <h1>Treasure Hunt</h1>
       <AppSettingsContext.Provider value={{ player, setPlayer, map, setMap, gamePhase }}>
         {gamePhase === 'SETTINGS' && <Settings onStartGame={startGame} />}
-        {gamePhase === "ONGOING" && <Game onPlayerMove={onPlayerMove} />}
+        {gamePhase === "ONGOING" && <Game onPlayerMove={onPlayerMove} onPlayerAnswer={onPlayerAnswer} />}
         {gamePhase === 'GAME_OVER' && <GameOver newGame={newGame} resetGame={resetGame} gameOverMsg={gameOverMsg} />}
       </AppSettingsContext.Provider>
 

@@ -41,7 +41,7 @@ function generateMapTiles(rows, cols, category='', initRow = 0, initCol = 0) {
         visited: i == initRow && j == initCol ? true : false,
         visible: i == initRow && j == initCol ? true : false,
         requiredEnergy: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 5 + 1),
-        yieldValue: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 15),
+        yieldValue: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 9 + 1),
         hasTreasure: false,
         question: "",
         category: "",
