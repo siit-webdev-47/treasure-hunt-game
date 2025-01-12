@@ -18,7 +18,7 @@ function App() {
 
   const startGame = () => {
     const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols);
-    setMap({ ...map, tiles });
+    // setMap({ ...map, tiles });
 
     questionListUpdatePromise
       .then(updatedTiles => {
@@ -30,13 +30,16 @@ function App() {
 
 
   const resetGame = () => {
+    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols);
+    questionListUpdatePromise
+    .then(updatedTiles => {
     setMap((prevMap) => ({
       ...prevMap,
       playerPosition: {
         row: 0,
         col: 0
       },
-      tiles: generateMapTiles(prevMap.rows, prevMap.cols).tiles
+      tiles: updatedTiles,
     }));
 
     setPlayer((prevPlayer) => ({
@@ -45,7 +48,7 @@ function App() {
     }));
 
     setGamePhase('ONGOING');
-  };
+  })};
 
 
   const newGame = () => {

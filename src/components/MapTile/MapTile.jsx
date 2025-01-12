@@ -50,11 +50,11 @@ function MapTile(props) {
       )} ${playerOnTileClass} ${difficulty} ${tileVisible}`}
     >
       <div>
-        {/* <div className="tile-coordinates">
+        <div className="tile-coordinates">
           <small>
             Tile: {row},{col}
           </small>
-        </div> */}
+        </div>
         {playerOnTile && (
           <>
             <img
