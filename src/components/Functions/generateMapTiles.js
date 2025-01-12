@@ -2,7 +2,7 @@ import fetchQuestionList from "./fetchQuestionList";
 
 function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
   const tiles = [];
-  let number = rows * cols
+  let number = rows * cols;
 
   const questionListUpdatePromise = fetchQuestionList(number)
     .then(questionVect => {
