@@ -17,13 +17,20 @@ function App() {
   const [gameOverMsg, setGameOverMsg] = useState('')
 
   const startGame = () => {
-    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols);
-    // setMap({ ...map, tiles });
+    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category);
+    setMap({ ...map, tiles });
+    console.log(`start`);
+    console.log(JSON.stringify({tiles}));
+    
 
     questionListUpdatePromise
       .then(updatedTiles => {
-        setMap({ ...map, updatedTiles })
+        setMap({ ...map, tiles: updatedTiles })
         setPlayer(playerFactory(player.playerName, player.playerEnergy));
+        console.log(`Updated`);
+        console.log(JSON.stringify({updatedTiles}));
+        console.log(`Map`);
+        console.log(JSON.stringify({map}));
         setGamePhase('ONGOING');
       })
   };

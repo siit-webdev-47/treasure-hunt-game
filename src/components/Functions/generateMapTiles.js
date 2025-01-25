@@ -1,10 +1,26 @@
 import fetchQuestionList from "./fetchQuestionList";
 
-function generateMapTiles(rows, cols, initRow = 0, initCol = 0) {
+export const MAP_MIN_ROWS = 6;
+export const MAP_MAX_ROWS = 20;
+export const MAP_MIN_COLS = 6;
+export const MAP_MAX_COLS = 20;
+
+function generateMapTiles(rows, cols, category='', initRow = 0, initCol = 0) {
+
+  if (rows < MAP_MIN_ROWS || rows > MAP_MAX_ROWS) {
+    console.error(`Rows too small or too large!`);
+    return null;
+  } 
+
+  if (cols < MAP_MIN_COLS || cols > MAP_MAX_COLS) {
+    console.error(`Columns too small! `);
+    return null;
+  } 
+
   const tiles = [];
   let number = rows * cols;
 
-  const questionListUpdatePromise = fetchQuestionList(number)
+  const questionListUpdatePromise = fetchQuestionList(number, category)
     .then(questionVect => {
       for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
