@@ -37,7 +37,7 @@ function App() {
 
 
   const resetGame = () => {
-    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols);
+    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category);
     questionListUpdatePromise
     .then(updatedTiles => {
     setMap((prevMap) => ({
