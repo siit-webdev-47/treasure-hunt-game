@@ -59,6 +59,14 @@ function Settings({ onStartGame }) {
           />
         </div>
 
+      <div className="constraint-message">
+        <p >
+          Rows and cols must be between {MAP_MIN_ROWS} and {MAP_MAX_ROWS}.
+        </p>
+      </div>
+
+      <div className="rows-cols">
+
         <div className="form-group">
           <label htmlFor="rows">Rows:</label>
           <input
@@ -86,14 +94,15 @@ function Settings({ onStartGame }) {
             value={cols}
             onChange={(e) => {
               const value = e.target.value.replace(/^0+/, "");
-                if (value === "") {
-                  setCols("");
-                } else {
-                  setCols(Number(value));
-                }
+              if (value === "") {
+                setCols("");
+              } else {
+                setCols(Number(value));
+              }
             }}
-          />
+            />
         </div>
+      </div>
 
         <div className="form-group">
           <label htmlFor="category">Category:</label>
