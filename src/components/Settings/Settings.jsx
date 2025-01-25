@@ -39,7 +39,7 @@ function Settings({ onStartGame }) {
     map.rows = rows;
     map.category = categories[selectedCategory];
     player.playerName = playerName;
-
+      
     onStartGame();
   };
 
@@ -66,8 +66,15 @@ function Settings({ onStartGame }) {
             type="number"
             id="rows"
             value={rows}
-            onChange={(e) => setRows(Number(e.target.value))}
-          />
+            onChange={(e) => {
+              const value = e.target.value.replace(/^0+/, "");
+              if (value === "") {
+                setRows(""); 
+              } else {
+                setRows(Number(value));
+              }
+            }}
+            />
         </div>
 
         <div className="form-group">
@@ -77,7 +84,14 @@ function Settings({ onStartGame }) {
             type="number"
             id="cols"
             value={cols}
-            onChange={(e) => setCols(Number(e.target.value))}
+            onChange={(e) => {
+              const value = e.target.value.replace(/^0+/, "");
+                if (value === "") {
+                  setCols("");
+                } else {
+                  setCols(Number(value));
+                }
+            }}
           />
         </div>
 
