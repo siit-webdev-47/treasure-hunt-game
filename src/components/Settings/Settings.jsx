@@ -27,8 +27,13 @@ function Settings({ onStartGame }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (rows < MAP_MIN_ROWS  || rows > MAP_MAX_ROWS  || cols < MAP_MIN_COLS || cols > MAP_MAX_COLS) {
-      setErrorMessage(`❗Rows and columns must be between ${MAP_MIN_ROWS} and ${MAP_MAX_ROWS}.❗`);
+    if (!rows || rows < MAP_MIN_ROWS  || rows > MAP_MAX_ROWS) {
+      setErrorMessage(`❗Rows must be between ${MAP_MIN_ROWS} and ${MAP_MAX_ROWS}.❗`);
+      return;
+    }
+
+    if (!cols || cols < MAP_MIN_COLS || cols > MAP_MAX_COLS) {
+      setErrorMessage(`❗Columns must be between ${MAP_MIN_COLS} and ${MAP_MAX_COLS}.❗`);
       return;
     }
 
@@ -59,50 +64,48 @@ function Settings({ onStartGame }) {
           />
         </div>
 
-      <div className="constraint-message">
-        <p >
-          Rows and cols must be between {MAP_MIN_ROWS} and {MAP_MAX_ROWS}.
-        </p>
-      </div>
+        <div className="rows-cols">
+          
+          <div className="form-group">
+            <label htmlFor="rows">
+              Rows <small>(between {MAP_MIN_ROWS} - {MAP_MAX_ROWS})</small>:  
+            </label>
+            <input
+              className="input-settings"
+              type="number"
+              id="rows"
+              value={rows}
+              onChange={(e) => {
+                const value = e.target.value.replace(/^0+/, "");
+                if (value === "") {
+                  setRows(""); 
+                } else {
+                  setRows(Number(value));
+                }
+              }}
+              />
+          </div>
 
-      <div className="rows-cols">
-
-        <div className="form-group">
-          <label htmlFor="rows">Rows:</label>
-          <input
-            className="input-settings"
-            type="number"
-            id="rows"
-            value={rows}
-            onChange={(e) => {
-              const value = e.target.value.replace(/^0+/, "");
-              if (value === "") {
-                setRows(""); 
-              } else {
-                setRows(Number(value));
-              }
-            }}
-            />
+          <div className="form-group">
+            <label htmlFor="cols">
+              Columns <small>(between {MAP_MIN_COLS} - {MAP_MAX_COLS})</small>: 
+            </label>
+            <input
+              className="input-settings"
+              type="number"
+              id="cols"
+              value={cols}
+              onChange={(e) => {
+                const value = e.target.value.replace(/^0+/, "");
+                if (value === "") {
+                  setCols("");
+                } else {
+                  setCols(Number(value));
+                }
+              }}
+              />
+          </div>
         </div>
-
-        <div className="form-group">
-          <label htmlFor="cols">Columns:</label>
-          <input
-            className="input-settings"
-            type="number"
-            id="cols"
-            value={cols}
-            onChange={(e) => {
-              const value = e.target.value.replace(/^0+/, "");
-              if (value === "") {
-                setCols("");
-              } else {
-                setCols(Number(value));
-              }
-            }}
-            />
-        </div>
-      </div>
 
         <div className="form-group">
           <label htmlFor="category">Category:</label>
