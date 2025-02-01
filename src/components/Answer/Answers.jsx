@@ -13,8 +13,11 @@ function Answers(props) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const contextValue = useContext(ClickContext);
-  const correctAudioRef = useRef(new Audio('src/components/Sounds/correct01.mp3'));
-  const wrongAudioRef = useRef(new Audio('src/components/Sounds/wrong01.mp3'));
+  let audioNr = Math.floor(Math.random() * 7) + 1;
+  const correctAudioRef = useRef(new Audio());
+  const wrongAudioRef = useRef(new Audio());
+
+  console.log(wrongAudioRef.current);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -32,8 +35,11 @@ function Answers(props) {
       ? (map.tiles[row][col].correctAnsw = true)
       : (map.tiles[row][col].correctAnsw = false);
 
+      audioNr = Math.floor(Math.random() * 8) + 1;
+      correctAudioRef.current.src = `src/components/Sounds/correct0${audioNr}.mp3`;
+      wrongAudioRef.current.src = `src/components/Sounds/wrong0${audioNr}.mp3`;
+     
       map.tiles[row][col].correctAnsw ? correctAudioRef.current.play() : wrongAudioRef.current.play();
-
   };
 
   const handleKey = () => {
