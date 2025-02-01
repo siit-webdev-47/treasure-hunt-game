@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { AppSettingsContext } from "../../App";
 import "./Answers.css";
@@ -13,6 +13,8 @@ function Answers(props) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const contextValue = useContext(ClickContext);
+  const correctAudioRef = useRef(new Audio('src/components/Sounds/correct01.mp3'));
+  const wrongAudioRef = useRef(new Audio('src/components/Sounds/wrong01.mp3'));
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -29,6 +31,9 @@ function Answers(props) {
     selectedOption == trueAnsw
       ? (map.tiles[row][col].correctAnsw = true)
       : (map.tiles[row][col].correctAnsw = false);
+
+      map.tiles[row][col].correctAnsw ? correctAudioRef.current.play() : wrongAudioRef.current.play();
+
   };
 
   const handleKey = () => {
@@ -39,6 +44,7 @@ function Answers(props) {
   document.addEventListener("keyup", handleKey);
 
   let goodAnsw = selectedOption == trueAnsw ? true : false;
+  
 
   return (
     <>
