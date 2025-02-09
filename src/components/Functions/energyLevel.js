@@ -1,4 +1,5 @@
 const energyLevels = {
+    minStartingLowEnergy: 5,    // player should not start with less energy than thie value
     maxLowEnergy: 25,
     maxMidEnergy: 50,
     maxHighEnergy: 100
