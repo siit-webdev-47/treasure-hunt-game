@@ -8,6 +8,14 @@ import mapFactory from "./components/Functions/mapFactory";
 import playerFactory from "./components/Functions/playerFactory";
 
 const defaultPlayerEnergy = 20;
+const defaultPlayerResponses = {
+  easyCorrect: 0,
+  easyWrong: 0,
+  mediumCorrect: 0,
+  mediumWrong: 0,
+  hardCorrect: 0,
+  hardWrong: 0,
+};
 const defaultMap = mapFactory(6, 6);
 const defaultPlayer = playerFactory('Anony Moose', defaultPlayerEnergy);
 
@@ -45,7 +53,8 @@ function App() {
 
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
-      playerEnergy: defaultPlayerEnergy
+      playerEnergy: defaultPlayerEnergy,
+      playerResponses: defaultPlayerResponses,
     }));
 
     setGamePhase('ONGOING');
