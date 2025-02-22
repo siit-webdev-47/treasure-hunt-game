@@ -1,14 +1,13 @@
-const energyLevels = {
+export const energyLevels = {
+    minStartingLowEnergy: 10, 
     maxLowEnergy: 25,
     maxMidEnergy: 50,
     maxHighEnergy: 100
-}
+};
 
-function energyLevel(energy) {
-    if (energy > 50) return "high-energy";
-    if (energy >= 25 && energy <= 50) return "mid-energy";
+export default function energyLevel(energy) {
+    if (energy > energyLevels.maxMidEnergy) return "high-energy";
+    if (energy >= energyLevels.maxLowEnergy && energy <= energyLevels.maxMidEnergy) return "mid-energy";
     return "low-energy";
 }
  
-export default energyLevel;
-

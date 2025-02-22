@@ -6,9 +6,11 @@ import GameOver from "./components/GameOver/GameOver";
 import generateMapTiles from "./components/Functions/generateMapTiles";
 import mapFactory from "./components/Functions/mapFactory";
 import playerFactory from "./components/Functions/playerFactory";
+import generateRandomEnergyLevel from "./components/Functions/generateRandomEnergyLevel";
 
 const defaultMap = mapFactory(6, 6);
-const defaultPlayer = playerFactory('Anony Moose', 20);
+const defaultPlayerEnergy = generateRandomEnergyLevel('medium');
+const defaultPlayer = playerFactory('Anony Moose',defaultPlayerEnergy);
 
 function App() {
   const [gamePhase, setGamePhase] = useState('SETTINGS');
@@ -44,7 +46,7 @@ function App() {
 
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
-      playerEnergy: 15
+      playerEnergy: generateRandomEnergyLevel('medium')
     }));
 
     setGamePhase('ONGOING');
