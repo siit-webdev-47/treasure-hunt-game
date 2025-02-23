@@ -86,27 +86,24 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   usePlayerMovement(row, col, map.rows, map.cols, handlePlayerMove);
 
   const handleContinueClick = () => {
-    let correctVar = map.tiles[row][col].correctAnsw ? 1 : -1;
-    const responseType = map.tiles[row][col].correctAnsw ? "Correct" : "Wrong";
 
+    const responseType = map.tiles[row][col].correctAnsw ? "Correct" : "Wrong";
     const property = `${map.tiles[row][col].difficulty}${responseType}`;
     const newPlayerResponses = {
       ...player.playerResponses,
       [property]: player.playerResponses[property] + 1,
     };
-
+    
     map.tiles[row][col].correctAnsw == player.consecutiveAnswers["correct"]
-      ? player.consecutiveAnswers["number"]++
-      : ((player.consecutiveAnswers["number"] = 1),
-        (player.consecutiveAnswers["correct"] =
-          map.tiles[row][col].correctAnsw));
+     ? player.consecutiveAnswers["number"]++
+     : (player.consecutiveAnswers["number"] = 1,
+        player.consecutiveAnswers["correct"] = map.tiles[row][col].correctAnsw);
     let bonusEnergyValue = (player.consecutiveAnswers["number"] > 4 ? 3 : (player.consecutiveAnswers["number"]) - 1);    
     let bonusEnergy = ( player.consecutiveAnswers["correct"] ? 1 : -1 ) * bonusEnergyValue;
-    console.log(player.consecutiveAnswers);
-    console.log(bonusEnergy);
-    
-
+      
+    let correctVar = map.tiles[row][col].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[row][col].yieldValue;
+    
     const newPlayerEnergy = player.playerEnergy + tileEnergy + bonusEnergy;
 
     map.tiles[row][col].yieldValue = 0;

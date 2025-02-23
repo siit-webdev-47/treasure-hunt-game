@@ -13,8 +13,7 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
     (playerResponsesArray[2] + playerResponsesArray[3]) * 0.66 +
     (playerResponsesArray[4] + playerResponsesArray[5]) * 1;
   let totalSumResponses = playerResponsesArray.reduce(
-    (sum, curr) => sum + curr,
-    0
+    (sum, curr) => sum + curr, 0
   );
   let difficultyIndex = averageSum / totalSumResponses;
   let finalScore =
@@ -24,14 +23,6 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
     playerResponsesArray[3] * 3 +
     playerResponsesArray[4] * 6 -
     playerResponsesArray[5] * 1;
-
-  console.log(player.playerResponses);
-  console.log(playerResponsesArray);
-  console.log(averageSum);
-  console.log(totalSumResponses);
-  console.log(`${difficultyIndex*100}%`);
-  console.log(finalScore);
-  
 
   return (
     <div className="game-over-wrapper">
