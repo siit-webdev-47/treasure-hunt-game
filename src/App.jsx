@@ -6,11 +6,10 @@ import GameOver from "./components/GameOver/GameOver";
 import generateMapTiles from "./components/Functions/generateMapTiles";
 import mapFactory from "./components/Functions/mapFactory";
 import playerFactory from "./components/Functions/playerFactory";
-import { generateRandomEnergyLevel } from "./components/Functions/energyLevel";
 
 const defaultMap = mapFactory(6, 6);
-const defaultPlayerEnergy = generateRandomEnergyLevel('hard');
-const defaultPlayer = playerFactory('Anony Moose', defaultPlayerEnergy);
+const defaultPlayerEnergyLevel = 'hard';
+const defaultPlayer = playerFactory('Anony Moose', defaultPlayerEnergyLevel);
 
 function App() {
   const [gamePhase, setGamePhase] = useState('SETTINGS');
@@ -18,14 +17,14 @@ function App() {
   const [map, setMap] = useState(defaultMap);
   const [gameOverMsg, setGameOverMsg] = useState('')
 
-  const startGame = (selectedEnergyLevel) => {
+  const startGame = () => {
     const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category, map.questionDifficulty);
     setMap({ ...map, tiles });
 
     questionListUpdatePromise
       .then(updatedTiles => {
         setMap({ ...map, tiles: updatedTiles })
-        setPlayer(playerFactory(player.playerName, generateRandomEnergyLevel(selectedEnergyLevel)));
+        setPlayer(playerFactory(player.playerName, player.playerStartingEnergyLevel));
         setGamePhase('ONGOING');
       })
 
@@ -33,7 +32,7 @@ function App() {
 
 
   const resetGame = () => {
-    const { questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category);
+    const { questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category, map.questionDifficulty);
     questionListUpdatePromise
     .then(updatedTiles => {
     setMap((prevMap) => ({
@@ -47,7 +46,7 @@ function App() {
 
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
-      playerEnergy: generateRandomEnergyLevel('medium')
+      playerEnergy: prevPlayer.playerStartingEnergy
     }));
 
     setGamePhase('ONGOING');

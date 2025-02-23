@@ -10,14 +10,14 @@ function Settings({ onStartGame }) {
   const [rows, setRows] = useState(map.rows);
   const [cols, setCols] = useState(map.cols);
   const [selectedCategory, setSelectedCategory] = useState(map.category);
+  const [questionDifficulty, setQuestionDifficulty] = useState(map.questionDifficulty);
 
   const [playerName, setPlayerName] = useState(player.playerName);
+  const [energyLevel, setPlayerEnergyLevel] = useState(player.playerStartingEnergyLevel);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [categories, setCategories] = useState([]);
 
-  const [energyLevel, setEnergyLevel] = useState("hard");
-  const [questionDifficulty, setQuestionDifficulty] = useState("");
 
   useEffect(() => {
     fetch("https://the-trivia-api.com/v2/categories")
@@ -49,8 +49,9 @@ function Settings({ onStartGame }) {
     map.questionDifficulty = questionDifficulty;
 
     player.playerName = playerName;
+    player.playerStartingEnergyLevel = energyLevel
       
-    onStartGame(energyLevel);
+    onStartGame();
   };
 
   return (
@@ -137,7 +138,7 @@ function Settings({ onStartGame }) {
           id="energyLevel"
           className="input-settings"
           value={energyLevel}
-          onChange={(e) => setEnergyLevel(e.target.value)}
+          onChange={(e) => setPlayerEnergyLevel(e.target.value)}
         >
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
