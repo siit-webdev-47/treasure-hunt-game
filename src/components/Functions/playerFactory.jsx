@@ -9,6 +9,10 @@ const playerFactory = (playerName = "Anony Moose", playerEnergy = 15) => ({
       hardCorrect: 0,
       hardWrong: 0,
     },
+    consecutiveAnswers: {
+    number: 0,
+    correct: true,
+    },
     get playerAvatar() {
       return `https://api.dicebear.com/9.x/micah/svg?seed=${this.playerName}`;
     }

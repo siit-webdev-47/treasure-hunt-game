@@ -94,10 +94,13 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       ...player.playerResponses,
       [property]: player.playerResponses[property] + 1,
     };
-
+  map.tiles[row][col].correctAnsw == player.consecutiveAnswers["correct"]
+    ? player.consecutiveAnswers["number"]++
+    : (player.consecutiveAnswers["number"] = 1,
+       player.consecutiveAnswers["correct"] = map.tiles[row][col].correctAnsw);
     const newPlayerEnergy = player.playerEnergy + tileEnergy;
     map.tiles[row][col].yieldValue = 0;
-    console.log(newPlayerResponses);
+console.log(player.consecutiveAnswers);
 
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
