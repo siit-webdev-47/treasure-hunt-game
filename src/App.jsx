@@ -7,6 +7,7 @@ import generateMapTiles from "./components/Functions/generateMapTiles";
 import mapFactory from "./components/Functions/mapFactory";
 import playerFactory from "./components/Functions/playerFactory";
 
+const defaultPlayerEnergy = 20;
 const defaultMap = mapFactory(6, 6);
 const defaultPlayerEnergyLevel = 'hard';
 const defaultPlayer = playerFactory('Anony Moose', defaultPlayerEnergyLevel);
