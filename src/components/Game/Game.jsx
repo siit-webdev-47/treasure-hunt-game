@@ -89,12 +89,18 @@ function Game({ onPlayerMove , onPlayerAnswer } ) {
     let correctVar = map.tiles[row][col].correctAnsw ? 1 : -1;
     const tileEnergy =
       correctVar * map.tiles[row][col].yieldValue ;
+      const responseType = map.tiles[row][col].correctAnsw ? 'Correct' : 'Wrong';
+      const property = `${map.tiles[row][col].difficulty}${responseType}`;
+      const newPlayerResponses = { ...player.playerResponses, [property]: player.playerResponses[property] + 1 };
 
-    const newPlayerEnergy = player.playerEnergy + tileEnergy
+    const newPlayerEnergy = player.playerEnergy + tileEnergy;
     map.tiles[row][col].yieldValue = 0 ;
+    console.log(newPlayerResponses);
+    
       setPlayer((prevPlayer) => ({
         ...prevPlayer,
         playerEnergy: newPlayerEnergy,
+        playerResponses: newPlayerResponses,
       }));
       onPlayerAnswer(newPlayerEnergy);
   };
