@@ -18,14 +18,14 @@ function App() {
   const [map, setMap] = useState(defaultMap);
   const [gameOverMsg, setGameOverMsg] = useState('')
 
-  const startGame = () => {
-    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category);
+  const startGame = (selectedEnergyLevel, selectedQuestionDifficulty) => {
+    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category, selectedQuestionDifficulty);
     setMap({ ...map, tiles });
 
     questionListUpdatePromise
       .then(updatedTiles => {
         setMap({ ...map, tiles: updatedTiles })
-        setPlayer(playerFactory(player.playerName, player.playerEnergy));
+        setPlayer(playerFactory(player.playerName, generateRandomEnergyLevel(selectedEnergyLevel)));
         setGamePhase('ONGOING');
       })
   };

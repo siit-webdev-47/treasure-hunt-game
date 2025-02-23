@@ -48,7 +48,7 @@ function Settings({ onStartGame }) {
     map.category = categories[selectedCategory];
     player.playerName = playerName;
       
-    onStartGame();
+    onStartGame(energyLevel, questionDifficulty);
   };
 
   return (
