@@ -9,7 +9,7 @@ function Settings({ onStartGame }) {
 
   const [rows, setRows] = useState(map.rows);
   const [cols, setCols] = useState(map.cols);
-  const [selectedCategory, setSelectedCategory] = useState(map.category);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const [playerName, setPlayerName] = useState(player.playerName);
 
