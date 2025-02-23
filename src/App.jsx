@@ -28,6 +28,9 @@ function App() {
         setPlayer(playerFactory(player.playerName, generateRandomEnergyLevel(selectedEnergyLevel)));
         setGamePhase('ONGOING');
       })
+
+      console.log(`Starting game with difficulty:${selectedQuestionDifficulty}`);
+
   };
 
 
