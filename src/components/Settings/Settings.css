@@ -28,7 +28,7 @@
   text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
 }
 
-.rows-cols{
+.parallel-input{
 display: flex;
 gap: 15px;
 }

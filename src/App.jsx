@@ -9,7 +9,7 @@ import playerFactory from "./components/Functions/playerFactory";
 import generateRandomEnergyLevel from "./components/Functions/generateRandomEnergyLevel";
 
 const defaultMap = mapFactory(6, 6);
-const defaultPlayerEnergy = generateRandomEnergyLevel('medium');
+const defaultPlayerEnergy = generateRandomEnergyLevel('hard');
 const defaultPlayer = playerFactory('Anony Moose',defaultPlayerEnergy);
 
 function App() {

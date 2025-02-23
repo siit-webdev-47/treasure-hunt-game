@@ -1,5 +1,5 @@
 export const energyLevels = {
-    minStartingLowEnergy: 10, 
+    minStartingLowEnergy: 5, 
     maxLowEnergy: 25,
     maxMidEnergy: 50,
     maxHighEnergy: 100
