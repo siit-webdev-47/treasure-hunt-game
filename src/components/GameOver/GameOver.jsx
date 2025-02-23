@@ -1,7 +1,24 @@
+import { useContext } from "react";
 import "./GameOver.css";
 import PropTypes from "prop-types";
+import { AppSettingsContext } from "../../App";
 
-export default function GameOver({ newGame, resetGame, gameOverMsg }) {  
+export default function GameOver({ newGame, resetGame, gameOverMsg }) { 
+   const { player } = useContext(AppSettingsContext); 
+  //  Create an array with the values of the playerResponses object
+  //  We know the exact order of the values
+   let playerResponsesArray = Object.values(player.playerResponses);
+   let averageSum = (playerResponsesArray[0]+playerResponsesArray[1]) * 0.33 + (playerResponsesArray[2] +playerResponsesArray[3]) * 0.66 + (playerResponsesArray[4] +playerResponsesArray[5]) * 1 ;
+   let totalSumResponses = playerResponsesArray.reduce((sum, curr) => sum + curr, 0);
+   let difficultyIndex = averageSum / totalSumResponses;
+   console.log(player.playerResponses);
+   
+   console.log(playerResponsesArray);
+    
+   console.log(averageSum);
+   console.log(totalSumResponses);
+   console.log(difficultyIndex);
+   
   return (
     <div className="game-over-wrapper">
       <div className="game-over-container">

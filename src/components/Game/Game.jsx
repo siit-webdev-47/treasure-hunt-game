@@ -9,18 +9,18 @@ import AnswerWindow from "../Answer/AnswerWindow";
 
 export const ClickContext = createContext();
 
-function Game({ onPlayerMove , onPlayerAnswer } ) {
+function Game({ onPlayerMove, onPlayerAnswer }) {
   const { player, setPlayer, map, setMap } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
   const { visited } = map.tiles[row][col];
 
   function handlePlayerMove(newRow, newCol, oldRow, oldCol) {
-
     let correctVar = map.tiles[oldRow][oldCol].correctAnsw ? 1 : -1;
-    const tileEnergy =
-      correctVar * map.tiles[row][col].yieldValue ;
-    const newPlayerEnergy = player.playerEnergy -
-    map.tiles[newRow][newCol].requiredEnergy + tileEnergy;
+    const tileEnergy = correctVar * map.tiles[row][col].yieldValue;
+    const newPlayerEnergy =
+      player.playerEnergy -
+      map.tiles[newRow][newCol].requiredEnergy +
+      tileEnergy;
 
     // set tiles as visited and clears the energy yeld if the player moved
     if (
@@ -87,22 +87,24 @@ function Game({ onPlayerMove , onPlayerAnswer } ) {
 
   const handleContinueClick = () => {
     let correctVar = map.tiles[row][col].correctAnsw ? 1 : -1;
-    const tileEnergy =
-      correctVar * map.tiles[row][col].yieldValue ;
-      const responseType = map.tiles[row][col].correctAnsw ? 'Correct' : 'Wrong';
-      const property = `${map.tiles[row][col].difficulty}${responseType}`;
-      const newPlayerResponses = { ...player.playerResponses, [property]: player.playerResponses[property] + 1 };
+    const tileEnergy = correctVar * map.tiles[row][col].yieldValue;
+    const responseType = map.tiles[row][col].correctAnsw ? "Correct" : "Wrong";
+    const property = `${map.tiles[row][col].difficulty}${responseType}`;
+    const newPlayerResponses = {
+      ...player.playerResponses,
+      [property]: player.playerResponses[property] + 1,
+    };
 
     const newPlayerEnergy = player.playerEnergy + tileEnergy;
-    map.tiles[row][col].yieldValue = 0 ;
+    map.tiles[row][col].yieldValue = 0;
     console.log(newPlayerResponses);
-    
-      setPlayer((prevPlayer) => ({
-        ...prevPlayer,
-        playerEnergy: newPlayerEnergy,
-        playerResponses: newPlayerResponses,
-      }));
-      onPlayerAnswer(newPlayerEnergy);
+
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      playerEnergy: newPlayerEnergy,
+      playerResponses: newPlayerResponses,
+    }));
+    onPlayerAnswer(newPlayerEnergy);
   };
 
   return (
