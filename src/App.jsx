@@ -6,11 +6,11 @@ import GameOver from "./components/GameOver/GameOver";
 import generateMapTiles from "./components/Functions/generateMapTiles";
 import mapFactory from "./components/Functions/mapFactory";
 import playerFactory from "./components/Functions/playerFactory";
-import generateRandomEnergyLevel from "./components/Functions/generateRandomEnergyLevel";
+import { generateRandomEnergyLevel } from "./components/Functions/energyLevel";
 
 const defaultMap = mapFactory(6, 6);
 const defaultPlayerEnergy = generateRandomEnergyLevel('hard');
-const defaultPlayer = playerFactory('Anony Moose',defaultPlayerEnergy);
+const defaultPlayer = playerFactory('Anony Moose', defaultPlayerEnergy);
 
 function App() {
   const [gamePhase, setGamePhase] = useState('SETTINGS');
@@ -18,8 +18,8 @@ function App() {
   const [map, setMap] = useState(defaultMap);
   const [gameOverMsg, setGameOverMsg] = useState('')
 
-  const startGame = (selectedEnergyLevel, selectedQuestionDifficulty) => {
-    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category, selectedQuestionDifficulty);
+  const startGame = (selectedEnergyLevel) => {
+    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category, map.questionDifficulty);
     setMap({ ...map, tiles });
 
     questionListUpdatePromise
@@ -28,8 +28,6 @@ function App() {
         setPlayer(playerFactory(player.playerName, generateRandomEnergyLevel(selectedEnergyLevel)));
         setGamePhase('ONGOING');
       })
-
-      console.log(`Starting game with difficulty:${selectedQuestionDifficulty}`);
 
   };
 

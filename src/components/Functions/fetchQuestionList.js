@@ -9,7 +9,7 @@ async function fetchQuestionList(number, categories, difficulty = "") {
       }
     
       if (difficulty) {
-        apiUrl += `&difficulties=${difficulty}`;
+        apiUrl += `&difficulty=${difficulty}`;
       }
 
       const response = await fetch(apiUrl);
@@ -26,9 +26,6 @@ async function fetchQuestionList(number, categories, difficulty = "") {
       );
 
       number -= 50;
-      console.log(`Category:${categories}`);
-      console.log(`Dificulty : ${difficulty}`);
-      console.log(apiUrl)
     }
 
     return apiQuestionVect;

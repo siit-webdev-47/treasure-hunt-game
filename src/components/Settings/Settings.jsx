@@ -46,11 +46,11 @@ function Settings({ onStartGame }) {
     map.cols = cols;
     map.rows = rows;
     map.category = categories[selectedCategory];
-    player.playerName = playerName;
+    map.questionDifficulty = questionDifficulty;
 
-    console.log(`Selected Difficulty in setting:${questionDifficulty}`);
+    player.playerName = playerName;
       
-    onStartGame(energyLevel, questionDifficulty);
+    onStartGame(energyLevel);
   };
 
   return (
