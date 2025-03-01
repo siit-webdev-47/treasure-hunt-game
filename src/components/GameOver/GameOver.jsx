@@ -18,9 +18,9 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
   let difficultyIndex = averageSum / totalSumResponses;
   let finalScore =
     playerResponsesArray[0] * 2 -
-    playerResponsesArray[1] * 5 +
+    playerResponsesArray[1] * 3 +
     playerResponsesArray[2] * 4 -
-    playerResponsesArray[3] * 3 +
+    playerResponsesArray[3] * 2 +
     playerResponsesArray[4] * 6 -
     playerResponsesArray[5] * 1;
 
