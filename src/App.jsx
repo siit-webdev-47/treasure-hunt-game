@@ -55,7 +55,13 @@ function App() {
 
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
-      playerEnergy: prevPlayer.playerStartingEnergy
+      playerEnergy: prevPlayer.playerStartingEnergy,
+      playerResponses: defaultPlayerResponses,
+      consecutiveAnswers: {
+        number: 0,
+        correct: true,
+        bonusEnergy: 0,
+      }
     }));
 
     setGamePhase('ONGOING');

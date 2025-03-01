@@ -18,6 +18,7 @@ const playerFactory = (playerName = "Anony Moose", playerEnergyLevel = 'hard') =
     consecutiveAnswers: {
     number: 0,
     correct: true,
+    bonusEnergy: 0,
     },
     get playerAvatar() {
       return `https://api.dicebear.com/9.x/micah/svg?seed=${this.playerName}`;

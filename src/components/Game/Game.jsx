@@ -93,17 +93,12 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       [property]: player.playerResponses[property] + 1,
     };
     
-    map.tiles[row][col].correctAnsw == player.consecutiveAnswers["correct"]
-     ? player.consecutiveAnswers["number"]++
-     : (player.consecutiveAnswers["number"] = 1,
-        player.consecutiveAnswers["correct"] = map.tiles[row][col].correctAnsw);
-    let bonusEnergyValue = (player.consecutiveAnswers["number"] > 4 ? 3 : (player.consecutiveAnswers["number"]) - 1);    
-    let bonusEnergy = ( player.consecutiveAnswers["correct"] ? 1 : -1 ) * bonusEnergyValue;
+
       
     let correctVar = map.tiles[row][col].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[row][col].yieldValue;
     
-    const newPlayerEnergy = player.playerEnergy + tileEnergy + bonusEnergy;
+    const newPlayerEnergy = player.playerEnergy + tileEnergy + player.consecutiveAnswers.bonusEnergy;
 
     map.tiles[row][col].yieldValue = 0;
 
