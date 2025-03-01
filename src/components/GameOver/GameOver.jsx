@@ -13,9 +13,10 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
     (playerResponsesArray[2] + playerResponsesArray[3]) * 0.66 +
     (playerResponsesArray[4] + playerResponsesArray[5]) * 1;
   let totalSumResponses = playerResponsesArray.reduce(
-    (sum, curr) => sum + curr, 0
+    (sum, curr) => sum + curr,
+    0
   );
-  let difficultyIndex = averageSum / totalSumResponses;
+  let difficultyIndex = (averageSum / totalSumResponses).toFixed(2);
   let finalScore =
     playerResponsesArray[0] * 2 -
     playerResponsesArray[1] * 3 +
@@ -29,6 +30,17 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
       <div className="game-over-container">
         <p>Game Over!</p>
         <p>{gameOverMsg}</p>
+        <div className="game-over-statistics">
+          <h3>Difficulty Index: {difficultyIndex * 100}%</h3>
+          <h3>Final Score: {finalScore}</h3>
+          <br />
+          <span>Correct Easy Answers: {playerResponsesArray[0]}</span>
+          <span>Wrong Easy Answers: {playerResponsesArray[1]}</span>
+          <span>Correct Medium Answers: {playerResponsesArray[2]}</span>
+          <span>Wrong Medium Answers: {playerResponsesArray[3]}</span>
+          <span>Correct Hard Answers: {playerResponsesArray[4]}</span>
+          <span>Wrong Hard Answers: {playerResponsesArray[5]}</span>
+        </div>
         <div className="game-over-buttons">
           <button onClick={resetGame} className="reset round">
             Reset Round
