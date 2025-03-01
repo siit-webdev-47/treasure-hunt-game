@@ -1,6 +1,5 @@
 import "../../App.css";
 import Map from "../Map/Map";
-import Player from "../Player/Player";
 import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
 import PropTypes from "prop-types";
 import { createContext, useContext } from "react";
@@ -119,7 +118,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   return (
     <ClickContext.Provider value={handleContinueClick}>
       <div className="game-container">
-        <Player />
+        {/* <Player /> */}
         {!visited && <AnswerWindow />}
         <Map mapData={map} />
       </div>

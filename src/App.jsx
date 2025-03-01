@@ -17,7 +17,8 @@ const defaultPlayerResponses = {
   hardWrong: 0,
 };
 const defaultMap = mapFactory(6, 6);
-const defaultPlayer = playerFactory('Anony Moose', defaultPlayerEnergy);
+const defaultPlayerEnergyLevel = 'hard';
+const defaultPlayer = playerFactory('Anony Moose', defaultPlayerEnergyLevel);
 
 function App() {
   const [gamePhase, setGamePhase] = useState('SETTINGS');
@@ -26,20 +27,21 @@ function App() {
   const [gameOverMsg, setGameOverMsg] = useState('')
 
   const startGame = () => {
-    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category);
+    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category, map.questionDifficulty);
     setMap({ ...map, tiles });
 
     questionListUpdatePromise
       .then(updatedTiles => {
         setMap({ ...map, tiles: updatedTiles })
-        setPlayer(playerFactory(player.playerName, player.playerEnergy));
+        setPlayer(playerFactory(player.playerName, player.playerStartingEnergyLevel));
         setGamePhase('ONGOING');
       })
+
   };
 
 
   const resetGame = () => {
-    const { questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category);
+    const { questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category, map.questionDifficulty);
     questionListUpdatePromise
     .then(updatedTiles => {
     setMap((prevMap) => ({
@@ -53,8 +55,7 @@ function App() {
 
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
-      playerEnergy: defaultPlayerEnergy,
-      playerResponses: defaultPlayerResponses,
+      playerEnergy: prevPlayer.playerStartingEnergy
     }));
 
     setGamePhase('ONGOING');

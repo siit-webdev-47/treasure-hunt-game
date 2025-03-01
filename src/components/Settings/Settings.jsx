@@ -9,12 +9,15 @@ function Settings({ onStartGame }) {
 
   const [rows, setRows] = useState(map.rows);
   const [cols, setCols] = useState(map.cols);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(map.category);
+  const [questionDifficulty, setQuestionDifficulty] = useState(map.questionDifficulty);
 
   const [playerName, setPlayerName] = useState(player.playerName);
+  const [energyLevel, setPlayerEnergyLevel] = useState(player.playerStartingEnergyLevel);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [categories, setCategories] = useState([]);
+
 
   useEffect(() => {
     fetch("https://the-trivia-api.com/v2/categories")
@@ -43,7 +46,10 @@ function Settings({ onStartGame }) {
     map.cols = cols;
     map.rows = rows;
     map.category = categories[selectedCategory];
+    map.questionDifficulty = questionDifficulty;
+
     player.playerName = playerName;
+    player.playerStartingEnergyLevel = energyLevel
       
     onStartGame();
   };
@@ -64,7 +70,7 @@ function Settings({ onStartGame }) {
           />
         </div>
 
-        <div className="rows-cols">
+        <div className="parallel-input">
           
           <div className="form-group">
             <label htmlFor="rows">
@@ -124,6 +130,37 @@ function Settings({ onStartGame }) {
             ))}
           </select>
         </div>
+
+       < div className="parallel-input">
+      <div className="form-group">
+        <label htmlFor="energyLevel">Starting Energy Level:</label>
+        <select
+          id="energyLevel"
+          className="input-settings"
+          value={energyLevel}
+          onChange={(e) => setPlayerEnergyLevel(e.target.value)}
+        >
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="questionDifficulty">Question Difficulty:</label>
+        <select
+          id="questionDifficulty"
+          className="input-settings"
+          value={questionDifficulty}
+          onChange={(e) => setQuestionDifficulty(e.target.value)}
+        >
+          <option value="">Not Specified</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      </div>
 
         <button className="button-settings" type="submit">Start Game</button>
 

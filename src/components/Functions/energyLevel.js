@@ -1,15 +1,32 @@
-const energyLevels = {
-    minStartingLowEnergy: 5,    // player should not start with less energy than thie value
+export const energyLevels = {
+    minStartingLowEnergy: 5, 
     maxLowEnergy: 25,
     maxMidEnergy: 50,
     maxHighEnergy: 100
-}
+};
 
-function energyLevel(energy) {
-    if (energy > 50) return "high-energy";
-    if (energy >= 25 && energy <= 50) return "mid-energy";
+
+export default function energyLevel(energy) {
+    if (energy > energyLevels.maxMidEnergy) return "high-energy";
+    if (energy >= energyLevels.maxLowEnergy && energy <= energyLevels.maxMidEnergy) return "mid-energy";
     return "low-energy";
 }
- 
-export default energyLevel;
 
+ 
+export function generateRandomEnergyLevel(level) {
+    let min;
+    let max;
+  
+    if (level === 'hard') {
+      min = energyLevels.minStartingLowEnergy;
+      max = energyLevels.maxLowEnergy;
+    } else if (level === 'medium') {
+      min = energyLevels.maxLowEnergy;
+      max = energyLevels.maxMidEnergy;
+    } else {
+      min = energyLevels.maxMidEnergy;
+      max = energyLevels.maxHighEnergy;
+    }
+    
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
