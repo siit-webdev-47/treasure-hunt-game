@@ -45,7 +45,8 @@ function Settings({ onStartGame }) {
 
     map.cols = cols;
     map.rows = rows;
-    map.category = categories[selectedCategory];
+    map.category = selectedCategory;
+    // map.category = categories[selectedCategory];
     map.questionDifficulty = questionDifficulty;
 
     player.playerName = playerName;
