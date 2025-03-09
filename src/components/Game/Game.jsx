@@ -1,6 +1,6 @@
 import "../../App.css";
 import Map from "../Map/Map";
-import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
+// import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
 import PropTypes from "prop-types";
 import { createContext, useContext } from "react";
 import { AppSettingsContext } from "../../App";
@@ -13,8 +13,12 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const { row, col } = map.playerPosition;
   const { visited } = map.tiles[row][col];
 
-  function handlePlayerMove(newRow, newCol, oldRow, oldCol) {
-    let correctVar = map.tiles[oldRow][oldCol].correctAnsw ? 1 : -1;
+  function handlePlayerMove(newRow, newCol) {
+
+    if (newRow === row && newCol === col) 
+      return;
+
+    let correctVar = map.tiles[row][col].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[row][col].yieldValue;
     const newPlayerEnergy =
       player.playerEnergy -
@@ -57,8 +61,8 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
 
       setMap((prevMap) => {
         const updatedTiles = [...prevMap.tiles];
-        updatedTiles[oldRow][oldCol] = {
-          ...updatedTiles[oldRow][oldCol],
+        updatedTiles[row][col] = {
+          ...updatedTiles[row][col],
           visited: true,
           yieldValue: 0,
         };
@@ -82,7 +86,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     onPlayerMove(newPlayerEnergy, { row: newRow, col: newCol });
   }
 
-  usePlayerMovement(row, col, map.rows, map.cols, handlePlayerMove);
+  // usePlayerMovement(row, col, map.rows, map.cols, handlePlayerMove);
 
   const handleContinueClick = () => {
 
@@ -110,12 +114,14 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     onPlayerAnswer(newPlayerEnergy);
   };
 
+  console.log("Tile clicked in game ")
+
   return (
     <ClickContext.Provider value={handleContinueClick}>
       <div className="game-container">
         {/* <Player /> */}
         {!visited && <AnswerWindow />}
-        <Map mapData={map} />
+        <Map mapData={map} playerData={player} onTileClick={handlePlayerMove}  />
       </div>
     </ClickContext.Provider>
   );

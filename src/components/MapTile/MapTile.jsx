@@ -5,6 +5,9 @@ import PropTypes from "prop-types";
 import energyLevel from "../Functions/energyLevel";
 
 function MapTile(props) {
+
+  // console.log("Props in MapTile:", props);
+
   const { player } = useContext(AppSettingsContext);
   const { playerEnergy } = player;
 
@@ -43,11 +46,18 @@ function MapTile(props) {
 
   const playerOnTile = playerPosition.row === row && playerPosition.col === col;
   const playerOnTileClass = playerOnTile ? "playerOnTile" : "";
+
+  const handleTileClick = () => {
+    props.onTileClick(row, col); 
+    console.log("Til clicked", props.mapTileData);
+  };
+
   return (
     <div
       className={`map-tile ${tileClass} ${treasureTileClass} ${energyLevel(
         player.playerEnergy
       )} ${playerOnTileClass} ${difficulty} ${tileVisible}`}
+      onClick={handleTileClick}
     >
       <div>
         <div className="tile-coordinates">
@@ -93,4 +103,5 @@ export default MapTile;
 MapTile.propTypes = {
   mapTileData: PropTypes.any,
   playerPosition: PropTypes.any,
+  onTileClick: PropTypes.func.isRequired,
 };
