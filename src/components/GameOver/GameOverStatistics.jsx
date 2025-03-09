@@ -11,15 +11,15 @@ export default function GameOverStatistics() {
     <div className="game-over-statistics">
         <br />
         <div className="statisticsText">
-        <h3>Difficulty Index: {difficultyIndex(player.playerResponses) * 100}%</h3>
-        <div className="infoWindow">
-        <h4>This index represents the average difficulty of the questions answered. It is calculated as a weighted average.</h4>
-        <h5>Each easy question has a weight of 33%, the medium ones have 66% and the hard questions have 100%.</h5>
+          <h3>Difficulty Index: {difficultyIndex(player.playerResponses)}%</h3>
+          <div className="infoWindow">
+            <h4>This index represents the average difficulty of the questions answered. It is calculated as a weighted average.</h4>
+            <h5>Each easy question has a weight of 33%, the medium ones have 66% and the hard questions have 100%.</h5>
+          </div>
         </div>
-      </div>
 
       <div className="statisticsText">
-      <h3>Final Score: {finalScore(player.playerResponses)} points</h3>
+        <h3>Final Score: {finalScore(player.playerResponses)} points</h3>
         <div className="infoWindow">
           <h4>This score represents the total points accumulated by the player.</h4>
           <h5>For each correct answer, the player receives 2 points for easy, 4 points for medium and 6 points for hard questions.</h5>
