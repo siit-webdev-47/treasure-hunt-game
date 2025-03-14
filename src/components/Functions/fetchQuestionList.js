@@ -1,4 +1,4 @@
-async function fetchQuestionList(number, categories, difficulty = "") {
+async function fetchQuestionList(number, categories = "", difficulty = "") {
   try {
     let apiQuestionVect = [];
 

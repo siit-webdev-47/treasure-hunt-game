@@ -7,7 +7,7 @@ import generateMapTiles from "./components/Functions/generateMapTiles";
 import mapFactory from "./components/Functions/mapFactory";
 import playerFactory from "./components/Functions/playerFactory";
 
-const defaultPlayerEnergy = 20;
+
 const defaultPlayerResponses = {
   easyCorrect: 0,
   easyWrong: 0,
@@ -69,7 +69,6 @@ function App() {
 
 
   const newGame = () => {
-    setMap(defaultMap);
     setPlayer(defaultPlayer);
     setGamePhase('SETTINGS')
   };

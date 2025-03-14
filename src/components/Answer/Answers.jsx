@@ -14,8 +14,6 @@ function Answers(props) {
   const [isVisible, setIsVisible] = useState(true);
   const contextValue = useContext(ClickContext);
 
-  console.log(player.consecutiveAnswers);
-  
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);

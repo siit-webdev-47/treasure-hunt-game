@@ -40,12 +40,11 @@ function Settings({ onStartGame }) {
       return;
     }
 
-    // clears the error message
     setErrorMessage("");
 
     map.cols = cols;
     map.rows = rows;
-    map.category = categories[selectedCategory];
+    map.category = selectedCategory;
     map.questionDifficulty = questionDifficulty;
 
     player.playerName = playerName;
