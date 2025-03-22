@@ -1,3 +1,6 @@
+import generateEnergy from "./generateEnergy";
+import generateYield from "./generateYield";
+
 async function fetchQuestionList(number, categories = "", difficulty = "") {
   try {
     let apiQuestionVect = [];
@@ -21,7 +24,9 @@ async function fetchQuestionList(number, categories = "", difficulty = "") {
           category: questionData.category,
           difficulty: questionData.difficulty,
           trueAnsw: questionData.correctAnswer,
-          falseAnsw: questionData.incorrectAnswers
+          falseAnsw: questionData.incorrectAnswers,
+          yieldValue: generateYield(questionData.difficulty),
+          requiredEnergy: generateEnergy(questionData.difficulty),
         }))
       );
 

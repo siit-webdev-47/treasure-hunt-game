@@ -122,6 +122,11 @@ h3{
     color: black;
     background-color: #a4a8aa;
   }
+  .game-over-statistics td:last-child {
+    font-weight: bold;
+    color: black;
+    /* background-color: #a4a8aa; */
+  }
 
   .statisticsText {
     position: relative;
