@@ -2,7 +2,7 @@ import "../../App.css";
 import Map from "../Map/Map";
 // import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
 import PropTypes from "prop-types";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { AppSettingsContext } from "../../App";
 import AnswerWindow from "../Answer/AnswerWindow";
 
@@ -13,13 +13,28 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const { row, col } = map.playerPosition;
   const { visited } = map.tiles[row][col];
 
-  function handlePlayerMove(newRow, newCol) {
+  useEffect(() => {
+    if (!visited && player.canMove) {
+      setPlayer((prevPlayer) => ({
+        ...prevPlayer,
+        canMove: false,
+      }));
+    }
+  }, [visited, player.canMove, setPlayer]);
 
-    if (newRow === row && newCol === col) 
-      return;
+  function handlePlayerMove(newRow, newCol, oldRow, oldCol) {
 
-    let correctVar = map.tiles[row][col].correctAnsw ? 1 : -1;
-    const tileEnergy = correctVar * map.tiles[row][col].yieldValue;
+    const isOrthogonalMove = 
+    (newRow === oldRow && newCol !== oldCol) || 
+    (newRow !== oldRow && newCol === oldCol);
+
+  if (!isOrthogonalMove) {
+    console.log("Miscare invalida!");
+    return;
+  }
+
+    let correctVar = map.tiles[oldRow][oldCol].correctAnsw ? 1 : -1;
+    const tileEnergy = correctVar * map.tiles[oldRow][oldCol].yieldValue;
     const newPlayerEnergy =
       player.playerEnergy -
       map.tiles[newRow][newCol].requiredEnergy +
@@ -29,7 +44,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     if (
       player.playerEnergy > 0 &&
       newPlayerEnergy > 0 &&
-      !map.tiles[row][col].hasTreasure
+      !map.tiles[oldRow][oldCol].hasTreasure
     ) {
       // clears the visible property for the tiles around the player (2 tiles around)
       for (let i = -2; i <= 2; i++) {
@@ -61,9 +76,8 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
 
       setMap((prevMap) => {
         const updatedTiles = [...prevMap.tiles];
-        updatedTiles[row][col] = {
-          ...updatedTiles[row][col],
-          visited: true,
+        updatedTiles[oldRow][oldCol] = {
+          ...updatedTiles[oldRow][oldCol],
           yieldValue: 0,
         };
 
@@ -104,7 +118,18 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     
     const newPlayerEnergy = player.playerEnergy + tileEnergy + player.consecutiveAnswers.bonusEnergy;
 
-    map.tiles[row][col].yieldValue = 0;
+    setMap((prevMap) => {
+      const updatedTiles = [...prevMap.tiles];
+      updatedTiles[row][col] = {
+        ...updatedTiles[row][col],
+        visited: true,
+        yieldValue: 0,
+      };
+      return {
+        ...prevMap,
+        tiles: updatedTiles,
+      };
+    });
 
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
@@ -113,8 +138,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     }));
     onPlayerAnswer(newPlayerEnergy);
   };
-
-  console.log("Tile clicked in game ")
 
   return (
     <ClickContext.Provider value={handleContinueClick}>

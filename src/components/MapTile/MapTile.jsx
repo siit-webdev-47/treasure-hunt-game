@@ -48,7 +48,10 @@ function MapTile(props) {
   const playerOnTileClass = playerOnTile ? "playerOnTile" : "";
 
   const handleTileClick = () => {
-    props.onTileClick(row, col); 
+    const oldRow = playerPosition.row;
+    const oldCol = playerPosition.col;
+    props.onTileClick(row, col, oldRow, oldCol); 
+    
     console.log("Til clicked", props.mapTileData);
   };
 
