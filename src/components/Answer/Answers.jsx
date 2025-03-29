@@ -137,8 +137,7 @@ function Answers(props) {
                 <p>False! You lost {map.tiles[row][col].yieldValue} energy!</p>
               )}
               {strike && (
-                <div>
-                  <br />
+                <div className={`strikeBonus ${goodAnsw}`}>
                   <p> You are on a strike! {player.consecutiveAnswers.number}{" "} {strikeCorrect} answers! </p>
                   <p> You have {player.consecutiveAnswers.bonusEnergy} extra energy points</p>
                 </div>
