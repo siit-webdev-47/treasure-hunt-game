@@ -32,7 +32,11 @@ function App() {
 
     questionListUpdatePromise
       .then(updatedTiles => {
-        setMap({ ...map, tiles: updatedTiles })
+        setMap({ ...map, playerPosition: {
+          row: 0,
+          col: 0
+        },
+        tiles: updatedTiles })
         setPlayer(playerFactory(player.playerName, player.playerStartingEnergyLevel));
         setGamePhase('ONGOING');
       })
