@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { createContext, useContext } from "react";
 import { AppSettingsContext } from "../../App";
 import AnswerWindow from "../Answer/AnswerWindow";
+import { useState } from "react";
 
 export const ClickContext = createContext();
 
@@ -12,9 +13,20 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const { player, setPlayer, map, setMap } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
   const { visited } = map.tiles[row][col];
+  const [errorMessage, setErrorMessage] = useState("");
 
+  
+
+  function canMove() {
+    return map.tiles[row][col].visited;
+  }
 
   function handlePlayerMove(newRow, newCol, oldRow, oldCol) { 
+    if (!canMove()) {
+      setErrorMessage("Nu poți muta jucatorul daca nu raspunzi la intrebare");
+      return;
+    }
+    setErrorMessage("");
 
     const isValidMove = 
       (newRow === oldRow && (newCol === oldCol+1 || newCol === oldCol-1)) || 
@@ -136,6 +148,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       <div className="game-container">
         {/* <Player /> */}
         {!visited && <AnswerWindow />}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <Map mapData={map} playerData={player} onTileClick={handlePlayerMove}  />
       </div>
     </ClickContext.Provider>
