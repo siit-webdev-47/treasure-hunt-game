@@ -1,4 +1,6 @@
 import fetchQuestionList from "./fetchQuestionList";
+import generateEnergy from "./generateEnergy";
+import generateYield from "./generateYield";
 
 export const MAP_MIN_ROWS = 6;
 export const MAP_MAX_ROWS = 20;
@@ -26,6 +28,8 @@ function generateMapTiles(rows, cols, category='', difficulty='', initRow = 0, i
         for (let j = 0; j < cols; j++) {
           // adding question info to the tile 
           tiles[i][j] = { ...tiles[i][j], ...questionVect[i * cols + j] };
+          tiles[i][j].yieldValue = generateYield(tiles[i][j].difficulty);
+          tiles[i][j].requiredEnergy = generateEnergy(tiles[i][j].difficulty);
         }
       }
 

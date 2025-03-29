@@ -43,13 +43,16 @@
   border: 2px solid red;
   background-image: url('src/assets/img/hard2.png');
 }
+
+.strikeBonus{
+  font-weight: bold;
+  border: 2px solid;
+}
 .strikeBonus.false {
   color: rgb(255, 145, 0);
-  font-weight: bold;
-  border: 2px solid orange;
+  border-color: orange;
 }
 .strikeBonus.true {
   color: rgb(3, 170, 3);
-  font-weight: bold;
-  border: 2px solid rgb(3, 170, 3);
+  border-color:  rgb(3, 170, 3);
 }
