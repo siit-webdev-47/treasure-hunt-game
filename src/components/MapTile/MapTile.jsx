@@ -6,8 +6,6 @@ import energyLevel from "../Functions/energyLevel";
 
 function MapTile(props) {
 
-  // console.log("Props in MapTile:", props);
-
   const { player } = useContext(AppSettingsContext);
   const { playerEnergy } = player;
 
@@ -51,8 +49,6 @@ function MapTile(props) {
     const oldRow = playerPosition.row;
     const oldCol = playerPosition.col;
     props.onTileClick(row, col, oldRow, oldCol); 
-    
-    console.log("Til clicked", props.mapTileData);
   };
 
   return (

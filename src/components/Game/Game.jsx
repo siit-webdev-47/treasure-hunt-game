@@ -1,11 +1,9 @@
-import "../../App.css";
-import Map from "../Map/Map";
-// import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
-import PropTypes from "prop-types";
-import { createContext, useContext } from "react";
+import "./Game.css";
+import { createContext, useContext, useState } from "react";
 import { AppSettingsContext } from "../../App";
+import Map from "../Map/Map";
+import PropTypes from "prop-types";
 import AnswerWindow from "../Answer/AnswerWindow";
-import { useState } from "react";
 
 export const ClickContext = createContext();
 
@@ -14,7 +12,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const { row, col } = map.playerPosition;
   const { visited } = map.tiles[row][col];
   const [errorMessage, setErrorMessage] = useState("");
-
+  const [isErrorVisible, setIsErrorVisible] = useState(false);
   
 
   function canMove() {
@@ -23,19 +21,22 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
 
   function handlePlayerMove(newRow, newCol, oldRow, oldCol) { 
     if (!canMove()) {
-      setErrorMessage("Nu poți muta jucatorul daca nu raspunzi la intrebare");
+      setErrorMessage("You can't move the player if you don't answer the question.");
+      setIsErrorVisible(true);
       return;
     }
-    setErrorMessage("");
 
     const isValidMove = 
       (newRow === oldRow && (newCol === oldCol+1 || newCol === oldCol-1)) || 
       (newCol === oldCol && (newRow === oldRow+1 || newRow === oldRow-1))
 
     if (!isValidMove) {
-       console.log("Miscare invalida!");
-       return;
+      setErrorMessage("Invalid move!");
+      setIsErrorVisible(true);
+      return;
     }
+    setErrorMessage("");
+    setIsErrorVisible(false);
 
     let correctVar = map.tiles[oldRow][oldCol].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[oldRow][oldCol].yieldValue;
@@ -146,9 +147,19 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   return (
     <ClickContext.Provider value={handleContinueClick}>
       <div className="game-container">
-        {/* <Player /> */}
         {!visited && <AnswerWindow />}
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {isErrorVisible && (
+        <div className="error-popup">
+          <div className="error-content">
+            <p className="error-message">
+              {errorMessage}
+            </p>
+            <button className="close-button" onClick={() => setIsErrorVisible(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
         <Map mapData={map} playerData={player} onTileClick={handlePlayerMove}  />
       </div>
     </ClickContext.Provider>

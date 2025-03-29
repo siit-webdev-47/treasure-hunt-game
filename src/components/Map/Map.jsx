@@ -3,15 +3,12 @@ import MapTile from "../MapTile/MapTile";
 import PropTypes from 'prop-types';
 
 function Map(props) {
-  
-  console.log("Props in Map:", props);
 
   const {cols, tiles, playerPosition } = props.mapData;
   const { onTileClick } = props;
 
   return (
     <>
-      {/* <h2>Map Component</h2> */}
       <div
         className="game-map"
         style={{ gridTemplateColumns: `repeat(${cols}, 220px)` }}
