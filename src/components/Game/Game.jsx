@@ -2,7 +2,7 @@ import "../../App.css";
 import Map from "../Map/Map";
 // import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
 import PropTypes from "prop-types";
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext } from "react";
 import { AppSettingsContext } from "../../App";
 import AnswerWindow from "../Answer/AnswerWindow";
 
@@ -13,25 +13,17 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const { row, col } = map.playerPosition;
   const { visited } = map.tiles[row][col];
 
-  useEffect(() => {
-    if (!visited && player.canMove) {
-      setPlayer((prevPlayer) => ({
-        ...prevPlayer,
-        canMove: false,
-      }));
+
+  function handlePlayerMove(newRow, newCol, oldRow, oldCol) { 
+
+    const isValidMove = 
+      (newRow === oldRow && (newCol === oldCol+1 || newCol === oldCol-1)) || 
+      (newCol === oldCol && (newRow === oldRow+1 || newRow === oldRow-1))
+
+    if (!isValidMove) {
+       console.log("Miscare invalida!");
+       return;
     }
-  }, [visited, player.canMove, setPlayer]);
-
-  function handlePlayerMove(newRow, newCol, oldRow, oldCol) {
-
-    const isOrthogonalMove = 
-    (newRow === oldRow && newCol !== oldCol) || 
-    (newRow !== oldRow && newCol === oldCol);
-
-  if (!isOrthogonalMove) {
-    console.log("Miscare invalida!");
-    return;
-  }
 
     let correctVar = map.tiles[oldRow][oldCol].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[oldRow][oldCol].yieldValue;
