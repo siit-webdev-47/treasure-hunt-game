@@ -1,8 +1,12 @@
 import "./GameOver.css";
 import PropTypes from "prop-types";
 import GameOverStatistics from "./GameOverStatistics";
+import { useContext } from "react";
+import { AppSettingsContext } from "../../App";
 
 export default function GameOver({ newGame, resetGame, gameOverMsg }) {
+  const { player } = useContext(AppSettingsContext);
+  console.log(player.answeredQuestions);
   
   return (
     <div className="game-over-wrapper">

@@ -51,6 +51,15 @@ function Answers(props) {
         : player.consecutiveAnswers.number - 1;
     player.consecutiveAnswers.bonusEnergy =
       (player.consecutiveAnswers.correct ? 1 : -1) * bonusEnergyValue;
+
+
+    const answerDetails = {
+        question: map.tiles[row][col].question, 
+        trueAnswer: map.tiles[row][col].trueAnsw, 
+        falseAnswers: map.tiles[row][col].falseAnsw,
+        selectedOption
+    };
+    player.answeredQuestions.push(answerDetails);
   };
 
   const handleKey = () => {

@@ -26,10 +26,11 @@ function generateMapTiles(rows, cols, category='', difficulty='', initRow = 0, i
     .then(questionVect => {
       for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
-          // adding question info to the tile 
           tiles[i][j] = { ...tiles[i][j], ...questionVect[i * cols + j] };
-          tiles[i][j].yieldValue = generateYield(tiles[i][j].difficulty);
-          tiles[i][j].requiredEnergy = generateEnergy(tiles[i][j].difficulty);
+          if (i!==0 || j!==0) {
+            tiles[i][j].yieldValue = generateYield(tiles[i][j].difficulty);
+            tiles[i][j].requiredEnergy = generateEnergy(tiles[i][j].difficulty);
+          }
         }
       }
 

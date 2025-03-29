@@ -47,6 +47,7 @@
 .strikeBonus{
   font-weight: bold;
   border: 2px solid;
+  box-shadow: 0px 0px 5px 0px yellow;
 }
 .strikeBonus.false {
   color: rgb(255, 145, 0);
@@ -55,4 +56,5 @@
 .strikeBonus.true {
   color: rgb(3, 170, 3);
   border-color:  rgb(3, 170, 3);
+  
 }
