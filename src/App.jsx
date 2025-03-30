@@ -61,6 +61,7 @@ function App() {
       ...prevPlayer,
       playerEnergy: prevPlayer.playerStartingEnergy,
       playerResponses: defaultPlayerResponses,
+      answeredQuestions: [],
       consecutiveAnswers: {
         number: 0,
         correct: true,
