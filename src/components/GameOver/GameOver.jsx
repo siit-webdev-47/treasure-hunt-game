@@ -1,19 +1,17 @@
 import "./GameOver.css";
 import PropTypes from "prop-types";
 import GameOverStatistics from "./GameOverStatistics";
-import { useContext } from "react";
-import { AppSettingsContext } from "../../App";
+import ReviewQuestions from "./ReviewQuestions";
 
 export default function GameOver({ newGame, resetGame, gameOverMsg }) {
-  const { player } = useContext(AppSettingsContext);
-  console.log(player.answeredQuestions);
-  
+
   return (
     <div className="game-over-wrapper">
       <div className="game-over-container">
         <p>Game Over!</p>
         <p>{gameOverMsg}</p>
         <GameOverStatistics />
+        <ReviewQuestions />
         <div className="game-over-buttons">
           <button onClick={resetGame} className="reset round">
             Reset Round
