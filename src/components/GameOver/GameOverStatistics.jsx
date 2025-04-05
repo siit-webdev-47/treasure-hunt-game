@@ -1,8 +1,10 @@
+import "./GameOverStatistics.css";
 import { useContext } from "react";
+import PropTypes from "prop-types";
 import { AppSettingsContext } from "../../App";
 import difficultyIndex, { finalScore } from "../Functions/gameStatistics";
 
-export default function GameOverStatistics() {
+export default function GameOverStatistics( {onCloseStatistics} ) {
 
      const { player } = useContext(AppSettingsContext);
     
@@ -60,6 +62,10 @@ export default function GameOverStatistics() {
         </tbody>
       </table>
       <br />
+      <button onClick={onCloseStatistics}>Close</button>
     </div>
   );
 }
+GameOverStatistics.propTypes = {
+  onCloseStatistics: PropTypes.func.isRequired,
+};

@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AppSettingsContext } from "../../App";
 import ReviewedSingleQuestion from "./ReviewedSingleQuestion";
 
-export default function ReviewQuestions({ onClose }) {
+export default function ReviewQuestions({ onCloseReview }) {
   const { player } = useContext(AppSettingsContext);
 
   return (
@@ -16,12 +16,12 @@ export default function ReviewQuestions({ onClose }) {
         </div>
       ))}
       <br />
-      <button onClick={onClose}>Close</button>
+      <button onClick={onCloseReview}>Close</button>
     </div>
   );
 }
 
 ReviewQuestions.propTypes = {
   isVisible: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onCloseReview: PropTypes.func.isRequired,
 };

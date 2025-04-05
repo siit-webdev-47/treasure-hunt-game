@@ -1,160 +1,108 @@
-
-.game-over-wrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background-color: #e6e6e6e6;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
+.game-over-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #e6e6e6e6;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
 
-.game-over-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    row-gap: 1.5rem;
-    width: 50%;
-    height: 50%;
-    background-color: #a4a8aa;
-    /* border: 1px solid black; */
-    border-radius: 1.5rem;
-    box-shadow: 0px 0px 17px -3px gold;
-    padding: 1rem;
-
+.game-over-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  row-gap: 1.5rem;
+  width: 50%;
+  height: 50%;
+  background-color: #a4a8aa;
+  border-radius: 1.5rem;
+  box-shadow: 0px 0px 17px -3px gold;
+  padding: 1rem;
 }
 
-.game-over-container p:first-of-type{
-    /* font-size: 2.2rem;
-    color: var(--color2);
-    margin: 0; */
-    font-size: 1.8rem;
-    color: var(--color3);
-    margin: 0;
-    font-weight: bold;
+.game-over-container p:first-of-type {
+  font-size: 2.5rem;
+  color: var(--color3);
+  margin: 0;
+  font-weight: bold;
 }
 
-.game-over-container p:nth-of-type(2){
-    /* font-size: 1.2rem;
-    color: var(--color3); */
-    font-size: 2.2rem;
-    color: var(--color2);
-    margin: 0;
+.game-over-container p:nth-of-type(2) {
+  font-size: 2.2rem;
+  color: var(--color2);
+  margin: 0;
 }
 
+.reset-buttons-container {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
 .game-over-buttons {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 0.5rem;
 }
-.reset {
-    padding: 0.5rem;
-    font-size: 1rem;
-    font-weight: 500;
-    border-radius: 0.5rem;
-    border: none;
-    cursor: pointer;
-    background-color: transparent;
-    box-shadow: 0px 0px 5px 0px #7a7a71;
-    color: var(--color3);
-    padding: 0.7rem;
-    transition: 0.5s  ease-in-out;
-} 
-
-.reset:hover{
-    box-shadow: 0px 0px 5px 0px var(--color2);
-    color: var(--color2);
+.reset-buttons {
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  box-shadow: 0px 0px 5px 0px #7a7a71;
+  color: var(--color3);
+  transition: 0.5s ease-in-out;
 }
 
-
-.game-over-statistics{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 50%;
-    background-color: #a4a8aa;
-
-
+.reset-buttons:hover {
+  box-shadow: 0px 0px 5px 0px var(--color2);
+  color: var(--color2);
 }
-span  {
-    font-size: 1rem;
-    color: var(--color3);
-    margin: 0;
+
+.info-buttons-container {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2.5rem;
 }
-h3{
-    font-size: 1.2rem;
-    margin: 0;
-    font-weight: bold;
+
+.info-buttons {
+  white-space: nowrap;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  box-shadow: 0px 0px 5px 0px #7a7a71;
+  color: var(--color3);
+  transition: 0.5s ease-in-out;
+  width: 190px;
 }
-.game-over-statistics table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-    table-layout: fixed;
-  }
-  
-  .game-over-statistics th,
-  .game-over-statistics td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: center;
 
-  }
-  
-  .game-over-statistics th {
+.info-buttons:hover {
+  box-shadow: 0px 0px 5px 0px var(--color2);
+  color: var(--color2);
+}
 
-    color: black;
-    font-weight: bold; 
-  }
-  
-  .game-over-statistics td {
-    background-color: #f2f2f2;
-  }
-  .game-over-statistics td:first-child {
-    font-weight: bold;
-    color: black;
-    background-color: #a4a8aa;
-  }
-  .game-over-statistics td:last-child {
-    font-weight: bold;
-    color: black;
-    /* background-color: #a4a8aa; */
-  }
-
-  .statisticsText {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .infoWindow {
-    visibility: hidden;
-    width: 0;
-    background-color: black;
-    color: #a4a8aa;
-    text-align: center;
-    border-radius: 5px;
-    padding: 5px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%; 
-    left: 50%;
-    margin-left: -200px; 
-    box-shadow: 0px 0px 30px 0px var(--color2);
-    opacity: 0;
-    transform: scale(0);
-    transition: opacity 0.9s, transform 0.9s;
-  }
-  
-  .statisticsText:hover .infoWindow {
-    visibility: visible;
-    opacity: 1;
-    transform: scale(1);
-    width: 400px;
-  }
+span {
+  font-size: 1rem;
+  color: var(--color3);
+  margin: 0;
+}
+h3 {
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: bold;
+}
