@@ -19,7 +19,7 @@
   left: 50%;
   z-index: 100;
   transform: translate(-50%, 0%);
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.7);
   padding: 20px;
   border-radius: 1rem;
   box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.736);
@@ -45,9 +45,14 @@
 }
 
 .strikeBonus{
+  display: inline-block; 
+  text-align: center; 
+  vertical-align: middle; 
+  margin: 10 auto; 
   font-weight: bold;
   border: 2px solid;
   box-shadow: 0px 0px 5px 0px yellow;
+  padding: 0 2ch;
 }
 .strikeBonus.false {
   color: rgb(255, 145, 0);
@@ -56,5 +61,11 @@
 .strikeBonus.true {
   color: rgb(3, 170, 3);
   border-color:  rgb(3, 170, 3);
-  
+}
+.strikeBonus.true::after {
+  content: "👍";
+  font-size: 1.9rem;
+}
+.strikeBonus.false::after {
+  content: "👎";
 }
