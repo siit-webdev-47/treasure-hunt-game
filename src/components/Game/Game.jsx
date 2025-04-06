@@ -1,9 +1,8 @@
-import "../../App.css";
-import Map from "../Map/Map";
-import usePlayerMovement from "../Custom-Hooks/usePlayerMovement";
-import PropTypes from "prop-types";
-import { createContext, useContext } from "react";
+import "./Game.css";
+import { createContext, useContext, useState } from "react";
 import { AppSettingsContext } from "../../App";
+import Map from "../Map/Map";
+import PropTypes from "prop-types";
 import AnswerWindow from "../Answer/AnswerWindow";
 
 export const ClickContext = createContext();
@@ -12,10 +11,35 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const { player, setPlayer, map, setMap } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
   const { visited } = map.tiles[row][col];
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isErrorVisible, setIsErrorVisible] = useState(false);
+  
 
-  function handlePlayerMove(newRow, newCol, oldRow, oldCol) {
+  function canMove() {
+    return map.tiles[row][col].visited;
+  }
+
+  function handlePlayerMove(newRow, newCol, oldRow, oldCol) { 
+    if (!canMove()) {
+      setErrorMessage("You can't move the player if you don't answer the question.");
+      setIsErrorVisible(true);
+      return;
+    }
+
+    const isValidMove = 
+      (newRow === oldRow && (newCol === oldCol+1 || newCol === oldCol-1)) || 
+      (newCol === oldCol && (newRow === oldRow+1 || newRow === oldRow-1))
+
+    if (!isValidMove) {
+      setErrorMessage("Invalid move!");
+      setIsErrorVisible(true);
+      return;
+    }
+    setErrorMessage("");
+    setIsErrorVisible(false);
+
     let correctVar = map.tiles[oldRow][oldCol].correctAnsw ? 1 : -1;
-    const tileEnergy = correctVar * map.tiles[row][col].yieldValue;
+    const tileEnergy = correctVar * map.tiles[oldRow][oldCol].yieldValue;
     const newPlayerEnergy =
       player.playerEnergy -
       map.tiles[newRow][newCol].requiredEnergy +
@@ -25,7 +49,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     if (
       player.playerEnergy > 0 &&
       newPlayerEnergy > 0 &&
-      !map.tiles[row][col].hasTreasure
+      !map.tiles[oldRow][oldCol].hasTreasure
     ) {
       // clears the visible property for the tiles around the player (2 tiles around)
       for (let i = -2; i <= 2; i++) {
@@ -59,7 +83,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
         const updatedTiles = [...prevMap.tiles];
         updatedTiles[oldRow][oldCol] = {
           ...updatedTiles[oldRow][oldCol],
-          visited: true,
           yieldValue: 0,
         };
 
@@ -82,7 +105,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     onPlayerMove(newPlayerEnergy, { row: newRow, col: newCol });
   }
 
-  usePlayerMovement(row, col, map.rows, map.cols, handlePlayerMove);
+  // usePlayerMovement(row, col, map.rows, map.cols, handlePlayerMove);
 
   const handleContinueClick = () => {
 
@@ -100,7 +123,18 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     
     const newPlayerEnergy = player.playerEnergy + tileEnergy + player.consecutiveAnswers.bonusEnergy;
 
-    map.tiles[row][col].yieldValue = 0;
+    setMap((prevMap) => {
+      const updatedTiles = [...prevMap.tiles];
+      updatedTiles[row][col] = {
+        ...updatedTiles[row][col],
+        visited: true,
+        yieldValue: 0,
+      };
+      return {
+        ...prevMap,
+        tiles: updatedTiles,
+      };
+    });
 
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
@@ -113,9 +147,20 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   return (
     <ClickContext.Provider value={handleContinueClick}>
       <div className="game-container">
-        {/* <Player /> */}
         {!visited && <AnswerWindow />}
-        <Map mapData={map} />
+        {isErrorVisible && (
+        <div className="error-popup">
+          <div className="error-content">
+            <p className="error-message">
+              {errorMessage}
+            </p>
+            <button className="close-button" onClick={() => setIsErrorVisible(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+        <Map mapData={map} playerData={player} onTileClick={handlePlayerMove}  />
       </div>
     </ClickContext.Provider>
   );
