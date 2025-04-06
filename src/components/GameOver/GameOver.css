@@ -59,13 +59,13 @@
   border: none;
   cursor: pointer;
   background-color: transparent;
-  box-shadow: 0px 0px 5px 0px #7a7a71;
+  box-shadow: 0px 0px 15px 0px #7a7a71;
   color: var(--color3);
   transition: 0.5s ease-in-out;
 }
 
 .reset-buttons:hover {
-  box-shadow: 0px 0px 5px 0px var(--color2);
+  box-shadow: 0px 0px 10px 0px var(--color2);
   color: var(--color2);
 }
 
