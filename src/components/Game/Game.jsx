@@ -15,12 +15,9 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const [isErrorVisible, setIsErrorVisible] = useState(false);
   
 
-  function canMove() {
-    return map.tiles[row][col].visited;
-  }
 
   function handlePlayerMove(newRow, newCol, oldRow, oldCol) { 
-    if (!canMove()) {
+    if (!player.canMove) {
       setErrorMessage("You can't move the player if you don't answer the question.");
       setIsErrorVisible(true);
       return;
@@ -100,6 +97,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
       playerEnergy: newPlayerEnergy,
+      canMove: false,
     }));
 
     onPlayerMove(newPlayerEnergy, { row: newRow, col: newCol });
@@ -140,6 +138,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       ...prevPlayer,
       playerEnergy: newPlayerEnergy,
       playerResponses: newPlayerResponses,
+      canMove: true,
     }));
     onPlayerAnswer(newPlayerEnergy);
   };

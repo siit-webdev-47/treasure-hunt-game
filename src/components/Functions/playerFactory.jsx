@@ -7,6 +7,7 @@ const playerFactory = (playerName = "Anony Moose", playerEnergyLevel = 'hard') =
     playerStartingEnergyLevel: playerEnergyLevel,
     playerStartingEnergy: playerEnergy,
     playerEnergy,
+    canMove: true,
     playerResponses:{
       easyCorrect: 0,
       easyWrong: 0,
@@ -24,6 +25,7 @@ const playerFactory = (playerName = "Anony Moose", playerEnergyLevel = 'hard') =
     get playerAvatar() {
       return `https://api.dicebear.com/9.x/micah/svg?seed=${this.playerName}`;
     }
+    
   }
 };
 
