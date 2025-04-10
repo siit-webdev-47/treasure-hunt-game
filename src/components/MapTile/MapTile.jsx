@@ -7,7 +7,7 @@ import energyLevel from "../Functions/energyLevel";
 function MapTile(props) {
 
   const { player } = useContext(AppSettingsContext);
-  const { playerEnergy } = player;
+  const { playerEnergy , canMove } = player;
 
   const {
     row,
@@ -45,7 +45,21 @@ function MapTile(props) {
   const playerOnTile = playerPosition.row === row && playerPosition.col === col;
   const playerOnTileClass = playerOnTile ? "playerOnTile" : "";
 
-  const handleTileClick = () => {
+  const oldRow = playerPosition.row;
+  const oldCol = playerPosition.col;
+  const newRow = row;
+  const newCol = col;
+
+  const isValidMove =
+    (newRow === oldRow && (newCol === oldCol + 1 || newCol === oldCol - 1)) ||
+    (newCol === oldCol && (newRow === oldRow + 1 || newRow === oldRow - 1));
+
+  let isValidTile = "";
+    if (isValidMove && canMove) {
+      isValidTile = "valid-move-tile";
+    } 
+
+    const handleTileClick = () => {
     const oldRow = playerPosition.row;
     const oldCol = playerPosition.col;
     props.onTileClick(row, col, oldRow, oldCol); 
@@ -55,7 +69,7 @@ function MapTile(props) {
     <div
       className={`map-tile ${tileClass} ${treasureTileClass} ${energyLevel(
         player.playerEnergy
-      )} ${playerOnTileClass} ${difficulty} ${tileVisible}`}
+      )} ${playerOnTileClass} ${difficulty} ${tileVisible} ${isValidTile}`}
       onClick={handleTileClick}
     >
       <div>
