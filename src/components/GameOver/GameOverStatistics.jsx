@@ -3,9 +3,11 @@ import { useContext } from "react";
 import PropTypes from "prop-types";
 import { AppSettingsContext } from "../../App";
 import difficultyIndex, { finalScore } from "../Functions/gameStatistics";
+import TimeStatistics from "./TimeStatistics";
 
 export default function GameOverStatistics({ onCloseStatistics }) {
   const { player } = useContext(AppSettingsContext);
+  
 
   return (
     <div className="game-over-statistics">
@@ -23,9 +25,9 @@ export default function GameOverStatistics({ onCloseStatistics }) {
           </h5>
         </div>
       </div>
-
+     
       <div className="statisticsText">
-        <h3>Final Score: {finalScore(player.playerResponses)} points</h3>
+        <h3>Questions Score: {finalScore(player.playerResponses)} points</h3>
         <div className="infoWindow">
           <h4>
             This score represents the total points accumulated by the player.
@@ -41,6 +43,8 @@ export default function GameOverStatistics({ onCloseStatistics }) {
         </div>
       </div>
 
+      <TimeStatistics/>
+      
       <table>
         <thead>
           <tr>

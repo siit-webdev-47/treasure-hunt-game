@@ -26,6 +26,11 @@ function finalScore(playerResponses) {
   );
 }
 
+function calculateTimeStats(player) {
+  player.timeStats.averageAnsweringTime = player.timeStats.totalAnsweringTime / player.answeredQuestions.length;
+  return ;
+}
+
 export default difficultyIndex;
 
-export { finalScore };
+export { finalScore, calculateTimeStats };
