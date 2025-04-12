@@ -62,6 +62,10 @@ function App() {
       playerEnergy: prevPlayer.playerStartingEnergy,
       playerResponses: defaultPlayerResponses,
       answeredQuestions: [],
+      timeStats: {
+        totalAnsweringTime: 0,
+        averageAnsweringTime: 0,
+      },
       consecutiveAnswers: {
         number: 0,
         correct: true,

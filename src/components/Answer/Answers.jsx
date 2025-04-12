@@ -4,17 +4,17 @@ import { AppSettingsContext } from "../../App";
 import "./Answers.css";
 import { ClickContext } from "../Game/Game";
 
-function Answers(props) {
+function Answers({listAnsw,startTime}) {
   const { map, player } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
   const { question, trueAnsw, difficulty } = map.tiles[row][col];
-  const listAnsw = props.listAnsw;
+  // const { listAnsw } = props.listAnsw;
+  // const { startTime } = props.startTime;
   const [selectedOption, setSelectedOption] = useState(listAnsw[0]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const contextValue = useContext(ClickContext);
-
-
+ 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
     setIsSubmitted(false);
@@ -26,6 +26,10 @@ function Answers(props) {
   };
 
   const handleSubmit = () => {
+    const endTime = Date.now();
+    const questionTime = endTime - startTime;
+    player.timeStats.totalAnsweringTime += questionTime;
+
     setIsSubmitted(true);
     selectedOption == trueAnsw
       ? (map.tiles[row][col].correctAnsw = true)
@@ -165,4 +169,5 @@ export default Answers;
 
 Answers.propTypes = {
   listAnsw: PropTypes.any,
+  startTime: PropTypes.any,
 };

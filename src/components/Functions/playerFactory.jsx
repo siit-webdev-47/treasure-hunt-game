@@ -20,6 +20,10 @@ const playerFactory = (playerName = "Anony Moose", playerEnergyLevel = 'hard') =
     correct: true,
     bonusEnergy: 0,
     },
+    timeStats: {
+    totalAnsweringTime: 0,
+    averageAnsweringTime: 0,
+  },
     answeredQuestions: [],
     get playerAvatar() {
       return `https://api.dicebear.com/9.x/micah/svg?seed=${this.playerName}`;
