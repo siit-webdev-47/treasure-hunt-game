@@ -7,9 +7,10 @@ import TimeStatistics from "./TimeStatistics";
 import DifficultyIndex from "./DifficultyIndex";
 import QuestionsScore from "./QuestionScore";
 import AnswersTable from "./AnswersTable";
+import MapDifficulty from "./MapDifficulty";
 
 export default function GameOverStatistics({ onCloseStatistics }) {
-  const { player } = useContext(AppSettingsContext);
+  const { player, map } = useContext(AppSettingsContext);
   
 
   return (
@@ -17,6 +18,7 @@ export default function GameOverStatistics({ onCloseStatistics }) {
       <h2>Game Over Statistics</h2>
       <QuestionsScore player = { player } />
       <DifficultyIndex player = { player } /> 
+      <MapDifficulty map = {map} />
       <TimeStatistics player = { player }/>
       <AnswersTable player = { player } />
       
@@ -26,5 +28,5 @@ export default function GameOverStatistics({ onCloseStatistics }) {
   );
 }
 GameOverStatistics.propTypes = {
-  onCloseStatistics: PropTypes.func.isRequired,
+  onCloseStatistics: PropTypes.any,
 };

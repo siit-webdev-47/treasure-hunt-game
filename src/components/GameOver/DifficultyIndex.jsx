@@ -6,7 +6,7 @@ export default function DifficultyIndex({ player }) {
 
   return (
     <div className="statisticsText">
-      <h3>Difficulty Index: {difficultyIndex(player.playerResponses)}%</h3>
+      <h3>Question Difficulty Index: {difficultyIndex(player.playerResponses)}%</h3>
       <div className="infoWindow">
         <h4>
           This index represents the average difficulty of the questions

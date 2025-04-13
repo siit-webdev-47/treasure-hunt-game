@@ -3,15 +3,16 @@ import PropTypes from "prop-types";
 import { useContext, useState } from "react";
 import GameOverStatistics from "./GameOverStatistics";
 import ReviewQuestions from "./ReviewQuestions";
-import { calculateTimeStats } from "../Functions/gameStatistics";
+import { calculateFinalScore, calculateTimeStats } from "../Functions/gameStatistics";
 import { AppSettingsContext } from "../../App";
 
 export default function GameOver({ newGame, resetGame, gameOverMsg }) {
   const [showReviewQuestions, setShowReviewQuestions] = useState(false);
   const [showGameOverStatistics, setShowGameOverStatistics] = useState(false);
-  const { player } = useContext(AppSettingsContext);
-  
+  const { map, player } = useContext(AppSettingsContext);
+
   calculateTimeStats(player);
+  
 
   const reviewQuestionsClick = () => {
     setShowReviewQuestions(true);
@@ -35,6 +36,8 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
         <div> 
         <p>Game Over!</p>
         <p>{gameOverMsg}</p>
+
+        <h3>Final Score: {calculateFinalScore(map, player).toFixed(2)}</h3>
         </div>
         {showGameOverStatistics && (
           <GameOverStatistics onCloseStatistics={onCloseStatistics} />

@@ -41,5 +41,5 @@ export default function AnswersTable({ player }) {
 }
 
 AnswersTable.propTypes = {
-  player: PropTypes.func.isRequired,
+  player: PropTypes.any.isRequired,
 };
