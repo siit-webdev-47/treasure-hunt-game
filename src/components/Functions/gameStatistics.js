@@ -15,7 +15,7 @@ function difficultyIndex(playerResponses) {
     (sum, curr) => sum + curr,
     0
   );
-  return ((averageSum / totalSumResponses) * 100).toFixed(2);
+  return ((averageSum / totalSumResponses) * 100).toFixed(0);
 }
 
 function questionScore(playerResponses, map) {
@@ -48,13 +48,15 @@ function calculateMapDifficulty(map) {
 
 function calculateFinalScore(map, player) {
   
-let timeDifficultyIndex = 10 / (player.timeStats.averageAnsweringTime/1000);
-
-let finalScore = questionScore(player.playerResponses, map)  * timeDifficultyIndex * calculateMapDifficulty(map)/100 ;
+let finalScore = questionScore(player.playerResponses, map)  * timeDifficultyIndex(player) * calculateMapDifficulty(map)/100 ;
 return finalScore;
+}
+
+function timeDifficultyIndex(player) {
+  return 10 / (player.timeStats.averageAnsweringTime / 1000);
 }
 
 
 export default difficultyIndex;
 
-export { questionScore, calculateTimeStats, calculateMapDifficulty, calculateFinalScore };
+export { questionScore, calculateTimeStats, calculateMapDifficulty, calculateFinalScore, timeDifficultyIndex };

@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 import { useContext, useState } from "react";
 import GameOverStatistics from "./GameOverStatistics";
 import ReviewQuestions from "./ReviewQuestions";
-import {
-  calculateFinalScore,
-  calculateTimeStats,
-} from "../Functions/gameStatistics";
+import { calculateTimeStats } from "../Functions/gameStatistics";
 import { AppSettingsContext } from "../../App";
 import FinalScore from "./FinalScore";
 
