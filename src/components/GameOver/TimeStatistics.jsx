@@ -6,7 +6,7 @@ export default function TimeStatistics({ player }) {
     <div>
       <div className="statisticsText">
         <h3>
-          Time difficulty index: { timeDifficultyIndex(player).toFixed(4) *100 } %
+          Time Difficulty Index: { (timeDifficultyIndex(player) *100).toFixed(2) } %
         </h3>
         <div className="infoWindow">
           <h4>
