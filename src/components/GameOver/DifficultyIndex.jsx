@@ -22,5 +22,5 @@ export default function DifficultyIndex({ player }) {
 }
 
 DifficultyIndex.propTypes = {
-  player: PropTypes.func.isRequired,
+  player: PropTypes.any.isRequired,
 };

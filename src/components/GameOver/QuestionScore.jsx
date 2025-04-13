@@ -30,5 +30,5 @@ const { map } = useContext(AppSettingsContext);
 }
 
 QuestionsScore.propTypes = {
-  player: PropTypes.func.isRequired,
+  player: PropTypes.any.isRequired,
 };

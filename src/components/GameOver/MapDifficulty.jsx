@@ -19,5 +19,5 @@ export default function MapDifficulty({ map }) {
 }
 
 MapDifficulty.propTypes = {
-  map: PropTypes.func.isRequired,
+  map: PropTypes.any.isRequired,
 };
