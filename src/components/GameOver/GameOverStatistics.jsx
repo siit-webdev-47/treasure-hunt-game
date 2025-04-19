@@ -17,10 +17,13 @@ export default function GameOverStatistics({ onCloseStatistics }) {
     <div className="game-over-statistics">
       <h2>Game Over Statistics</h2>
       <QuestionsScore player = { player } />
-      <DifficultyIndex player = { player } /> 
-      <MapDifficulty map = {map} />
-      <TimeStatistics player = { player }/>
       <AnswersTable player = { player } />
+      <br />
+      <DifficultyIndex player = { player } /> 
+      <br />
+      <MapDifficulty map = {map} />
+      <br />
+      <TimeStatistics player = { player }/>
       
       <br />
       <button onClick={onCloseStatistics}>Close</button>

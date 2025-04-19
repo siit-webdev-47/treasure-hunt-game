@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { calculateFinalScore } from "../Functions/gameStatistics";
+import { calculateFinalScore, calculateMapDifficulty, questionScore, timeDifficultyIndex } from "../Functions/gameStatistics";
 
 export default function FinalScore({ player, map }) {
   return (
@@ -12,8 +12,15 @@ export default function FinalScore({ player, map }) {
         </h4>
         <h5>
           The score is calculated as follows: (questions score) * (time
-          difficulty index) * (map difficulty index)
+          difficulty index) * (map difficulty index) =
         </h5>
+        <h5>
+          = {questionScore(player.playerResponses, map)} * {(timeDifficultyIndex(player)).toFixed(2)} * {(calculateMapDifficulty(map) / 100)} =
+        </h5>
+        <h5>
+          = {calculateFinalScore(map, player).toFixed(2)}  
+        </h5>
+
       </div>
     </div>
   );
