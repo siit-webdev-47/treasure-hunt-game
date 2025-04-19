@@ -31,14 +31,7 @@ function Answers({listAnsw,startTime}) {
 
     
   goodAnsw = selectedOption == trueAnsw ? true : false;
-  // streak = player.consecutiveAnswers.number > 1 ? true : false;
-  // streakCorrect = player.consecutiveAnswers.correct
-  //  ? "correct"
-  //  : "wrong";
-  console.log("Before submit");
-  console.log("streakCorrect", streakCorrect);
-  console.log("streak", streak);  
-  console.log("goodAnsw", goodAnsw);
+
   const handleSubmit = () => {
     const endTime = Date.now();
     const questionTime = endTime - startTime;
@@ -75,22 +68,9 @@ function Answers({listAnsw,startTime}) {
     streakCorrect = player.consecutiveAnswers.correct
      ? "correct"
      : "wrong";
-  
-    console.log("Before playAudio");
-    console.log("streakCorrect", streakCorrect);
-    console.log("streak", streak);  
-    console.log("goodAnsw", goodAnsw);
 
     playAudio(goodAnsw, streak, streakCorrect);
   };
-
-  // const handleKey = () => {
-  //   setIsSubmitted(false);
-  //   setIsVisible(true);
-  // };
-
-  // document.addEventListener("keyup", handleKey);
-
 
   return (
     <>
