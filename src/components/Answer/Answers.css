@@ -44,7 +44,7 @@
   background-image: url('src/assets/img/hard2.png');
 }
 
-.strikeBonus{
+.streakBonus{
   display: inline-block; 
   text-align: center; 
   vertical-align: middle; 
@@ -55,19 +55,19 @@
   padding: 0 2ch;
   background-color: rgba(255, 255, 255, 0.6);
 }
-.strikeBonus.false {
+.streakBonus.false {
   color: rgb(255, 145, 0);
   border-color: orange;
 }
-.strikeBonus.true {
+.streakBonus.true {
   color: rgb(3, 170, 3);
   border-color:  rgb(3, 170, 3);
 }
-.strikeBonus.true::after {
+.streakBonus.true::after {
   content: "👍";
   font-size: 1.9rem;
 }
-.strikeBonus.false::after {
+.streakBonus.false::after {
   content: "👎";
 }
 .answerWindow button {

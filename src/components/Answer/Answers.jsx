@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { AppSettingsContext } from "../../App";
 import "./Answers.css";
 import { ClickContext } from "../Game/Game";
+import playAudio from "../Functions/playAudio";
 
 function Answers({listAnsw,startTime}) {
   const { map, player } = useContext(AppSettingsContext);
@@ -14,6 +15,9 @@ function Answers({listAnsw,startTime}) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const contextValue = useContext(ClickContext);
+  let goodAnsw = false;
+  let streak = player.consecutiveAnswers.number > 1 ? true : false;
+  let streakCorrect = "alpha";
  
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -25,23 +29,25 @@ function Answers({listAnsw,startTime}) {
     contextValue();
   };
 
+    
+  goodAnsw = selectedOption == trueAnsw ? true : false;
+  // streak = player.consecutiveAnswers.number > 1 ? true : false;
+  // streakCorrect = player.consecutiveAnswers.correct
+  //  ? "correct"
+  //  : "wrong";
+  console.log("Before submit");
+  console.log("streakCorrect", streakCorrect);
+  console.log("streak", streak);  
+  console.log("goodAnsw", goodAnsw);
   const handleSubmit = () => {
     const endTime = Date.now();
     const questionTime = endTime - startTime;
     player.timeStats.totalAnsweringTime += questionTime;
-
+    
     setIsSubmitted(true);
     selectedOption == trueAnsw
       ? (map.tiles[row][col].correctAnsw = true)
       : (map.tiles[row][col].correctAnsw = false);
-
-    const audioNr = String(Math.floor(Math.random() * 8) + 1).padStart(2, "0");
-    const correctAudioRef = `/src/assets/sounds/correct${audioNr}.mp3`;
-    const wrongAudioRef = `/src/assets/sounds/wrong${audioNr}.mp3`;
-
-    map.tiles[row][col].correctAnsw
-      ? new Audio(correctAudioRef).play()
-      : new Audio(wrongAudioRef).play();
 
     map.tiles[row][col].correctAnsw == player.consecutiveAnswers.correct
       ? player.consecutiveAnswers.number++
@@ -64,20 +70,27 @@ function Answers({listAnsw,startTime}) {
         selectedOption
     };
     player.answeredQuestions.push(answerDetails);
+
+    streak = player.consecutiveAnswers.number > 1 ? true : false;
+    streakCorrect = player.consecutiveAnswers.correct
+     ? "correct"
+     : "wrong";
+  
+    console.log("Before playAudio");
+    console.log("streakCorrect", streakCorrect);
+    console.log("streak", streak);  
+    console.log("goodAnsw", goodAnsw);
+
+    playAudio(goodAnsw, streak, streakCorrect);
   };
 
-  const handleKey = () => {
-    setIsSubmitted(false);
-    setIsVisible(true);
-  };
+  // const handleKey = () => {
+  //   setIsSubmitted(false);
+  //   setIsVisible(true);
+  // };
 
-  document.addEventListener("keyup", handleKey);
+  // document.addEventListener("keyup", handleKey);
 
-  let goodAnsw = selectedOption == trueAnsw ? true : false;
-  let strike = player.consecutiveAnswers.number > 1 ? true : false;
-  let strikeCorrect = player.consecutiveAnswers.correct
-    ? "correct"
-    : "wrong";
 
   return (
     <>
@@ -149,9 +162,9 @@ function Answers({listAnsw,startTime}) {
               {!goodAnsw && (
                 <p>False! You lost {map.tiles[row][col].yieldValue} energy!</p>
               )}
-              {strike && (
-                <div className={`strikeBonus ${goodAnsw}`}>
-                  <p> You are on a strike! {player.consecutiveAnswers.number}{" "} {strikeCorrect} answers! </p>
+              {streak && (
+                <div className={`streakBonus ${goodAnsw}`}>
+                  <p> You are on a streak! {player.consecutiveAnswers.number}{" "} {streakCorrect} answers! </p>
                   <p> You have {player.consecutiveAnswers.bonusEnergy} extra energy points</p>
                 </div>
               )}
