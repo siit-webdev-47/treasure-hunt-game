@@ -2,16 +2,25 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "./Timer.css";
 
-export default function Timer({ time, difficulty }) {
+export default function Timer({ time, difficulty, onTimeUp, stopTimer }) {
   const [seconds, setSeconds] = useState(time * 10);
 
   useEffect(() => {
+    if (stopTimer) return; 
+
     const interval = setInterval(() => {
-      setSeconds((prevSeconds) => prevSeconds <= 0 ? 0 : prevSeconds - 1);
+      setSeconds((prevSeconds) => {
+        if (prevSeconds <= 0) {
+          clearInterval(interval);
+          onTimeUp(); 
+          return 0;
+        }
+        return prevSeconds - 1;
+      });
     }, 100);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [stopTimer]);
 
   const percentage = (seconds / 10 / time) * 100;
 
@@ -31,7 +40,10 @@ export default function Timer({ time, difficulty }) {
     </div>
   );
 }
+
 Timer.propTypes = {
   time: PropTypes.number,
   difficulty: PropTypes.string,
+  onTimeUp: PropTypes.any,
+  stopTimer: PropTypes.any,
 };

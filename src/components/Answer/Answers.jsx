@@ -10,12 +10,12 @@ function Answers({listAnsw,startTime}) {
   const { map, player } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
   const { question, trueAnsw, difficulty } = map.tiles[row][col];
-  // const { listAnsw } = props.listAnsw;
-  // const { startTime } = props.startTime;
-  const [selectedOption, setSelectedOption] = useState(listAnsw[0]);
+
+  const [selectedOption, setSelectedOption] = useState("Time out");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const contextValue = useContext(ClickContext);
+
   let goodAnsw = false;
   let streak = player.consecutiveAnswers.number > 1 ? true : false;
   let streakCorrect = "alpha";
@@ -56,7 +56,8 @@ function Answers({listAnsw,startTime}) {
     player.consecutiveAnswers.bonusEnergy =
       (player.consecutiveAnswers.correct ? 1 : -1) * bonusEnergyValue;
 
-
+    console.log(`Selected option: ${selectedOption}`);
+    
     const answerDetails = {
         question: map.tiles[row][col].question, 
         trueAnswer: map.tiles[row][col].trueAnsw, 
@@ -73,11 +74,22 @@ function Answers({listAnsw,startTime}) {
     playAudio(goodAnsw, streak, streakCorrect);
   };
 
+  const handleTimeUp = () => {
+    setIsSubmitted(true); 
+    setSelectedOption("TimeOut"); 
+    handleSubmit(); 
+  };
+
   return (
     <>
       {isVisible && (
         <div className={`answerWindow ${difficulty}`}>
-          <Timer time = {20} difficulty = {difficulty} />
+          <Timer
+            time={20}
+            difficulty={difficulty}
+            onTimeUp={handleTimeUp}
+            stopTimer={isSubmitted}
+          />
           <header> Question : {question} </header>
           <>
             {!isSubmitted && (
