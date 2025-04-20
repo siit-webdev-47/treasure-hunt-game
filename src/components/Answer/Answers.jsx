@@ -4,6 +4,7 @@ import { AppSettingsContext } from "../../App";
 import "./Answers.css";
 import { ClickContext } from "../Game/Game";
 import playAudio from "../Functions/playAudio";
+import Timer from "./Timer";
 
 function Answers({listAnsw,startTime}) {
   const { map, player } = useContext(AppSettingsContext);
@@ -76,6 +77,7 @@ function Answers({listAnsw,startTime}) {
     <>
       {isVisible && (
         <div className={`answerWindow ${difficulty}`}>
+          <Timer time = {20} difficulty = {difficulty} />
           <p>Question : {question}</p>
           <>
             {!isSubmitted && (
