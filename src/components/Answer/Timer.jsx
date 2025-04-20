@@ -7,7 +7,7 @@ export default function Timer({ time, difficulty }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setSeconds((prevSeconds) => prevSeconds - 1);
+      setSeconds((prevSeconds) => prevSeconds <= 0 ? 0 : prevSeconds - 1);
     }, 100);
 
     return () => clearInterval(interval);

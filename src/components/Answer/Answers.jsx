@@ -78,7 +78,7 @@ function Answers({listAnsw,startTime}) {
       {isVisible && (
         <div className={`answerWindow ${difficulty}`}>
           <Timer time = {20} difficulty = {difficulty} />
-          <p>Question : {question}</p>
+          <header> Question : {question} </header>
           <>
             {!isSubmitted && (
               <>
