@@ -48,6 +48,10 @@ h4 {
 }
 
 .review-questions button:hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+.review-questions button:active {
   background-color: #2a2a2a;
   color: white;
 }

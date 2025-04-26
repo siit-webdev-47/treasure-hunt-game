@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import energyLevel from "../Functions/energyLevel";
 
 function MapTile(props) {
-
+  // const { mapTileData, playerPosition, playerData, onTileClick } = props;
   const { player } = useContext(AppSettingsContext);
   const { playerEnergy , canMove } = player;
 
@@ -19,6 +19,7 @@ function MapTile(props) {
     hasTreasure,
     category,
     difficulty,
+    isMoveValid,
   } = props.mapTileData;
   const playerPosition = props.playerPosition;
 
@@ -45,25 +46,17 @@ function MapTile(props) {
   const playerOnTile = playerPosition.row === row && playerPosition.col === col;
   const playerOnTileClass = playerOnTile ? "playerOnTile" : "";
 
-  const oldRow = playerPosition.row;
-  const oldCol = playerPosition.col;
-  const newRow = row;
-  const newCol = col;
-
-  const isValidMove =
-    (newRow === oldRow && (newCol === oldCol + 1 || newCol === oldCol - 1)) ||
-    (newCol === oldCol && (newRow === oldRow + 1 || newRow === oldRow - 1));
 
   let isValidTile = "";
-    if (isValidMove && canMove) {
+    if (isMoveValid && canMove) {
       isValidTile = "valid-move-tile";
     } 
 
     const handleTileClick = () => {
-    const oldRow = playerPosition.row;
-    const oldCol = playerPosition.col;
-    props.onTileClick(row, col, oldRow, oldCol); 
-  };
+      const oldRow = playerPosition.row;
+      const oldCol = playerPosition.col;
+      props.onTileClick(row, col, oldRow, oldCol); 
+    };
 
   return (
     <div
@@ -83,7 +76,7 @@ function MapTile(props) {
             <img
               src={player.playerAvatar}
               alt={`${player.playerName}'s player`}
-              className={`tile-avatar ${energyLevel(player.playerEnergy)}`}
+              className={`tile-avatar ${energyLevel(playerEnergy)}`}
             />
             <p className={energyLevel(playerEnergy)}>
               Energy Level : {playerEnergy}

@@ -14,24 +14,29 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isErrorVisible, setIsErrorVisible] = useState(false);
   
+  function isValidMove(oldRow, oldCol, newRow, newCol) {
+    return (
+      (newRow === oldRow && (newCol === oldCol + 1 || newCol === oldCol - 1)) ||
+      (newCol === oldCol && (newRow === oldRow + 1 || newRow === oldRow - 1))
+    );
+  }
 
+  function handlePlayerMove(newRow, newCol) {
+    const oldRow = map.playerPosition.row;
+    const oldCol = map.playerPosition.col;
 
-  function handlePlayerMove(newRow, newCol, oldRow, oldCol) { 
     if (!player.canMove) {
       setErrorMessage("You can't move the player if you don't answer the question.");
       setIsErrorVisible(true);
       return;
     }
 
-    const isValidMove = 
-      (newRow === oldRow && (newCol === oldCol+1 || newCol === oldCol-1)) || 
-      (newCol === oldCol && (newRow === oldRow+1 || newRow === oldRow-1))
-
-    if (!isValidMove) {
+    if (!isValidMove(oldRow, oldCol, newRow, newCol)) {
       setErrorMessage("Invalid move!");
       setIsErrorVisible(true);
       return;
     }
+
     setErrorMessage("");
     setIsErrorVisible(false);
 
@@ -159,7 +164,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
           </div>
         </div>
       )}
-        <Map mapData={map} playerData={player} onTileClick={handlePlayerMove}  />
+        <Map mapData={map} playerData={player} onTileClick={handlePlayerMove} isValidMove={isValidMove}  />
       </div>
     </ClickContext.Provider>
   );

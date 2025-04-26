@@ -11,9 +11,9 @@
     background-color: rgba(255, 255, 255, 0.9);
     padding: 20px;
     border-radius: 1rem;
-      border: solid 1px #000;
+    border: solid 1px #000;
     box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.736);
-    height: 400px;
+    /* height: 400px; */
 }
 .game-over-statistics table {
   width: 100%;
@@ -64,7 +64,7 @@
   padding: 5px;
   position: absolute;
   z-index: 10;
-  bottom: -100%;
+  bottom: -250%;
   left: 50%;
   margin-left: -200px;
   box-shadow: 0px 0px 30px 0px var(--color2);
@@ -95,7 +95,10 @@
   margin-top: auto;
   z-index: 1000;
 }
-.game-over-statistics button:hover {
-    background-color: #2a2a2a;
+.game-over-statistics button:active {
+    background-color: black;
     color: white;
+  }
+  .game-over-statistics button:hover {
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
   }

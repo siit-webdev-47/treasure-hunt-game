@@ -22,6 +22,6 @@ export default function ReviewQuestions({ onCloseReview }) {
 }
 
 ReviewQuestions.propTypes = {
-  isVisible: PropTypes.bool.isRequired,
+  isVisible: PropTypes.bool,
   onCloseReview: PropTypes.func.isRequired,
 };

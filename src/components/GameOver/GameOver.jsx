@@ -1,12 +1,18 @@
 import "./GameOver.css";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import GameOverStatistics from "./GameOverStatistics";
 import ReviewQuestions from "./ReviewQuestions";
+import { calculateTimeStats } from "../Functions/gameStatistics";
+import { AppSettingsContext } from "../../App";
+import FinalScore from "./FinalScore";
 
 export default function GameOver({ newGame, resetGame, gameOverMsg }) {
   const [showReviewQuestions, setShowReviewQuestions] = useState(false);
   const [showGameOverStatistics, setShowGameOverStatistics] = useState(false);
+  const { map, player } = useContext(AppSettingsContext);
+
+  calculateTimeStats(player);
 
   const reviewQuestionsClick = () => {
     setShowReviewQuestions(true);
@@ -27,9 +33,10 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
   return (
     <div className="game-over-wrapper">
       <div className="game-over-container">
-        <div> 
-        <p>Game Over!</p>
-        <p>{gameOverMsg}</p>
+        <div>
+          <p>Game Over!</p>
+          <p>{gameOverMsg}</p>
+          <FinalScore player={player} map={map} />
         </div>
         {showGameOverStatistics && (
           <GameOverStatistics onCloseStatistics={onCloseStatistics} />

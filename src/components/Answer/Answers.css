@@ -19,7 +19,7 @@
   left: 50%;
   z-index: 100;
   transform: translate(-50%, 0%);
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
   border-radius: 1rem;
   box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.736);
@@ -53,6 +53,7 @@
   border: 2px solid;
   box-shadow: 0px 0px 5px 0px yellow;
   padding: 0 2ch;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 .strikeBonus.false {
   color: rgb(255, 145, 0);
@@ -68,4 +69,25 @@
 }
 .strikeBonus.false::after {
   content: "👎";
+}
+.answerWindow button {
+  position: sticky;
+  bottom: 0;
+  align-self: center;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: solid 1px #000;
+  background-color: #ffffff;
+  color: black;
+  cursor: pointer;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  margin-top: auto;
+}
+.answerWindow button:hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+.answerWindow button:active {
+  background-color: #2a2a2a;
+  color: white;
 }

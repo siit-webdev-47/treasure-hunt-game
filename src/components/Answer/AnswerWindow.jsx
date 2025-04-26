@@ -8,9 +8,9 @@ function AnswerWindow() {
     const { row, col } = map.playerPosition;
     const { trueAnsw, falseAnsw } = map.tiles[row][col];
     const listAnsw = randomizeAnswers(trueAnsw, falseAnsw);
-
+    const startTime = Date.now();
     return(
-        <Answers listAnsw = { listAnsw } />
+        <Answers listAnsw = { listAnsw } startTime ={ startTime } />
     );
 }
 
