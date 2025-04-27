@@ -20,7 +20,7 @@ export default function Timer({ time, difficulty, onTimeUp, stopTimer }) {
     }, 100);
 
     return () => clearInterval(interval);
-  }, [stopTimer]);
+  }, [stopTimer, onTimeUp]);
 
   const percentage = (seconds / 10 / time) * 100;
 
