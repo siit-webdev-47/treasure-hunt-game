@@ -99,12 +99,12 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       });
     }
 
-    setPlayer((prevPlayer) => ({
-      ...prevPlayer,
-      playerEnergy: newPlayerEnergy,
-      canMove: false,
-    }));
-
+    if (map.tiles[newRow][newCol].visited) {
+      setPlayer((prevPlayer) => ({
+        ...prevPlayer,
+        canMove: true,
+      }));
+    }
     onPlayerMove(newPlayerEnergy, { row: newRow, col: newCol });
   }
 
