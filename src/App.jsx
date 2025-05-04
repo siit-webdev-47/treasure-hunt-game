@@ -70,7 +70,8 @@ function App() {
         number: 0,
         correct: true,
         bonusEnergy: 0,
-      }
+      },
+      canMove: true,
     }));
 
     setGamePhase('ONGOING');
