@@ -14,6 +14,12 @@
 }
 .valid-move-tile {
   cursor: pointer;
+  border : 2px solid green;
+  box-shadow: 10px 0 10px rgba(0, 0, 0, 0.45),
+  -10px 0 10px rgba(0, 0, 0, 0.45),
+  0 10px 10px rgba(0, 0, 0, 0.45),
+  0 -10px 10px rgba(0, 0, 0, 0.45);
+z-index: 997;
 }
 /* .map-tile.easy.visible {
   border: 2px solid rgb(3, 213, 3);
