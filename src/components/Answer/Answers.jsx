@@ -19,7 +19,7 @@ function Answers({ listAnsw, startTime }) {
 
   let goodAnsw = false;
   let streak = player.consecutiveAnswers.number > 1 ? true : false;
-  let streakCorrect = "alpha";
+  let streakCorrect = player.consecutiveAnswers.correct ? "correct" : "wrong";
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -65,8 +65,8 @@ function Answers({ listAnsw, startTime }) {
     };
     player.answeredQuestions.push(answerDetails);
 
-    streak = player.consecutiveAnswers.number > 1 ? true : false;
-    streakCorrect = player.consecutiveAnswers.correct ? "correct" : "wrong";
+    // streak = player.consecutiveAnswers.number > 1 ? true : false;
+    // streakCorrect = player.consecutiveAnswers.correct ? "correct" : "wrong";
 
     playAudio(goodAnsw, streak, streakCorrect);
   };
