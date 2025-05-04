@@ -84,6 +84,9 @@ function Answers({listAnsw,startTime}) {
     <>
       {isVisible && (
         <div className={`answerWindow ${difficulty}`}>
+          <div className={`answerHeader ${difficulty}`}>
+            <h2> {difficulty} question</h2>
+          </div>
           <Timer
             time={20}
             difficulty={difficulty}

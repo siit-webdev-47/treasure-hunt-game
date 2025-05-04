@@ -97,3 +97,17 @@
   background-color: #2a2a2a;
   color: white;
 }
+
+.answerHeader {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.answerHeader.easy {
+  color: green;
+}
+.answerHeader.medium {
+  color: rgb(0, 85, 255);
+}
+.answerHeader.hard {
+  color: red;
+}
