@@ -16,7 +16,7 @@ const defaultPlayerResponses = {
   hardCorrect: 0,
   hardWrong: 0,
 };
-const defaultMap = mapFactory(6, 6);
+const defaultMap = mapFactory(10, 10);
 const defaultPlayerEnergyLevel = 'hard';
 const defaultPlayer = playerFactory('Anony Moose', defaultPlayerEnergyLevel);
 
