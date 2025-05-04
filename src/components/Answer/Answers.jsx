@@ -5,8 +5,9 @@ import "./Answers.css";
 import { ClickContext } from "../Game/Game";
 import playAudio from "../Functions/playAudio";
 import Timer from "./Timer";
+import firstLetterCapital from "../Functions/firstLetterCapital";
 
-function Answers({listAnsw,startTime}) {
+function Answers({ listAnsw, startTime }) {
   const { map, player } = useContext(AppSettingsContext);
   const { row, col } = map.playerPosition;
   const { question, trueAnsw, difficulty } = map.tiles[row][col];
@@ -19,7 +20,7 @@ function Answers({listAnsw,startTime}) {
   let goodAnsw = false;
   let streak = player.consecutiveAnswers.number > 1 ? true : false;
   let streakCorrect = "alpha";
- 
+
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
     setIsSubmitted(false);
@@ -30,14 +31,13 @@ function Answers({listAnsw,startTime}) {
     contextValue();
   };
 
-    
   goodAnsw = selectedOption == trueAnsw ? true : false;
 
   const handleSubmit = () => {
     const endTime = Date.now();
     const questionTime = endTime - startTime;
     player.timeStats.totalAnsweringTime += questionTime;
-    
+
     setIsSubmitted(true);
     selectedOption == trueAnsw
       ? (map.tiles[row][col].correctAnsw = true)
@@ -46,8 +46,7 @@ function Answers({listAnsw,startTime}) {
     map.tiles[row][col].correctAnsw == player.consecutiveAnswers.correct
       ? player.consecutiveAnswers.number++
       : ((player.consecutiveAnswers.number = 1),
-        (player.consecutiveAnswers.correct =
-          map.tiles[row][col].correctAnsw));
+        (player.consecutiveAnswers.correct = map.tiles[row][col].correctAnsw));
 
     let bonusEnergyValue =
       player.consecutiveAnswers.number > 4
@@ -57,27 +56,25 @@ function Answers({listAnsw,startTime}) {
       (player.consecutiveAnswers.correct ? 1 : -1) * bonusEnergyValue;
 
     console.log(`Selected option: ${selectedOption}`);
-    
+
     const answerDetails = {
-        question: map.tiles[row][col].question, 
-        trueAnswer: map.tiles[row][col].trueAnsw, 
-        falseAnswers: map.tiles[row][col].falseAnsw,
-        selectedOption
+      question: map.tiles[row][col].question,
+      trueAnswer: map.tiles[row][col].trueAnsw,
+      falseAnswers: map.tiles[row][col].falseAnsw,
+      selectedOption,
     };
     player.answeredQuestions.push(answerDetails);
 
     streak = player.consecutiveAnswers.number > 1 ? true : false;
-    streakCorrect = player.consecutiveAnswers.correct
-     ? "correct"
-     : "wrong";
+    streakCorrect = player.consecutiveAnswers.correct ? "correct" : "wrong";
 
     playAudio(goodAnsw, streak, streakCorrect);
   };
 
   const handleTimeUp = () => {
-    setIsSubmitted(true); 
-    setSelectedOption("TimeOut"); 
-    handleSubmit(); 
+    setIsSubmitted(true);
+    setSelectedOption("TimeOut");
+    handleSubmit();
   };
 
   return (
@@ -85,7 +82,7 @@ function Answers({listAnsw,startTime}) {
       {isVisible && (
         <div className={`answerWindow ${difficulty}`}>
           <div className={`answerHeader ${difficulty}`}>
-            <h2> {difficulty} question</h2>
+            <h2> {firstLetterCapital(difficulty)} question</h2>
           </div>
           <Timer
             time={20}
@@ -161,8 +158,16 @@ function Answers({listAnsw,startTime}) {
               )}
               {streak && (
                 <div className={`streakBonus ${goodAnsw}`}>
-                  <p> You are on a streak! {player.consecutiveAnswers.number}{" "} {streakCorrect} answers! </p>
-                  <p> You have {player.consecutiveAnswers.bonusEnergy} extra energy points</p>
+                  <p>
+                    {" "}
+                    You are on a streak! {player.consecutiveAnswers.number}{" "}
+                    {streakCorrect} answers!{" "}
+                  </p>
+                  <p>
+                    {" "}
+                    You have {player.consecutiveAnswers.bonusEnergy} extra
+                    energy points
+                  </p>
                 </div>
               )}
               <p>Choose your next tile!</p>
