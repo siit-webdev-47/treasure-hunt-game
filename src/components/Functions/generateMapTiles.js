@@ -7,7 +7,14 @@ export const MAP_MAX_ROWS = 20;
 export const MAP_MIN_COLS = 6;
 export const MAP_MAX_COLS = 20;
 
-function generateMapTiles(rows, cols, category = '', subcategories = [], difficulty='', initRow = 0, initCol = 0) {
+function generateMapTiles(rows, cols, category = '', subcategories = [], difficulty='', initPlayerPosition = { row: 0, col: 0 }) {
+
+const { row: initRow, col: initCol } = initPlayerPosition;
+
+  // map.playerPosition = {
+  //   row: initRow,
+  //   col: initCol,
+  // };
 
   if (rows < MAP_MIN_ROWS || rows > MAP_MAX_ROWS) {
     console.error(`Rows too small or too large!`);
