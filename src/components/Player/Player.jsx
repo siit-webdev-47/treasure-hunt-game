@@ -5,7 +5,7 @@ import energyLevel from "../Functions/energyLevel";
 
 
 function Player() {
-  const { player, map } = useContext(AppSettingsContext);
+  const { player } = useContext(AppSettingsContext);
   const { playerName, playerEnergy, playerAvatar } = player;
 
   return (
@@ -17,6 +17,7 @@ function Player() {
         className={`avatar ${energyLevel(playerEnergy)}`}
       />
       <p className={energyLevel(playerEnergy)}>Energy Level : {playerEnergy}</p>
+      
     </>
   );
 }

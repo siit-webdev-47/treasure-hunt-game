@@ -3,10 +3,11 @@ import { useContext } from "react";
 import { AppSettingsContext } from "../../App";
 import PropTypes from "prop-types";
 import energyLevel from "../Functions/energyLevel";
+import PlayerScore from "../PlayerScore/PlayerScore";
 
 function MapTile(props) {
   // const { mapTileData, playerPosition, playerData, onTileClick } = props;
-  const { player } = useContext(AppSettingsContext);
+  const { player, map } = useContext(AppSettingsContext);
   const { playerEnergy , canMove } = player;
 
   const {
@@ -81,6 +82,8 @@ function MapTile(props) {
             <p className={energyLevel(playerEnergy)}>
               Energy Level : {playerEnergy}
             </p>
+
+            <PlayerScore player={player} map={map} />
           </>
         )}
       </div>

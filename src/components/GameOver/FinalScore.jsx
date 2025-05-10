@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { calculateFinalScore, calculateMapDifficulty, questionScore, timeDifficultyIndex } from "../Functions/gameStatistics";
 
 export default function FinalScore({ player, map }) {
+  
   return (
     <div className="statisticsText">
       <h3>Final Score: {calculateFinalScore(map, player).toFixed(2)}</h3>

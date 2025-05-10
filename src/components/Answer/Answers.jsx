@@ -6,6 +6,7 @@ import { ClickContext } from "../Game/Game";
 import playAudio from "../Functions/playAudio";
 import Timer from "./Timer";
 import firstLetterCapital from "../Functions/firstLetterCapital";
+import { calculateTimeStats } from "../Functions/gameStatistics";
 
 function Answers({ listAnsw, startTime }) {
   const { map, player } = useContext(AppSettingsContext);
@@ -29,6 +30,7 @@ function Answers({ listAnsw, startTime }) {
   const handleClick = () => {
     setIsVisible(false);
     contextValue();
+    calculateTimeStats(player);
   };
 
   goodAnsw = selectedOption == trueAnsw ? true : false;
@@ -36,7 +38,8 @@ function Answers({ listAnsw, startTime }) {
   const handleSubmit = () => {
     const endTime = Date.now();
     const questionTime = endTime - startTime;
-    player.timeStats.totalAnsweringTime += questionTime;
+
+    player.timeStats.totalAnsweringTime += questionTime;  
 
     setIsSubmitted(true);
     selectedOption == trueAnsw
@@ -54,8 +57,6 @@ function Answers({ listAnsw, startTime }) {
         : player.consecutiveAnswers.number - 1;
     player.consecutiveAnswers.bonusEnergy =
       (player.consecutiveAnswers.correct ? 1 : -1) * bonusEnergyValue;
-
-    console.log(`Selected option: ${selectedOption}`);
 
     const answerDetails = {
       question: map.tiles[row][col].question,

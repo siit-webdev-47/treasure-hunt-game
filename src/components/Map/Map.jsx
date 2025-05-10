@@ -3,7 +3,6 @@ import MapTile from "../MapTile/MapTile";
 import PropTypes from 'prop-types';
 
 function Map(props) {
-  
   const {cols, tiles, playerPosition } = props.mapData;
   const { onTileClick ,isValidMove} = props;
   const { row: oldRow, col: oldCol } = playerPosition;

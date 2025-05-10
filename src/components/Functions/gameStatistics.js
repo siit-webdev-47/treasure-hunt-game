@@ -34,6 +34,7 @@ function questionScore(playerResponses, map) {
 }
 
 function calculateTimeStats(player) {
+
   player.timeStats.averageAnsweringTime =
     player.timeStats.totalAnsweringTime / player.answeredQuestions.length;
   return;
@@ -49,6 +50,7 @@ function calculateMapDifficulty(map) {
 function calculateFinalScore(map, player) {
   
 let finalScore = questionScore(player.playerResponses, map)  * timeDifficultyIndex(player) * calculateMapDifficulty(map)/100 ;
+
 return finalScore;
 }
 
