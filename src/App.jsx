@@ -27,7 +27,7 @@ function App() {
   const [gameOverMsg, setGameOverMsg] = useState('')
 
   const startGame = () => {
-    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category, map.questionDifficulty);
+    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category, map.subcategories, map.questionDifficulty);
     setMap({ ...map, tiles });
 
     questionListUpdatePromise
@@ -45,7 +45,7 @@ function App() {
 
 
   const resetGame = () => {
-    const { questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category, map.questionDifficulty);
+    const { questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category, map.subcategories, map.questionDifficulty);
     questionListUpdatePromise
     .then(updatedTiles => {
     setMap((prevMap) => ({
