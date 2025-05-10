@@ -47,6 +47,9 @@ function Settings({ onStartGame }) {
     map.category = selectedCategory;
     map.questionDifficulty = questionDifficulty;
 
+    console.log(`Selected category in Settings: ${selectedCategory}`);
+    
+
     player.playerName = playerName;
     player.playerStartingEnergyLevel = energyLevel
       

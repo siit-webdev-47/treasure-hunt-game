@@ -9,6 +9,8 @@ export const MAP_MAX_COLS = 20;
 
 function generateMapTiles(rows, cols, category='', difficulty='', initRow = 0, initCol = 0) {
 
+  console.log(`Selected category in GenerateMapTiles: ${category}`);
+
   if (rows < MAP_MIN_ROWS || rows > MAP_MAX_ROWS) {
     console.error(`Rows too small or too large!`);
     return null;

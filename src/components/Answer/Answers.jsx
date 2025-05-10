@@ -65,8 +65,8 @@ function Answers({ listAnsw, startTime }) {
     };
     player.answeredQuestions.push(answerDetails);
 
-    // streak = player.consecutiveAnswers.number > 1 ? true : false;
-    // streakCorrect = player.consecutiveAnswers.correct ? "correct" : "wrong";
+    streak = player.consecutiveAnswers.number > 1 ? true : false;
+    streakCorrect = player.consecutiveAnswers.correct ? "correct" : "wrong";
 
     playAudio(goodAnsw, streak, streakCorrect);
   };
