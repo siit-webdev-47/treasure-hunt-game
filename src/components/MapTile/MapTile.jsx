@@ -82,7 +82,6 @@ function MapTile(props) {
             <p className={energyLevel(playerEnergy)}>
               Energy Level : {playerEnergy}
             </p>
-
             <PlayerScore player={player} map={map} />
           </>
         )}
