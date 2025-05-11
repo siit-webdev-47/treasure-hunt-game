@@ -40,6 +40,8 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     setErrorMessage("");
     setIsErrorVisible(false);
 
+  
+
     let correctVar = map.tiles[oldRow][oldCol].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[oldRow][oldCol].yieldValue;
     const newPlayerEnergy =
@@ -47,6 +49,12 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       map.tiles[newRow][newCol].requiredEnergy +
       tileEnergy;
 
+    console.log(`*****`);
+    console.log(`energie player initial ${player.playerEnergy}`);
+    console.log(`energie casuta consumata ${map.tiles[newRow][newCol].requiredEnergy}`);
+    console.log(`energie player dupa mutare ${newPlayerEnergy}`);
+
+    
     // set tiles as visited and clears the energy yeld if the player moved
     if (
       player.playerEnergy > 0 &&
@@ -86,6 +94,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
         updatedTiles[oldRow][oldCol] = {
           ...updatedTiles[oldRow][oldCol],
           yieldValue: 0,
+          visited: true,
         };
 
         return {
@@ -102,6 +111,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     if (map.tiles[newRow][newCol].visited) {
       setPlayer((prevPlayer) => ({
         ...prevPlayer,
+        playerEnergy: newPlayerEnergy,
         canMove: true,
       }));
     }

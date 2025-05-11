@@ -56,6 +56,7 @@ function App() {
       },
       tiles: updatedTiles,
     }));
+    
 
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
