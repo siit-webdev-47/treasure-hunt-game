@@ -25,7 +25,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     const oldRow = map.playerPosition.row;
     const oldCol = map.playerPosition.col;
 
-    if (!player.canMove) {
+    if (!player.canMove || !visited) {
       setErrorMessage("You can't move the player if you don't answer the question.");
       setIsErrorVisible(true);
       return;
@@ -48,11 +48,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       player.playerEnergy -
       map.tiles[newRow][newCol].requiredEnergy +
       tileEnergy;
-
-    console.log(`*****`);
-    console.log(`energie player initial ${player.playerEnergy}`);
-    console.log(`energie casuta consumata ${map.tiles[newRow][newCol].requiredEnergy}`);
-    console.log(`energie player dupa mutare ${newPlayerEnergy}`);
 
     
     // set tiles as visited and clears the energy yeld if the player moved
