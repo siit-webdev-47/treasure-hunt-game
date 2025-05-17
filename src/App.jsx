@@ -50,6 +50,7 @@ function App() {
       );
       setGamePhase("ONGOING");
     });
+
   };
 
   const resetGame = () => {
