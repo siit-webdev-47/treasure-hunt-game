@@ -45,8 +45,8 @@ function Settings({ onStartGame }) {
     map.cols = cols;
     map.rows = rows;
     map.category = selectedCategory;
+    map.subcategories = categories[selectedCategory];
     map.questionDifficulty = questionDifficulty;
-
     player.playerName = playerName;
     player.playerStartingEnergyLevel = energyLevel
       

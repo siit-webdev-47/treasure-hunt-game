@@ -1,11 +1,12 @@
-async function fetchQuestionList(number, categories = "", difficulty = "") {
+async function fetchQuestionList(number, categories = "", subcategories = [], difficulty = "") {
   try {
     let apiQuestionVect = [];
 
     while (number > 0) {
       let apiUrl = `https://the-trivia-api.com/api/questions?limit=${number}`;
+
       if (categories.length) {
-        apiUrl += '&categories=' + categories.toString();
+        apiUrl += '&categories=' + subcategories.toString();
       }
     
       if (difficulty) {

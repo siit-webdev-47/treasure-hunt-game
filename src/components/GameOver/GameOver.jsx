@@ -13,7 +13,7 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
   const { map, player } = useContext(AppSettingsContext);
 
   calculateTimeStats(player);
-
+  
   const reviewQuestionsClick = () => {
     setShowReviewQuestions(true);
   };

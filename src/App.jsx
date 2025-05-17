@@ -6,7 +6,7 @@ import GameOver from "./components/GameOver/GameOver";
 import generateMapTiles from "./components/Functions/generateMapTiles";
 import mapFactory from "./components/Functions/mapFactory";
 import playerFactory from "./components/Functions/playerFactory";
-
+import generateRandomPlayerPosition from "./components/Functions/generateRandomPlayerPosition";
 
 const defaultPlayerResponses = {
   easyCorrect: 0,
@@ -17,77 +17,87 @@ const defaultPlayerResponses = {
   hardWrong: 0,
 };
 const defaultMap = mapFactory(10, 10);
-const defaultPlayerEnergyLevel = 'hard';
-const defaultPlayer = playerFactory('Anony Moose', defaultPlayerEnergyLevel);
+const defaultPlayerEnergyLevel = "hard";
+const defaultPlayer = playerFactory("Anony Moose", defaultPlayerEnergyLevel);
 
 function App() {
-  const [gamePhase, setGamePhase] = useState('SETTINGS');
+  const [gamePhase, setGamePhase] = useState("SETTINGS");
   const [player, setPlayer] = useState(defaultPlayer);
   const [map, setMap] = useState(defaultMap);
-  const [gameOverMsg, setGameOverMsg] = useState('')
+  const [gameOverMsg, setGameOverMsg] = useState("");
 
   const startGame = () => {
-    const { tiles, questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category, map.questionDifficulty);
+
+    map.playerPosition = generateRandomPlayerPosition( map.rows, map.cols );
+    const { tiles, questionListUpdatePromise } = generateMapTiles(
+      map.rows,
+      map.cols,
+      map.category,
+      map.subcategories,
+      map.questionDifficulty,
+      map.playerPosition
+    );
     setMap({ ...map, tiles });
 
-    questionListUpdatePromise
-      .then(updatedTiles => {
-        setMap({ ...map, playerPosition: {
-          row: 0,
-          col: 0
-        },
-        tiles: updatedTiles })
-        setPlayer(playerFactory(player.playerName, player.playerStartingEnergyLevel));
-        setGamePhase('ONGOING');
-      })
-
+    questionListUpdatePromise.then((updatedTiles) => {
+      setMap({
+        ...map,
+        playerPosition: map.playerPosition,
+        tiles: updatedTiles,
+      });
+      setPlayer(
+        playerFactory(player.playerName, player.playerStartingEnergyLevel)
+      );
+      setGamePhase("ONGOING");
+    });
   };
 
-
   const resetGame = () => {
-    const { questionListUpdatePromise } = generateMapTiles(map.rows, map.cols, map.category, map.questionDifficulty);
-    questionListUpdatePromise
-    .then(updatedTiles => {
-    setMap((prevMap) => ({
-      ...prevMap,
-      playerPosition: {
-        row: 0,
-        col: 0
-      },
-      tiles: updatedTiles,
-    }));
-    
+    map.playerPosition = generateRandomPlayerPosition( map.rows, map.cols );
+    const { questionListUpdatePromise } = generateMapTiles(
+      map.rows,
+      map.cols,
+      map.category,
+      map.subcategories,
+      map.questionDifficulty,
+      map.playerPosition
+    );
+    questionListUpdatePromise.then((updatedTiles) => {
+      setMap((prevMap) => ({
+        ...prevMap,
+        playerPosition: map.playerPosition ,
+        tiles: updatedTiles,
+      }));
 
-    setPlayer((prevPlayer) => ({
-      ...prevPlayer,
-      playerEnergy: prevPlayer.playerStartingEnergy,
-      playerResponses: defaultPlayerResponses,
-      answeredQuestions: [],
-      timeStats: {
-        totalAnsweringTime: 0,
-        averageAnsweringTime: 0,
-      },
-      consecutiveAnswers: {
-        number: 0,
-        correct: true,
-        bonusEnergy: 0,
-      },
-      canMove: true,
-    }));
+      setPlayer((prevPlayer) => ({
+        ...prevPlayer,
+        playerEnergy: prevPlayer.playerStartingEnergy,
+        playerResponses: defaultPlayerResponses,
+        answeredQuestions: [],
+        timeStats: {
+          totalAnsweringTime: 0,
+          averageAnsweringTime: 0,
+        },
+        consecutiveAnswers: {
+          number: 0,
+          correct: true,
+          bonusEnergy: 0,
+        },
+        canMove: true,
+      }));
 
-    setGamePhase('ONGOING');
-  })};
-
+      setGamePhase("ONGOING");
+    });
+  };
 
   const newGame = () => {
     setPlayer(defaultPlayer);
-    setGamePhase('SETTINGS')
+    setGamePhase("SETTINGS");
   };
 
-
-  const evaluateGameState = (energy, position = {row : 1 , col : 1} ) => {
+  const evaluateGameState = (energy, position = { row: 1, col: 1 }) => {
     if (energy <= 0) {
-      setGamePhase('GAME_OVER');
+      setGamePhase("GAME_OVER");
       setGameOverMsg("You ran out of energy!🪦");
       return { gameOverMsg };
     }
@@ -95,7 +105,7 @@ function App() {
     const { row, col } = position;
 
     if (map.tiles[row][col].hasTreasure) {
-      setGamePhase('GAME_OVER');
+      setGamePhase("GAME_OVER");
       setGameOverMsg("🏆 You found the treasure! 💰");
       return { gameOverMsg };
     }
@@ -104,7 +114,7 @@ function App() {
   const onPlayerMove = (updatedEnergy, updatedPosition) => {
     evaluateGameState(updatedEnergy, updatedPosition);
   };
-  
+
   const onPlayerAnswer = (updatedEnergy) => {
     evaluateGameState(updatedEnergy);
   };
@@ -112,17 +122,24 @@ function App() {
   return (
     <>
       <h1>Treasure Hunt</h1>
-      <AppSettingsContext.Provider value={{ player, setPlayer, map, setMap, gamePhase }}>
-        {gamePhase === 'SETTINGS' && <Settings onStartGame={startGame} />}
-        {gamePhase === "ONGOING" && <Game onPlayerMove={onPlayerMove} onPlayerAnswer={onPlayerAnswer} />}
-        {gamePhase === 'GAME_OVER' && <GameOver newGame={newGame} resetGame={resetGame} gameOverMsg={gameOverMsg} />}
+      <AppSettingsContext.Provider
+        value={{ player, setPlayer, map, setMap, gamePhase }}
+      >
+        {gamePhase === "SETTINGS" && <Settings onStartGame={startGame} />}
+        {gamePhase === "ONGOING" && (
+          <Game onPlayerMove={onPlayerMove} onPlayerAnswer={onPlayerAnswer} />
+        )}
+        {gamePhase === "GAME_OVER" && (
+          <GameOver
+            newGame={newGame}
+            resetGame={resetGame}
+            gameOverMsg={gameOverMsg}
+          />
+        )}
       </AppSettingsContext.Provider>
-
     </>
   );
 }
 
 export const AppSettingsContext = createContext();
 export default App;
-
-
