@@ -13,7 +13,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const { visited } = map.tiles[row][col];
   const [errorMessage, setErrorMessage] = useState("");
   const [isErrorVisible, setIsErrorVisible] = useState(false);
-  
+
   function isValidMove(oldRow, oldCol, newRow, newCol) {
     return (
       (newRow === oldRow && (newCol === oldCol + 1 || newCol === oldCol - 1)) ||
@@ -40,7 +40,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     setErrorMessage("");
     setIsErrorVisible(false);
 
-  
+
 
     let correctVar = map.tiles[oldRow][oldCol].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[oldRow][oldCol].yieldValue;
@@ -49,7 +49,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       map.tiles[newRow][newCol].requiredEnergy +
       tileEnergy;
 
-    
+
     // set tiles as visited and clears the energy yeld if the player moved
     if (
       player.playerEnergy > 0 &&
@@ -103,13 +103,12 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       });
     }
 
-    if (map.tiles[newRow][newCol].visited) {
-      setPlayer((prevPlayer) => ({
-        ...prevPlayer,
-        playerEnergy: newPlayerEnergy,
-        canMove: true,
-      }));
-    }
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      playerEnergy: newPlayerEnergy,
+      canMove: true,
+    }));
+
     onPlayerMove(newPlayerEnergy, { row: newRow, col: newCol });
   }
 
@@ -123,12 +122,12 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       ...player.playerResponses,
       [property]: player.playerResponses[property] + 1,
     };
-    
 
-      
+
+
     let correctVar = map.tiles[row][col].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[row][col].yieldValue;
-    
+
     const newPlayerEnergy = player.playerEnergy + tileEnergy + player.consecutiveAnswers.bonusEnergy;
 
     setMap((prevMap) => {
@@ -158,18 +157,18 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       <div className="game-container">
         {!visited && <AnswerWindow />}
         {isErrorVisible && (
-        <div className="error-popup">
-          <div className="error-content">
-            <p className="error-message">
-              {errorMessage}
-            </p>
-            <button className="close-button" onClick={() => setIsErrorVisible(false)}>
-              Close
-            </button>
+          <div className="error-popup">
+            <div className="error-content">
+              <p className="error-message">
+                {errorMessage}
+              </p>
+              <button className="close-button" onClick={() => setIsErrorVisible(false)}>
+                Close
+              </button>
+            </div>
           </div>
-        </div>
-      )}
-        <Map mapData={map} playerData={player} onTileClick={handlePlayerMove} isValidMove={isValidMove}  />
+        )}
+        <Map mapData={map} playerData={player} onTileClick={handlePlayerMove} isValidMove={isValidMove} />
       </div>
     </ClickContext.Provider>
   );
