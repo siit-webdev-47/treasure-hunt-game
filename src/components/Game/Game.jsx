@@ -1,5 +1,5 @@
 import "./Game.css";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { AppSettingsContext } from "../../App";
 import Map from "../Map/Map";
 import PropTypes from "prop-types";
@@ -14,6 +14,15 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isErrorVisible, setIsErrorVisible] = useState(false);
 
+   useEffect(() => {
+    if (!map.tiles[row][col].visited && player.canMove) {
+      setPlayer((prevPlayer) => ({
+        ...prevPlayer,
+        canMove: false,
+      }));
+    }
+  }, [row, col]);
+
   function isValidMove(oldRow, oldCol, newRow, newCol) {
     return (
       (newRow === oldRow && (newCol === oldCol + 1 || newCol === oldCol - 1)) ||
@@ -25,8 +34,8 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     const oldRow = map.playerPosition.row;
     const oldCol = map.playerPosition.col;
 
-    if (!player.canMove || !visited) {
-      setErrorMessage("You can't move the player if you don't answer the question.");
+    if (!player.canMove) {
+      setErrorMessage("You can't move the player .");
       setIsErrorVisible(true);
       return;
     }
