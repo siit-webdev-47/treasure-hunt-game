@@ -119,7 +119,6 @@ function Settings({ onStartGame }) {
             className="input-settings"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-          
           >
             <option value="">Select a category</option>
             {Object.keys(categories).map((category) => ( 

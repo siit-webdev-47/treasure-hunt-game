@@ -17,7 +17,6 @@ function Player() {
         className={`avatar ${energyLevel(playerEnergy)}`}
       />
       <p className={energyLevel(playerEnergy)}>Energy Level : {playerEnergy}</p>
-      
     </>
   );
 }

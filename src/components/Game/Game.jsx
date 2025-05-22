@@ -121,8 +121,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     onPlayerMove(newPlayerEnergy, { row: newRow, col: newCol });
   }
 
-  // usePlayerMovement(row, col, map.rows, map.cols, handlePlayerMove);
-
   const handleContinueClick = () => {
 
     const responseType = map.tiles[row][col].correctAnsw ? "Correct" : "Wrong";
@@ -131,8 +129,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       ...player.playerResponses,
       [property]: player.playerResponses[property] + 1,
     };
-
-
 
     let correctVar = map.tiles[row][col].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[row][col].yieldValue;

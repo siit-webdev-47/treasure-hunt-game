@@ -9,7 +9,7 @@ export const MAP_MAX_COLS = 20;
 
 function generateMapTiles(rows, cols, category = '', subcategories = [], difficulty='', initPlayerPosition = { row: 0, col: 0 }) {
 
-const { row: initRow, col: initCol } = initPlayerPosition;
+  const { row: initRow, col: initCol } = initPlayerPosition;
 
   if (rows < MAP_MIN_ROWS || rows > MAP_MAX_ROWS) {
     console.error(`Rows too small or too large!`);
@@ -35,7 +35,6 @@ const { row: initRow, col: initCol } = initPlayerPosition;
           }
         }
       }
-
       return [...tiles]
     });
 
@@ -49,8 +48,6 @@ const { row: initRow, col: initCol } = initPlayerPosition;
         visible: i == initRow && j == initCol ? true : false,
         requiredEnergy: 0,
         yieldValue: 0,
-        // requiredEnergy: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 5 + 1),
-        // yieldValue: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 9 + 1),
         hasTreasure: false,
         question: "",
         category: "",
@@ -61,7 +58,6 @@ const { row: initRow, col: initCol } = initPlayerPosition;
       };
     }
   }
-  
 
   const treasureCoordinates = generateTreasure(rows, cols, initRow, initCol);
   tiles[treasureCoordinates.row][treasureCoordinates.col].hasTreasure = true;
