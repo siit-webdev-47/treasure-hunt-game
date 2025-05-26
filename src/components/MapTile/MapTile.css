@@ -1,17 +1,38 @@
 .map-tile {
   aspect-ratio: 1;
-  border: 1px solid lightgray;
+  border: 2.5px solid #b0b0b0;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   border-radius: 1.5rem;
   color: black;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.55) 0%, transparent 65%),
+    linear-gradient(225deg, rgba(255,255,255,0.55) 0%, transparent 75%),
+    linear-gradient(315deg, rgba(0,0,0,0.28) 0%, transparent 80%),
+    linear-gradient(45deg, rgba(0,0,0,0.18) 0%, transparent 80%),
+    radial-gradient(ellipse 60% 60% at 50% 45%, #f8f8f8 60%, #e0e0e0 100%, #b0b0b0 120%);
+  box-shadow:
+    0 12px 32px 0 rgba(0,0,0,0.32),      
+    0 2px 0 0 #fff inset,               
+    0 -8px 24px 0 #bdbdbd inset,         
+    0 0 0 8px rgba(255,255,255,0.08) inset; 
+  transition: background 0.3s, box-shadow 0.3s;
+  overflow: hidden;
 }
+.map-tile:hover {
+    background: radial-gradient(ellipse 80% 70% at 50% 35%);
+  box-shadow:
+    0 12px 32px 0 rgba(0,0,0,0.28),
+    0 4px 0 0 #fff inset,
+    0 -6px 18px 0 #bdbdbd inset;
+  cursor: pointer;
+}
+
+
 .valid-move-tile {
   cursor: pointer;
   border : 2px solid green;
@@ -21,20 +42,10 @@
   0 -10px 10px rgba(0, 0, 0, 0.45);
 z-index: 997;
 }
-/* .map-tile.easy.visible {
-  border: 2px solid rgb(3, 213, 3);
-}
 
-.map-tile.medium.visible {
-  border: 2px solid rgb(0, 162, 255);
-}
-
-.map-tile.hard.visible {
-  border: 2px solid red;
-} */
 .map-tile.unvisited {
   background-color: #e6e6e6;
-  /* box-shadow: none; */
+
 }
 .map-tile.playerOnTile {
   border : 3px solid black;
@@ -46,7 +57,9 @@ z-index: 997;
 }
 
 .map-tile.visited {
-  background-color: #ffffb8;
+  background:
+    linear-gradient(rgba(255,255,184,0.7), rgba(255,255,184,0.7)),
+    radial-gradient(ellipse 60% 60% at 50% 45%, #f8f8f8 60%, #e0e0e0 100%, #b0b0b0 120%);
 }
 
 .tile-coordinates {
