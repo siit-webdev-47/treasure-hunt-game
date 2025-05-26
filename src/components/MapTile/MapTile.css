@@ -2,6 +2,7 @@
   aspect-ratio: 1;
   border: 2.5px solid #b0b0b0;
   position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +24,8 @@
   transition: background 0.3s, box-shadow 0.3s;
   overflow: hidden;
 }
-.map-tile:hover {
+
+.valid-move-tile:hover {
     background: radial-gradient(ellipse 80% 70% at 50% 35%);
   box-shadow:
     0 12px 32px 0 rgba(0,0,0,0.28),
@@ -31,7 +33,6 @@
     0 -6px 18px 0 #bdbdbd inset;
   cursor: pointer;
 }
-
 
 .valid-move-tile {
   cursor: pointer;
@@ -58,7 +59,11 @@ z-index: 997;
 
 .map-tile.visited {
   background:
-    linear-gradient(rgba(255,255,184,0.7), rgba(255,255,184,0.7)),
+      linear-gradient(135deg, #ffffb8b3 0%, transparent 65%),
+    linear-gradient(225deg, #ffffb8b3 0%, transparent 75%),
+    linear-gradient(315deg, rgba(0,0,0,0.28) 0%, transparent 40%),
+    linear-gradient(45deg, rgba(0,0,0,0.18) 0%, transparent 40%),
+    linear-gradient(#ffffb8b3, rgba(255,255,184,0.7)),
     radial-gradient(ellipse 60% 60% at 50% 45%, #f8f8f8 60%, #e0e0e0 100%, #b0b0b0 120%);
 }
 
