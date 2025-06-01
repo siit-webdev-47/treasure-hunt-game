@@ -1,15 +1,21 @@
 import PropTypes from "prop-types";
 import "./HallOfFame.css";
+import { timeDifficultyIndex } from "../Functions/gameStatistics";
+import { act } from "react";
 
-export default function HallOfFame({ onCloseHallOfFame , playerResult}) {
-  
-    
+export default function HallOfFame({
+  onCloseHallOfFame,
+  playerResult,
+  player,
+}) {
+  const actualTimeIndex = (timeDifficultyIndex(player) * 100).toFixed(2);
+
   return (
     <div className="hall-of-fame-wrapper">
       <div className="hall-of-fame-container">
         <h2>Hall of Fame</h2>
-      
-<table className="hall-of-fame-table">
+
+        <table className="hall-of-fame-table">
           <thead>
             <tr>
               <th>Possition</th>
@@ -22,33 +28,31 @@ export default function HallOfFame({ onCloseHallOfFame , playerResult}) {
             </tr>
           </thead>
           <tbody>
-
-           {playerResult.map((player, index) => (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>
-                <div>
-                {new Date(player.date).getFullYear()}-
-                {new Date(player.date).getMonth() + 1}-
-                {new Date(player.date).getDate()}
-                </div>
-                <div>
-                {new Date(player.date).getHours()}:
-                {new Date(player.date).getMinutes()}:
-                {new Date(player.date).getSeconds()}
-                </div>
-              </td>
-              <td>{player.name}</td>
-              <td>{player.finalScore}</td>
-              <td>{player.questionDifficultyIndex}%</td>
-              <td>{player.mapDifficultyIndex}%</td>
-              <td>{player.timeDifficultyIndex}%</td>
-            </tr>
-           ))}
-            
+            {playerResult.map((playerOnList, index) => (
+              <tr key={index} className={`${actualTimeIndex === playerOnList.timeDifficultyIndex ? "current-player" : ""}`}>
+                <td>{index + 1}</td>
+                <td>
+                  <div>
+                    {new Date(playerOnList.date).getFullYear()}-
+                    {new Date(playerOnList.date).getMonth() + 1}-
+                    {new Date(playerOnList.date).getDate()}
+                  </div>
+                  <div>
+                    {new Date(playerOnList.date).getHours()}:
+                    {new Date(playerOnList.date).getMinutes()}:
+                    {new Date(playerOnList.date).getSeconds()}
+                  </div>
+                </td>
+                <td>{playerOnList.name}</td>
+                <td>{playerOnList.finalScore}</td>
+                <td>{playerOnList.questionDifficultyIndex}%</td>
+                <td>{playerOnList.mapDifficultyIndex}%</td>
+                <td>{playerOnList.timeDifficultyIndex}%</td>
+              </tr>
+            ))}
           </tbody>
         </table>
-        <button onClick={ onCloseHallOfFame } className="close-button">
+        <button onClick={onCloseHallOfFame} className="close-button">
           Close
         </button>
       </div>
@@ -57,6 +61,7 @@ export default function HallOfFame({ onCloseHallOfFame , playerResult}) {
 }
 
 HallOfFame.propTypes = {
-  onCloseHallOfFame: PropTypes.func.isRequired,
-    playerResult: PropTypes.object.isRequired
+  onCloseHallOfFame: PropTypes.func,
+  playerResult: PropTypes.array,
+  player: PropTypes.object,
 };

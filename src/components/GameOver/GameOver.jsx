@@ -8,13 +8,11 @@ import FinalScore from "./FinalScore";
 import HallOfFame from "./HallOfFame";
 import { readVectorStorage } from "../Functions/useDB";
 
-
 export default function GameOver({ newGame, resetGame, gameOverMsg }) {
   const [showReviewQuestions, setShowReviewQuestions] = useState(false);
   const [showGameOverStatistics, setShowGameOverStatistics] = useState(false);
   const [showHallOfFame, setShowHallOfFame] = useState(false);
   const { map, player } = useContext(AppSettingsContext);
-
 
   const reviewQuestionsClick = () => {
     setShowReviewQuestions(true);
@@ -34,11 +32,11 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
 
   const hallOfFameClick = () => {
     setShowHallOfFame(true);
-  }
+  };
 
   const onCloseHallOfFame = () => {
     setShowHallOfFame(false);
-  }
+  };
 
   return (
     <div className="game-over-wrapper">
@@ -55,7 +53,11 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
           <ReviewQuestions onCloseReview={onCloseReview} />
         )}
         {showHallOfFame && (
-          <HallOfFame playerResult={readVectorStorage('HallOfFame')} onCloseHallOfFame={onCloseHallOfFame} />
+          <HallOfFame
+            player={player}
+            playerResult={readVectorStorage("HallOfFame")}
+            onCloseHallOfFame={onCloseHallOfFame}
+          />
         )}
         <div className="game-over-buttons">
           <div className="info-buttons-container">
@@ -76,8 +78,6 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
             <button onClick={newGame} className="reset-buttons game">
               Reset Game
             </button>
-
-
           </div>
         </div>
       </div>

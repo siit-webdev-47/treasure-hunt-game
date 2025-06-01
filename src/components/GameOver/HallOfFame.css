@@ -87,3 +87,7 @@ h4 {
   color: black;
   background-color: #a4a8aa;
 } */
+
+.current-player {
+font-weight: bold;
+}
