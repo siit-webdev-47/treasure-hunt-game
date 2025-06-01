@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import "./HallOfFame.css";
 import { timeDifficultyIndex } from "../Functions/gameStatistics";
-import { act } from "react";
+
 
 export default function HallOfFame({
   onCloseHallOfFame,
