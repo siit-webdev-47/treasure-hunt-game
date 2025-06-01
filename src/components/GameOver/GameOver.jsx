@@ -7,6 +7,7 @@ import { calculateTimeStats } from "../Functions/gameStatistics";
 import { AppSettingsContext } from "../../App";
 import FinalScore from "./FinalScore";
 import HallOfFame from "./HallOfFame";
+import generateHallOfFameObj from "../Functions/generateHallOfFameObj";
 
 export default function GameOver({ newGame, resetGame, gameOverMsg }) {
   const [showReviewQuestions, setShowReviewQuestions] = useState(false);
@@ -15,6 +16,11 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
   const { map, player } = useContext(AppSettingsContext);
 
   calculateTimeStats(player);
+  const playerResult = generateHallOfFameObj(player, map);
+  console.log("Player Result:", playerResult);
+  console.log("Player Date:", playerResult.date.getMonth());
+
+  
   
   const reviewQuestionsClick = () => {
     setShowReviewQuestions(true);
@@ -55,7 +61,7 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
           <ReviewQuestions onCloseReview={onCloseReview} />
         )}
         {showHallOfFame && (
-          <HallOfFame onCloseHallOfFame={onCloseHallOfFame} />
+          <HallOfFame playerResult={playerResult} onCloseHallOfFame={onCloseHallOfFame} />
         )}
         <div className="game-over-buttons">
           <div className="info-buttons-container">
