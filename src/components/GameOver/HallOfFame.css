@@ -1,0 +1,57 @@
+h3 {
+    margin: 0;
+    margin-top: 20px;
+    font-weight: bold;
+}
+h4 {
+    margin: 0;
+    margin-top: 10px;
+    font-weight: normal;
+}
+.hall-of-fame-wrapper {
+  max-height: 80%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  z-index: 90;
+  transform: translate(-50%, 0%);
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 1rem;
+    border: solid 1px #000;
+  box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.736);
+ }
+.hall-of-fame-wrapper h2 {
+  margin: 0;
+  margin-top: 10px;
+  line-height: 1;
+  text-align: center;
+}
+
+.hall-of-fame-wrapper button {
+  position: sticky; 
+  bottom: 0;
+  align-self: center;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: solid 1px #000;
+  background-color: #ffffff;
+  color: black;
+  cursor: pointer;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  margin-top: auto; 
+  z-index: 1000;
+}
+
+.hall-of-fame-wrapper button:hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hall-of-fame-wrapper button:active {
+  background-color: #2a2a2a;
+  color: white;
+}
