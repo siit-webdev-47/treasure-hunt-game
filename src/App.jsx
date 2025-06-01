@@ -7,6 +7,8 @@ import generateMapTiles from "./components/Functions/generateMapTiles";
 import mapFactory from "./components/Functions/mapFactory";
 import playerFactory from "./components/Functions/playerFactory";
 import generateRandomPlayerPosition from "./components/Functions/generateRandomPlayerPosition";
+import { calculateTimeStats } from "./components/Functions/gameStatistics";
+import { generateHallOfFame } from "./components/Functions/generateHallOfFameObj";
 
 const defaultPlayerResponses = {
   easyCorrect: 0,
@@ -100,6 +102,8 @@ function App() {
     if (energy <= 0) {
       setGamePhase("GAME_OVER");
       setGameOverMsg("You ran out of energy!🪦");
+      calculateTimeStats(player);
+      generateHallOfFame(player, map);
       return { gameOverMsg };
     }
 
@@ -108,6 +112,8 @@ function App() {
     if (map.tiles[row][col].hasTreasure) {
       setGamePhase("GAME_OVER");
       setGameOverMsg("🏆 You found the treasure! 💰");
+      calculateTimeStats(player);
+      generateHallOfFame(player, map);
       return { gameOverMsg };
     }
   };

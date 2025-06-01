@@ -10,6 +10,7 @@ h4 {
 }
 .hall-of-fame-wrapper {
   max-height: 80%;
+  max-width: 90%;
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -55,3 +56,34 @@ h4 {
   background-color: #2a2a2a;
   color: white;
 }
+
+.hall-of-fame-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  table-layout: fixed;
+}
+
+.hall-of-fame-table th,
+.hall-of-fame-table td {
+  border: 1px solid black;
+  padding: 3px;
+  text-align: center;
+}
+
+.hall-of-fame-table th {
+  color: black;
+  font-weight: bold;
+  background-color: #a4a8aa;
+}
+
+.hall-of-fame-table td {
+  background-color: #f2f2f2;
+  width: 10%;
+  overflow: hidden;
+}
+/* .hall-of-fame-table td:first-child {
+  font-weight: bold;
+  color: black;
+  background-color: #a4a8aa;
+} */

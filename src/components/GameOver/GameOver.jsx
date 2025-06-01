@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { useContext, useState } from "react";
 import GameOverStatistics from "./GameOverStatistics";
 import ReviewQuestions from "./ReviewQuestions";
-import { calculateTimeStats } from "../Functions/gameStatistics";
 import { AppSettingsContext } from "../../App";
 import FinalScore from "./FinalScore";
 import HallOfFame from "./HallOfFame";
-import generateHallOfFameObj from "../Functions/generateHallOfFameObj";
+import { readVectorStorage } from "../Functions/useDB";
+
 
 export default function GameOver({ newGame, resetGame, gameOverMsg }) {
   const [showReviewQuestions, setShowReviewQuestions] = useState(false);
@@ -15,13 +15,7 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
   const [showHallOfFame, setShowHallOfFame] = useState(false);
   const { map, player } = useContext(AppSettingsContext);
 
-  calculateTimeStats(player);
-  const playerResult = generateHallOfFameObj(player, map);
-  console.log("Player Result:", playerResult);
-  console.log("Player Date:", playerResult.date.getMonth());
 
-  
-  
   const reviewQuestionsClick = () => {
     setShowReviewQuestions(true);
   };
@@ -61,7 +55,7 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
           <ReviewQuestions onCloseReview={onCloseReview} />
         )}
         {showHallOfFame && (
-          <HallOfFame playerResult={playerResult} onCloseHallOfFame={onCloseHallOfFame} />
+          <HallOfFame playerResult={readVectorStorage('HallOfFame')} onCloseHallOfFame={onCloseHallOfFame} />
         )}
         <div className="game-over-buttons">
           <div className="info-buttons-container">
@@ -82,6 +76,8 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
             <button onClick={newGame} className="reset-buttons game">
               Reset Game
             </button>
+
+
           </div>
         </div>
       </div>
