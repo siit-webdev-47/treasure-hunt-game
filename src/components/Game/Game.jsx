@@ -4,6 +4,8 @@ import { AppSettingsContext } from "../../App";
 import Map from "../Map/Map";
 import PropTypes from "prop-types";
 import AnswerWindow from "../Answer/AnswerWindow";
+import { energyLevels } from "../Functions/energyLevel";
+import Teleport from "../Teleport/Teleport";
 
 export const ClickContext = createContext();
 
@@ -14,6 +16,8 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isErrorVisible, setIsErrorVisible] = useState(false);
 
+    const [isTeleportAvailable, setIsTeleportAvailable] = useState(false);
+
    useEffect(() => {
     if (!map.tiles[row][col].visited && player.canMove) {
       setPlayer((prevPlayer) => ({
@@ -22,6 +26,15 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       }));
     }
   }, [row, col]);
+
+    useEffect(() => {
+    if (player.playerEnergy >= energyLevels.maxMidEnergy) {
+      setIsTeleportAvailable(true);
+      console.log("Teleport available!");
+    } else {
+      setIsTeleportAvailable(false);
+    }
+  }, [player.playerEnergy]);
 
   function isValidMove(oldRow, oldCol, newRow, newCol) {
     return (
@@ -121,6 +134,35 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     onPlayerMove(newPlayerEnergy, { row: newRow, col: newCol });
   }
 
+   function handleActivateTeleport() {
+    console.log("Teleport activated");
+
+    const teleportRow = 0;
+    const teleportCol = 0;
+
+    const updatedTiles = [...map.tiles];
+    updatedTiles[teleportRow][teleportCol] = {
+      ...updatedTiles[teleportRow][teleportCol],
+      yieldValue: 0,
+      visited: true,
+    };
+
+    setMap((prevMap) => ({
+      ...prevMap,
+      playerPosition: { row: teleportRow, col: teleportCol },
+      tiles: updatedTiles,
+    }));
+
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      playerEnergy: prevPlayer.playerEnergy - energyLevels.maxMidEnergy,
+    }));
+
+    setIsTeleportAvailable(false);
+
+    console.log("Teleport done");
+  }
+
   // usePlayerMovement(row, col, map.rows, map.cols, handlePlayerMove);
 
   const handleContinueClick = () => {
@@ -178,6 +220,9 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
           </div>
         )}
         <Map mapData={map} playerData={player} onTileClick={handlePlayerMove} isValidMove={isValidMove} />
+        {isTeleportAvailable && (
+          <Teleport onActivateTeleport={handleActivateTeleport} />
+        )}
       </div>
     </ClickContext.Provider>
   );
