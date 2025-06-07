@@ -144,3 +144,11 @@ z-index: 997;
 p {
   margin: 0;
 }
+
+.teleport-cursor {
+  cursor: pointer;
+}
+
+.teleport-selected {
+  border: 3px solid blue ;
+}

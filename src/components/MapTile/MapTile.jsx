@@ -9,6 +9,7 @@ function MapTile(props) {
   // const { mapTileData, playerPosition, playerData, onTileClick } = props;
   const { player, map } = useContext(AppSettingsContext);
   const { playerEnergy , canMove } = player;
+  const { teleportMode, pendingTeleport } = props;
 
   const {
     row,
@@ -23,6 +24,16 @@ function MapTile(props) {
     isMoveValid,
   } = props.mapTileData;
   const playerPosition = props.playerPosition;
+    
+  const teleportCursorClass = teleportMode ? "teleport-cursor" : "";
+
+  const isSelectedTeleport =
+    teleportMode &&
+    pendingTeleport &&
+    pendingTeleport.row === row &&
+    pendingTeleport.col === col;
+
+  const teleportSelectedClass = isSelectedTeleport ? "teleport-selected" : "";
 
   const tileClass = visited ? "visited" : "unvisited";
   const tileVisible = visible ? "visible" : "invisible";
@@ -63,7 +74,7 @@ function MapTile(props) {
     <div
       className={`map-tile ${tileClass} ${treasureTileClass} ${energyLevel(
         player.playerEnergy
-      )} ${playerOnTileClass} ${difficulty} ${tileVisible} ${isValidTile}`}
+      )} ${playerOnTileClass} ${difficulty} ${tileVisible} ${isValidTile} ${teleportCursorClass} ${teleportSelectedClass}`}
       onClick={handleTileClick}
     >
       <div>
@@ -112,4 +123,6 @@ MapTile.propTypes = {
   mapTileData: PropTypes.any,
   playerPosition: PropTypes.any,
   onTileClick: PropTypes.func.isRequired,
+  teleportMode: PropTypes.any,
+  pendingTeleport: PropTypes.any,
 };

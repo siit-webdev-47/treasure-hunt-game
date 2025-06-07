@@ -131,7 +131,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     updatedTiles[teleportRow][teleportCol] = {
       ...updatedTiles[teleportRow][teleportCol],
       yieldValue: 0,
-      visited: true,
+      visited: false,
     };
 
     setMap((prevMap) => ({
@@ -143,6 +143,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
       playerEnergy: prevPlayer.playerEnergy - energyLevels.maxMidEnergy,
+      canMove: false,
     }));
 
     setIsTeleportAvailable(false);
@@ -211,7 +212,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
             </div>
           </div>
         )}
-        <Map mapData={map} playerData={player} onTileClick={handlePlayerMove} isValidMove={isValidMove} />
+        <Map mapData={map} playerData={player} onTileClick={handlePlayerMove} isValidMove={isValidMove} teleportMode={teleportMode} pendingTeleport={pendingTeleport} />
         {isTeleportAvailable && (
           <Teleport onActivateTeleport={handleActivateTeleport} />
         )}
