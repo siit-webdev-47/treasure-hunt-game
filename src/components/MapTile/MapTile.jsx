@@ -8,7 +8,7 @@ import PlayerScore from "../PlayerScore/PlayerScore";
 function MapTile(props) {
   // const { mapTileData, playerPosition, playerData, onTileClick } = props;
   const { player, map } = useContext(AppSettingsContext);
-  const { playerEnergy , canMove } = player;
+  const { playerEnergy, canMove } = player;
 
   const {
     row,
@@ -47,36 +47,33 @@ function MapTile(props) {
   const playerOnTile = playerPosition.row === row && playerPosition.col === col;
   const playerOnTileClass = playerOnTile ? "playerOnTile" : "";
 
-const tileRef = useRef(null);
+  const tileRef = useRef(null);
 
-useEffect(() => {
-  if (playerOnTile && tileRef.current) {
-    tileRef.current.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-      inline: "center",
-    });
-  }
-}, [playerOnTile]);
-
+  useEffect(() => {
+    if (playerOnTile && tileRef.current) {
+      tileRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+    }
+  }, [playerOnTile]);
 
   let isValidTile = "";
-    if (isMoveValid && canMove) {
-      isValidTile = "valid-move-tile";
-    } 
+  if (isMoveValid && canMove) {
+    isValidTile = "valid-move-tile";
+  }
 
-    const handleTileClick = () => {
-      const oldRow = playerPosition.row;
-      const oldCol = playerPosition.col;
-      props.onTileClick(row, col, oldRow, oldCol); 
-    };
+  const handleTileClick = () => {
+    const oldRow = playerPosition.row;
+    const oldCol = playerPosition.col;
+    props.onTileClick(row, col, oldRow, oldCol);
+  };
 
   return (
     <div
-        ref={tileRef}
-      className={`map-tile ${tileClass} ${treasureTileClass} ${energyLevel(
-        player.playerEnergy
-      )} ${playerOnTileClass} ${difficulty} ${tileVisible} ${isValidTile}`}
+      ref={tileRef}
+      className={`map-tile ${tileClass} ${treasureTileClass} ${energyLevel(player.playerEnergy)} ${playerOnTileClass} ${difficulty} ${tileVisible} ${isValidTile}`}
       onClick={handleTileClick}
     >
       <div>

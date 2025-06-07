@@ -22,6 +22,7 @@ function sortVectorByScore(vector) {
       return b.questionDifficulty - a.questionDifficulty;
     }
   });
+  vector.length = Math.min(vector.length, 20); 
 }
 
 function generateHallOfFame(player, map) {

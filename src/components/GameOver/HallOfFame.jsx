@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import "./HallOfFame.css";
 import { timeDifficultyIndex } from "../Functions/gameStatistics";
+import { useEffect, useRef } from "react";
 
 
 export default function HallOfFame({
@@ -9,6 +10,16 @@ export default function HallOfFame({
   player,
 }) {
   const actualTimeIndex = (timeDifficultyIndex(player) * 100).toFixed(2);
+   const currentPlayerRowRef = useRef(null);
+
+  useEffect(() => {
+    if (currentPlayerRowRef.current) {
+      currentPlayerRowRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, []);
 
   return (
     <div className="hall-of-fame-wrapper">
@@ -29,7 +40,10 @@ export default function HallOfFame({
           </thead>
           <tbody>
             {playerResult.map((playerOnList, index) => (
-              <tr key={index} className={`${actualTimeIndex === playerOnList.timeDifficultyIndex ? "current-player" : ""}`}>
+              <tr key={index} 
+                  className={`${actualTimeIndex === playerOnList.timeDifficultyIndex ? "current-player" : ""}`}
+                  ref={actualTimeIndex === playerOnList.timeDifficultyIndex ? currentPlayerRowRef : null}
+              >
                 <td>{index + 1}</td>
                 <td>
                   <div>
