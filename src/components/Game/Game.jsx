@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import AnswerWindow from "../Answer/AnswerWindow";
 import { energyLevels } from "../Functions/energyLevel";
 import Teleport from "../Teleport/Teleport";
+import { updateVisibilityTile } from "../Functions/updateVisibilityTile";
 
 export const ClickContext = createContext();
 
@@ -15,8 +16,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const { visited } = map.tiles[row][col];
   const [errorMessage, setErrorMessage] = useState("");
   const [isErrorVisible, setIsErrorVisible] = useState(false);
-
-    const [isTeleportAvailable, setIsTeleportAvailable] = useState(false);
+  const [isTeleportAvailable, setIsTeleportAvailable] = useState(false);
 
    useEffect(() => {
     if (!map.tiles[row][col].visited && player.canMove) {
@@ -78,33 +78,8 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       newPlayerEnergy > 0 &&
       !map.tiles[oldRow][oldCol].hasTreasure
     ) {
-      // clears the visible property for the tiles around the player (2 tiles around)
-      for (let i = -2; i <= 2; i++) {
-        for (let j = -2; j <= 2; j++) {
-          if (
-            newRow + i >= 0 &&
-            newCol + j >= 0 &&
-            newRow + i < map.rows &&
-            newCol + j < map.cols
-          ) {
-            map.tiles[newRow + i][newCol + j].visible = false;
-          }
-        }
-      }
 
-      // sets the visible property for the tiles around the player (1 tile around)
-      for (let i = -1; i <= 1; i++) {
-        for (let j = -1; j <= 1; j++) {
-          if (
-            newRow + i >= 0 &&
-            newCol + j >= 0 &&
-            newRow + i < map.rows &&
-            newCol + j < map.cols
-          ) {
-            map.tiles[newRow + i][newCol + j].visible = true;
-          }
-        }
-      }
+      updateVisibilityTile(map, newRow, newCol);
 
       setMap((prevMap) => {
         const updatedTiles = [...prevMap.tiles];
@@ -140,34 +115,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     const teleportRow = 0;
     const teleportCol = 0;
 
-     // clears the visible property for the tiles around the player (2 tiles around)
-      for (let i = -2; i <= 2; i++) {
-        for (let j = -2; j <= 2; j++) {
-          if (
-            teleportRow + i >= 0 &&
-            teleportCol + j >= 0 &&
-            teleportRow + i < map.rows &&
-            teleportCol + j < map.cols
-          ) {
-            map.tiles[teleportRow + i][teleportCol + j].visible = false;
-          }
-        }
-      }
-
-      // sets the visible property for the tiles around the player (1 tile around)
-      for (let i = -1; i <= 1; i++) {
-        for (let j = -1; j <= 1; j++) {
-          if (
-            teleportRow + i >= 0 &&
-            teleportCol + j >= 0 &&
-            teleportRow + i < map.rows &&
-            teleportCol + j < map.cols
-          ) {
-            map.tiles[teleportRow + i][teleportCol + j].visible = true;
-          }
-        }
-      }
-
+    updateVisibilityTile(map, teleportRow, teleportCol);
 
     const updatedTiles = [...map.tiles];
     updatedTiles[teleportRow][teleportCol] = {
