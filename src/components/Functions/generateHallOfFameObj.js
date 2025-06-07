@@ -10,7 +10,7 @@ export default function generateHallOfFameObj(player, map) {
     mapDifficultyIndex: calculateMapDifficulty(map),
     timeDifficultyIndex: (timeDifficultyIndex(player) * 100).toFixed(2),
   };
-
+  
   return resultObject;
 }
 

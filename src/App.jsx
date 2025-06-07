@@ -113,7 +113,9 @@ function App() {
       setGamePhase("GAME_OVER");
       setGameOverMsg("🏆 You found the treasure! 💰");
       calculateTimeStats(player);
+      map.playerPosition = position;
       generateHallOfFame(player, map);
+
       return { gameOverMsg };
     }
   };

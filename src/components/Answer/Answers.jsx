@@ -18,9 +18,10 @@ function Answers({ listAnsw, startTime }) {
   const [isVisible, setIsVisible] = useState(true);
   const contextValue = useContext(ClickContext);
 
-  let goodAnsw = false;
+  // let goodAnsw = false;
   let streak = player.consecutiveAnswers.number > 1 ? true : false;
   let streakCorrect = player.consecutiveAnswers.correct ? "correct" : "wrong";
+  const goodAnsw = selectedOption == trueAnsw ? true : false;
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -33,8 +34,6 @@ function Answers({ listAnsw, startTime }) {
     calculateTimeStats(player);
   };
 
-  goodAnsw = selectedOption == trueAnsw ? true : false;
-
   const handleSubmit = () => {
     const endTime = Date.now();
     const questionTime = endTime - startTime;
@@ -45,6 +44,15 @@ function Answers({ listAnsw, startTime }) {
     selectedOption == trueAnsw
       ? (map.tiles[row][col].correctAnsw = true)
       : (map.tiles[row][col].correctAnsw = false);
+
+    const responseType = map.tiles[row][col].correctAnsw ? "Correct" : "Wrong";
+    const property = `${map.tiles[row][col].difficulty}${responseType}`;
+    // const newPlayerResponses = {
+    //   ...player.playerResponses,
+    //   [property]: player.playerResponses[property] + 1,
+    // };
+
+    player.playerResponses[property] += 1 ;
 
     map.tiles[row][col].correctAnsw == player.consecutiveAnswers.correct
       ? player.consecutiveAnswers.number++

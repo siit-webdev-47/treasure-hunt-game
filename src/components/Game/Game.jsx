@@ -123,12 +123,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
 
   const handleContinueClick = () => {
 
-    const responseType = map.tiles[row][col].correctAnsw ? "Correct" : "Wrong";
-    const property = `${map.tiles[row][col].difficulty}${responseType}`;
-    const newPlayerResponses = {
-      ...player.playerResponses,
-      [property]: player.playerResponses[property] + 1,
-    };
+
 
     let correctVar = map.tiles[row][col].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[row][col].yieldValue;
@@ -151,9 +146,10 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
       playerEnergy: newPlayerEnergy,
-      playerResponses: newPlayerResponses,
+      // playerResponses: newPlayerResponses,
       canMove: true,
     }));
+
     onPlayerAnswer(newPlayerEnergy);
   };
 
