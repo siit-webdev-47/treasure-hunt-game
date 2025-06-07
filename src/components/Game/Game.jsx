@@ -119,7 +119,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
    function handleActivateTeleport() {
     setTeleportMode(true);
     setPendingTeleport(null);
-    console.log("Teleport activated");
   }
 
   function confirmTeleport() {
@@ -149,8 +148,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     setIsTeleportAvailable(false);
     setTeleportMode(false);
     setPendingTeleport(null);
-
-    console.log("Teleport completed to:", teleportRow, teleportCol);
   }
 
   function cancelTeleport() {
@@ -219,19 +216,19 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
           <Teleport onActivateTeleport={handleActivateTeleport} />
         )}
         {teleportMode && pendingTeleport && (
-          <div >
+          <div className="teleport-confirmation" >
             <p>
               You want to teleport to row {pendingTeleport.row},{" "}col {pendingTeleport.col}?
             </p>
-            <button onClick={confirmTeleport}>Yes</button>
-            <button onClick={cancelTeleport}>No</button>
+            <button className="button-confirm"  onClick={confirmTeleport}>Yes</button>
+            <button className="button-cancel" onClick={cancelTeleport}>No</button>
           </div>
         )}
 
         {teleportMode && !pendingTeleport && (
-          <div >
+          <div className="teleport-info" >
             <p>Click on the map to select a tile to teleport to.</p>
-            <button onClick={cancelTeleport}>Cancel Teleport</button>
+            <button className="button-cancel" onClick={cancelTeleport}>Cancel Teleport</button>
           </div>
         )}
       </div>
