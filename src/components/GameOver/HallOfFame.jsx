@@ -24,8 +24,11 @@ export default function HallOfFame({
   return (
     <div className="hall-of-fame-wrapper">
       <div className="hall-of-fame-container">
+        <div className="hall-of-fame-header">
+
         <h2>Hall of Fame</h2>
 
+        </div>
         <table className="hall-of-fame-table">
           <thead>
             <tr>
