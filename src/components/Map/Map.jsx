@@ -14,7 +14,7 @@ function Map(props) {
         style={{ gridTemplateColumns: `repeat(${cols}, 220px)` }}
       >
         {tiles.map((row, i) =>
-          row.map((tile, j) => <MapTile mapTileData={{...tile,  isMoveValid: isValidMove(oldRow, oldCol, i, j),}} playerPosition={playerPosition} playerData={props.playerData} key={[i, j]} onTileClick={onTileClick} />)
+          row.map((tile, j) => <MapTile mapTileData={{...tile,  isMoveValid: isValidMove(oldRow, oldCol, i, j),}} playerPosition={playerPosition} playerData={props.playerData} key={[i, j]} onTileClick={onTileClick} teleportMode={props.teleportMode} pendingTeleport={props.pendingTeleport} />)
         )}
       </div>
     </>
@@ -28,4 +28,6 @@ Map.propTypes = {
   playerData: PropTypes.any,
   onTileClick: PropTypes.func.isRequired,
   isValidMove: PropTypes.func.isRequired,
+  teleportMode: PropTypes.any,
+  pendingTeleport: PropTypes.any,
 }

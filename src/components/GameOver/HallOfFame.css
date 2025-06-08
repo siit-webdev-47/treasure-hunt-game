@@ -11,7 +11,7 @@ h4 {
 .hall-of-fame-wrapper {
   max-height: 80%;
   max-width: 90%;
-  overflow: hidden;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   position: fixed;

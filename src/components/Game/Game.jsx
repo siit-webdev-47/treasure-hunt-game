@@ -4,6 +4,9 @@ import { AppSettingsContext } from "../../App";
 import Map from "../Map/Map";
 import PropTypes from "prop-types";
 import AnswerWindow from "../Answer/AnswerWindow";
+import { energyLevels } from "../Functions/energyLevel";
+import Teleport from "../Teleport/Teleport";
+import { updateVisibilityTile } from "../Functions/updateVisibilityTile";
 
 export const ClickContext = createContext();
 
@@ -13,8 +16,12 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const { visited } = map.tiles[row][col];
   const [errorMessage, setErrorMessage] = useState("");
   const [isErrorVisible, setIsErrorVisible] = useState(false);
+  const [isTeleportAvailable, setIsTeleportAvailable] = useState(false);
+  const [teleportMode, setTeleportMode] = useState(false);
+  const [pendingTeleport, setPendingTeleport] = useState(null)
 
-   useEffect(() => {
+  // player move
+  useEffect(() => {
     if (!map.tiles[row][col].visited && player.canMove) {
       setPlayer((prevPlayer) => ({
         ...prevPlayer,
@@ -22,6 +29,11 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       }));
     }
   }, [row, col]);
+
+  // check teleport available
+  useEffect(() => {
+    setIsTeleportAvailable(player.playerEnergy >= energyLevels.maxMidEnergy);
+  }, [player.playerEnergy]);
 
   function isValidMove(oldRow, oldCol, newRow, newCol) {
     return (
@@ -31,6 +43,11 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   }
 
   function handlePlayerMove(newRow, newCol) {
+    if (teleportMode) {
+      setPendingTeleport({ row: newRow, col: newCol });
+      return;
+    }
+
     const oldRow = map.playerPosition.row;
     const oldCol = map.playerPosition.col;
 
@@ -49,8 +66,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     setErrorMessage("");
     setIsErrorVisible(false);
 
-
-
+    // set the yeld sign depending on the correct / incorrect answer
     let correctVar = map.tiles[oldRow][oldCol].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[oldRow][oldCol].yieldValue;
     const newPlayerEnergy =
@@ -58,40 +74,14 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       map.tiles[newRow][newCol].requiredEnergy +
       tileEnergy;
 
-
     // set tiles as visited and clears the energy yeld if the player moved
     if (
       player.playerEnergy > 0 &&
       newPlayerEnergy > 0 &&
       !map.tiles[oldRow][oldCol].hasTreasure
     ) {
-      // clears the visible property for the tiles around the player (2 tiles around)
-      for (let i = -2; i <= 2; i++) {
-        for (let j = -2; j <= 2; j++) {
-          if (
-            newRow + i >= 0 &&
-            newCol + j >= 0 &&
-            newRow + i < map.rows &&
-            newCol + j < map.cols
-          ) {
-            map.tiles[newRow + i][newCol + j].visible = false;
-          }
-        }
-      }
 
-      // sets the visible property for the tiles around the player (1 tile around)
-      for (let i = -1; i <= 1; i++) {
-        for (let j = -1; j <= 1; j++) {
-          if (
-            newRow + i >= 0 &&
-            newCol + j >= 0 &&
-            newRow + i < map.rows &&
-            newCol + j < map.cols
-          ) {
-            map.tiles[newRow + i][newCol + j].visible = true;
-          }
-        }
-      }
+      updateVisibilityTile(map, newRow, newCol);
 
       setMap((prevMap) => {
         const updatedTiles = [...prevMap.tiles];
@@ -120,6 +110,48 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
 
     onPlayerMove(newPlayerEnergy, { row: newRow, col: newCol });
   }
+
+  function handleActivateTeleport() {
+    setTeleportMode(true);
+    setPendingTeleport(null);
+  }
+
+  function confirmTeleport() {
+    if (!pendingTeleport) return;
+
+    const { row: teleportRow, col: teleportCol } = pendingTeleport;
+
+    const updatedTiles = updateVisibilityTile(map, teleportRow, teleportCol);
+
+    updatedTiles[teleportRow][teleportCol] = {
+      ...updatedTiles[teleportRow][teleportCol],
+      yieldValue: 0,
+      visited: false,
+    };
+
+    setMap((prevMap) => ({
+      ...prevMap,
+      playerPosition: { row: teleportRow, col: teleportCol },
+      tiles: updatedTiles,
+    }));
+
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      playerEnergy: prevPlayer.playerEnergy - energyLevels.maxMidEnergy,
+      canMove: false,
+    }));
+
+    setIsTeleportAvailable(false);
+    setTeleportMode(false);
+    setPendingTeleport(null);
+  }
+
+  function cancelTeleport() {
+    setTeleportMode(false);
+    setPendingTeleport(null);
+  }
+
+  // usePlayerMovement(row, col, map.rows, map.cols, handlePlayerMove);
 
   const handleContinueClick = () => {
 
@@ -169,7 +201,26 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
             </div>
           </div>
         )}
-        <Map mapData={map} playerData={player} onTileClick={handlePlayerMove} isValidMove={isValidMove} />
+        <Map mapData={map} playerData={player} onTileClick={handlePlayerMove} isValidMove={isValidMove} teleportMode={teleportMode} pendingTeleport={pendingTeleport} />
+        {isTeleportAvailable && (
+          <Teleport onActivateTeleport={handleActivateTeleport} />
+        )}
+        {teleportMode && pendingTeleport && (
+          <div className="teleport-confirmation" >
+            <p>
+              You want to teleport to row {pendingTeleport.row},{" "}col {pendingTeleport.col}?
+            </p>
+            <button className="button-confirm" onClick={confirmTeleport}>Yes</button>
+            <button className="button-cancel" onClick={cancelTeleport}>No</button>
+          </div>
+        )}
+
+        {teleportMode && !pendingTeleport && (
+          <div className="teleport-info" >
+            <p>Click on the map to select a tile to teleport to.</p>
+            <button className="button-cancel" onClick={cancelTeleport}>Cancel Teleport</button>
+          </div>
+        )}
       </div>
     </ClickContext.Provider>
   );
