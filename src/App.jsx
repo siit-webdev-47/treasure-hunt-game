@@ -128,6 +128,9 @@ function App() {
     evaluateGameState(updatedEnergy);
   };
 
+  console.log(player);
+  
+
   return (
     <>
       <h1>Treasure Hunt</h1>
