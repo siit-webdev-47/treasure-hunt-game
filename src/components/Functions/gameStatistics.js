@@ -50,7 +50,9 @@ function calculateMapDifficulty(map) {
 function calculateFinalScore(map, player) {
   
 let finalScore = questionScore(player.playerResponses, map)  * timeDifficultyIndex(player) * calculateMapDifficulty(map)/100 ;
-
+if (Number.isNaN(finalScore)) {
+    finalScore = 0;
+  }
 return finalScore;
 }
 

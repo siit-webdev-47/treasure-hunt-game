@@ -1,5 +1,5 @@
 import "./MapTile.css";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { AppSettingsContext } from "../../App";
 import PropTypes from "prop-types";
 import energyLevel from "../Functions/energyLevel";
@@ -58,6 +58,18 @@ function MapTile(props) {
   const playerOnTile = playerPosition.row === row && playerPosition.col === col;
   const playerOnTileClass = playerOnTile ? "playerOnTile" : "";
 
+const tileRef = useRef(null);
+
+useEffect(() => {
+  if (playerOnTile && tileRef.current) {
+    tileRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "center",
+    });
+  }
+}, [playerOnTile]);
+
 
   let isValidTile = "";
     if (isMoveValid && canMove) {
@@ -72,6 +84,7 @@ function MapTile(props) {
 
   return (
     <div
+        ref={tileRef}
       className={`map-tile ${tileClass} ${treasureTileClass} ${energyLevel(
         player.playerEnergy
       )} ${playerOnTileClass} ${difficulty} ${tileVisible} ${isValidTile} ${teleportCursorClass} ${teleportSelectedClass}`}
