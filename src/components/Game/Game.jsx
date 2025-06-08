@@ -18,7 +18,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const [isErrorVisible, setIsErrorVisible] = useState(false);
   const [isTeleportAvailable, setIsTeleportAvailable] = useState(false);
   const [teleportMode, setTeleportMode] = useState(false);
-  const [pendingTeleport, setPendingTeleport] = useState(null)
+  const [pendingTeleport, setPendingTeleport] = useState(null);
 
   // player move
   useEffect(() => {
@@ -80,7 +80,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       newPlayerEnergy > 0 &&
       !map.tiles[oldRow][oldCol].hasTreasure
     ) {
-
       updateVisibilityTile(map, newRow, newCol);
 
       setMap((prevMap) => {
@@ -117,6 +116,8 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   }
 
   function confirmTeleport() {
+    console.log("Teleport Confirm");
+
     if (!pendingTeleport) return;
 
     const { row: teleportRow, col: teleportCol } = pendingTeleport;
@@ -154,13 +155,11 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   // usePlayerMovement(row, col, map.rows, map.cols, handlePlayerMove);
 
   const handleContinueClick = () => {
-
-
-
     let correctVar = map.tiles[row][col].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[row][col].yieldValue;
 
-    const newPlayerEnergy = player.playerEnergy + tileEnergy + player.consecutiveAnswers.bonusEnergy;
+    const newPlayerEnergy =
+      player.playerEnergy + tileEnergy + player.consecutiveAnswers.bonusEnergy;
 
     setMap((prevMap) => {
       const updatedTiles = [...prevMap.tiles];
@@ -192,33 +191,50 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
         {isErrorVisible && (
           <div className="error-popup">
             <div className="error-content">
-              <p className="error-message">
-                {errorMessage}
-              </p>
-              <button className="close-button" onClick={() => setIsErrorVisible(false)}>
+              <p className="error-message">{errorMessage}</p>
+              <button
+                className="close-button"
+                onClick={() => setIsErrorVisible(false)}
+              >
                 Close
               </button>
             </div>
           </div>
         )}
-        <Map mapData={map} playerData={player} onTileClick={handlePlayerMove} isValidMove={isValidMove} teleportMode={teleportMode} pendingTeleport={pendingTeleport} />
+        <Map
+          mapData={map}
+          playerData={player}
+          onTileClick={handlePlayerMove}
+          isValidMove={isValidMove}
+          teleportMode={teleportMode}
+          pendingTeleport={pendingTeleport}
+          confirmTeleport={confirmTeleport}
+          cancelTeleport={cancelTeleport}
+        />
         {isTeleportAvailable && (
           <Teleport onActivateTeleport={handleActivateTeleport} />
         )}
-        {teleportMode && pendingTeleport && (
-          <div className="teleport-confirmation" >
+        {/* {teleportMode && pendingTeleport && (
+          <div className="teleport-confirmation">
             <p>
-              You want to teleport to row {pendingTeleport.row},{" "}col {pendingTeleport.col}?
+              You want to teleport to row {pendingTeleport.row}, col{" "}
+              {pendingTeleport.col}?
             </p>
-            <button className="button-confirm" onClick={confirmTeleport}>Yes</button>
-            <button className="button-cancel" onClick={cancelTeleport}>No</button>
+            <button className="button-confirm" onClick={confirmTeleport}>
+              Yes
+            </button>
+            <button className="button-cancel" onClick={cancelTeleport}>
+              No
+            </button>
           </div>
-        )}
+        )} */}
 
         {teleportMode && !pendingTeleport && (
-          <div className="teleport-info" >
+          <div className="teleport-info">
             <p>Click on the map to select a tile to teleport to.</p>
-            <button className="button-cancel" onClick={cancelTeleport}>Cancel Teleport</button>
+            <button className="button-cancel" onClick={cancelTeleport}>
+              Cancel Teleport
+            </button>
           </div>
         )}
       </div>
