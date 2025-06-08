@@ -20,7 +20,8 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const [teleportMode, setTeleportMode] = useState(false);
   const [pendingTeleport, setPendingTeleport] = useState(null)
 
-   useEffect(() => {
+  // player move
+  useEffect(() => {
     if (!map.tiles[row][col].visited && player.canMove) {
       setPlayer((prevPlayer) => ({
         ...prevPlayer,
@@ -29,13 +30,9 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     }
   }, [row, col]);
 
-    useEffect(() => {
-    if (player.playerEnergy >= energyLevels.maxMidEnergy) {
-      setIsTeleportAvailable(true);
-      console.log("Teleport available!");
-    } else {
-      setIsTeleportAvailable(false);
-    }
+  // check teleport available
+  useEffect(() => {
+    setIsTeleportAvailable(player.playerEnergy >= energyLevels.maxMidEnergy);
   }, [player.playerEnergy]);
 
   function isValidMove(oldRow, oldCol, newRow, newCol) {
@@ -46,7 +43,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   }
 
   function handlePlayerMove(newRow, newCol) {
-     if (teleportMode) {
+    if (teleportMode) {
       setPendingTeleport({ row: newRow, col: newCol });
       return;
     }
@@ -69,15 +66,13 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     setErrorMessage("");
     setIsErrorVisible(false);
 
-
-
+    // set the yeld sign depending on the correct / incorrect answer
     let correctVar = map.tiles[oldRow][oldCol].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[oldRow][oldCol].yieldValue;
     const newPlayerEnergy =
       player.playerEnergy -
       map.tiles[newRow][newCol].requiredEnergy +
       tileEnergy;
-
 
     // set tiles as visited and clears the energy yeld if the player moved
     if (
@@ -116,7 +111,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     onPlayerMove(newPlayerEnergy, { row: newRow, col: newCol });
   }
 
-   function handleActivateTeleport() {
+  function handleActivateTeleport() {
     setTeleportMode(true);
     setPendingTeleport(null);
   }
@@ -221,7 +216,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
             <p>
               You want to teleport to row {pendingTeleport.row},{" "}col {pendingTeleport.col}?
             </p>
-            <button className="button-confirm"  onClick={confirmTeleport}>Yes</button>
+            <button className="button-confirm" onClick={confirmTeleport}>Yes</button>
             <button className="button-cancel" onClick={cancelTeleport}>No</button>
           </div>
         )}
