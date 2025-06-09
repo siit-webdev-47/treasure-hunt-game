@@ -73,7 +73,8 @@ function generateMapTiles(rows, cols, category = '', subcategories = [], difficu
 
   return {
     tiles,
-    questionListUpdatePromise
+    questionListUpdatePromise,
+    treasureCoordinates
   }
 }
 

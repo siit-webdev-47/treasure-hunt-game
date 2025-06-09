@@ -31,7 +31,7 @@ function App() {
   const startGame = () => {
 
     map.playerPosition = generateRandomPlayerPosition( map.rows, map.cols );
-    const { tiles, questionListUpdatePromise } = generateMapTiles(
+    const { tiles, questionListUpdatePromise, treasureCoordinates } = generateMapTiles(
       map.rows,
       map.cols,
       map.category,
@@ -45,6 +45,7 @@ function App() {
       setMap({
         ...map,
         playerPosition: map.playerPosition,
+        treasurePosition: treasureCoordinates,
         tiles: updatedTiles,
       });
       setPlayer(
@@ -57,7 +58,7 @@ function App() {
 
   const resetGame = () => {
     map.playerPosition = generateRandomPlayerPosition( map.rows, map.cols );
-    const { questionListUpdatePromise } = generateMapTiles(
+    const { questionListUpdatePromise, treasureCoordinates } = generateMapTiles(
       map.rows,
       map.cols,
       map.category,
@@ -69,13 +70,14 @@ function App() {
       setMap((prevMap) => ({
         ...prevMap,
         playerPosition: map.playerPosition ,
+        treasurePosition: treasureCoordinates,
         tiles: updatedTiles,
       }));
 
       setPlayer((prevPlayer) => ({
         ...prevPlayer,
         playerEnergy: prevPlayer.playerStartingEnergy,
-        playerResponses: defaultPlayerResponses,
+        playerResponses: { ...defaultPlayerResponses },
         answeredQuestions: [],
         timeStats: {
           totalAnsweringTime: 0,
@@ -88,7 +90,6 @@ function App() {
         },
         canMove: true,
       }));
-
       setGamePhase("ONGOING");
     });
   };
@@ -128,8 +129,6 @@ function App() {
     evaluateGameState(updatedEnergy);
   };
 
-  console.log(player);
-  
 
   return (
     <>

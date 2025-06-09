@@ -47,10 +47,6 @@ function Answers({ listAnsw, startTime }) {
 
     const responseType = map.tiles[row][col].correctAnsw ? "Correct" : "Wrong";
     const property = `${map.tiles[row][col].difficulty}${responseType}`;
-    // const newPlayerResponses = {
-    //   ...player.playerResponses,
-    //   [property]: player.playerResponses[property] + 1,
-    // };
 
     player.playerResponses[property] += 1 ;
 
