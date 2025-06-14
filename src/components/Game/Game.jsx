@@ -16,8 +16,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const { visited } = map.tiles[row][col];
   const [errorMessage, setErrorMessage] = useState("");
   const [isErrorVisible, setIsErrorVisible] = useState(false);
-  const [isTeleportAvailable, setIsTeleportAvailable] = useState(false);
-  const [teleportMode, setTeleportMode] = useState(false);
   const [pendingTeleport, setPendingTeleport] = useState(null)
 
   // player move
@@ -32,7 +30,10 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
 
   // check teleport available
   useEffect(() => {
-    setIsTeleportAvailable(player.playerEnergy >= energyLevels.maxMidEnergy);
+        setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      teleportAvailable: player.playerEnergy >= energyLevels.maxMidEnergy,
+    }));
   }, [player.playerEnergy]);
 
   function isValidMove(oldRow, oldCol, newRow, newCol) {
@@ -43,7 +44,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   }
 
   function handlePlayerMove(newRow, newCol) {
-    if (teleportMode) {
+    if (player.teleportMode) {
       setPendingTeleport({ row: newRow, col: newCol });
       return;
     }
@@ -112,7 +113,10 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   }
 
   function handleActivateTeleport() {
-    setTeleportMode(true);
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      teleportMode: true,
+    }));
     setPendingTeleport(null);
   }
 
@@ -139,15 +143,17 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       ...prevPlayer,
       playerEnergy: prevPlayer.playerEnergy - energyLevels.maxMidEnergy,
       canMove: false,
+      teleportMode: false,       
+      teleportAvailable: false, 
     }));
-
-    setIsTeleportAvailable(false);
-    setTeleportMode(false);
     setPendingTeleport(null);
   }
 
   function cancelTeleport() {
-    setTeleportMode(false);
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      teleportMode: false, 
+    }));    
     setPendingTeleport(null);
   }
 
@@ -207,11 +213,11 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
             </div>
           </div>
         )}
-        <Map mapData={map} playerData={player} onTileClick={handlePlayerMove} isValidMove={isValidMove} teleportMode={teleportMode} pendingTeleport={pendingTeleport} />
-        {isTeleportAvailable && (
+        <Map mapData={map} playerData={player} onTileClick={handlePlayerMove} isValidMove={isValidMove} teleportMode={player.teleportMode} pendingTeleport={pendingTeleport} />
+        {player.teleportAvailable && (
           <Teleport onActivateTeleport={handleActivateTeleport} />
         )}
-        {teleportMode && pendingTeleport && (
+        {player.teleportMode && pendingTeleport && (
           <div className="teleport-confirmation" >
             <p>
               You want to teleport to row {pendingTeleport.row},{" "}col {pendingTeleport.col}?
@@ -221,7 +227,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
           </div>
         )}
 
-        {teleportMode && !pendingTeleport && (
+        {player.teleportMode && !pendingTeleport && (
           <div className="teleport-info" >
             <p>Click on the map to select a tile to teleport to.</p>
             <button className="button-cancel" onClick={cancelTeleport}>Cancel Teleport</button>
