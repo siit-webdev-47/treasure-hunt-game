@@ -89,6 +89,7 @@ function App() {
           bonusEnergy: 0,
         },
         canMove: true,
+        canSeeDistance: false,
       }));
       setGamePhase("ONGOING");
     });

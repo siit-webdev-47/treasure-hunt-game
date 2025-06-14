@@ -8,6 +8,7 @@ const playerFactory = (playerName = "Anony Moose", playerEnergyLevel = 'hard') =
     playerStartingEnergy: playerEnergy,
     playerEnergy,
     canMove: true,
+    canSeeDistance: false,
     playerResponses:{
       easyCorrect: 0,
       easyWrong: 0,
