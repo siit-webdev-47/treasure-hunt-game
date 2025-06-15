@@ -1,12 +1,12 @@
 h3 {
-    margin: 0;
-    margin-top: 20px;
-    font-weight: bold;
+  margin: 0;
+  margin-top: 20px;
+  font-weight: bold;
 }
 h4 {
-    margin: 0;
-    margin-top: 10px;
-    font-weight: normal;
+  margin: 0;
+  margin-top: 10px;
+  font-weight: normal;
 }
 .review-questions {
   max-height: 80%;
@@ -21,9 +21,9 @@ h4 {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 1rem;
-    border: solid 1px #000;
+  border: solid 1px #000;
   box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.736);
- }
+}
 .review-questions h2 {
   margin: 0;
   margin-top: 10px;
@@ -32,7 +32,7 @@ h4 {
 }
 
 .review-questions button {
-  position: sticky; 
+  position: sticky;
   bottom: 0;
   align-self: center;
   padding: 10px 20px;
@@ -43,12 +43,13 @@ h4 {
   color: black;
   cursor: pointer;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
-  margin-top: auto; 
+  margin-top: auto;
   z-index: 1000;
 }
 
 .review-questions button:hover {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  background-color: lightgrey;
 }
 
 .review-questions button:active {
@@ -64,13 +65,14 @@ h4 {
   margin-bottom: 0px;
   border: solid 1px #000;
 }
-.question h3, .question h4 {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+.question h3,
+.question h4 {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
-.yourAnswer{
-    margin-bottom: 10px;
-    font-weight: bold;
+.yourAnswer {
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 .yourAnswer.correct {
   color: green;

@@ -7,6 +7,7 @@ import AnswerWindow from "../Answer/AnswerWindow";
 import { energyLevels } from "../Functions/energyLevel";
 import Teleport from "../Teleport/Teleport";
 import { updateVisibilityTile } from "../Functions/updateVisibilityTile";
+import SeeDistanceToTreasure from "../SeeDistanceToTreasure/SeeDistanceToTreasure";
 
 export const ClickContext = createContext();
 
@@ -17,6 +18,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isErrorVisible, setIsErrorVisible] = useState(false);
   const [isTeleportAvailable, setIsTeleportAvailable] = useState(false);
+  const [isSeeDistanceAvailable, setIsSeeDistanceAvailable] = useState(false);
   const [teleportMode, setTeleportMode] = useState(false);
   const [pendingTeleport, setPendingTeleport] = useState(null);
 
@@ -33,6 +35,11 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   // check teleport available
   useEffect(() => {
     setIsTeleportAvailable(player.playerEnergy >= energyLevels.maxMidEnergy);
+  }, [player.playerEnergy]);
+
+  // check See Distance available
+  useEffect(() => {
+    setIsSeeDistanceAvailable(player.playerEnergy >= energyLevels.maxLowEnergy);
   }, [player.playerEnergy]);
 
   function isValidMove(oldRow, oldCol, newRow, newCol) {
@@ -115,6 +122,14 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     setPendingTeleport(null);
   }
 
+  function handleActivateSeeDistance() {
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      canSeeDistance: true,
+      playerEnergy: prevPlayer.playerEnergy - energyLevels.maxLowEnergy,
+    }));
+  }
+
   function confirmTeleport() {
     if (!pendingTeleport) return;
 
@@ -180,12 +195,14 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     }));
 
     onPlayerAnswer(newPlayerEnergy);
+    
   };
 
   return (
     <ClickContext.Provider value={handleContinueClick}>
       <div className="game-container">
         {!visited && <AnswerWindow />}
+
         {isErrorVisible && (
           <div className="error-popup">
             <div className="error-content">
@@ -199,6 +216,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
             </div>
           </div>
         )}
+        
         <Map
           mapData={map}
           playerData={player}
@@ -209,8 +227,15 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
           confirmTeleport={confirmTeleport}
           cancelTeleport={cancelTeleport}
         />
+
         {isTeleportAvailable && (
           <Teleport onActivateTeleport={handleActivateTeleport} />
+        )}
+
+        {(isSeeDistanceAvailable || player.canSeeDistance) && (
+          <SeeDistanceToTreasure
+            onActivateSeeDistance={handleActivateSeeDistance}
+          />
         )}
 
         {teleportMode && !pendingTeleport && (
@@ -221,6 +246,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
             </button>
           </div>
         )}
+
       </div>
     </ClickContext.Provider>
   );
