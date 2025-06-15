@@ -1,12 +1,12 @@
 import "./Map.css";
 import MapTile from "../MapTile/MapTile";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 function Map(props) {
-  const {cols, tiles, playerPosition } = props.mapData;
-  const { onTileClick ,isValidMove} = props;
+  const { cols, tiles, playerPosition } = props.mapData;
+  const { onTileClick, isValidMove } = props;
   const { row: oldRow, col: oldCol } = playerPosition;
-  
+
   return (
     <>
       <div
@@ -14,7 +14,22 @@ function Map(props) {
         style={{ gridTemplateColumns: `repeat(${cols}, 220px)` }}
       >
         {tiles.map((row, i) =>
-          row.map((tile, j) => <MapTile mapTileData={{...tile,  isMoveValid: isValidMove(oldRow, oldCol, i, j),}} playerPosition={playerPosition} playerData={props.playerData} key={[i, j]} onTileClick={onTileClick} teleportMode={props.teleportMode} pendingTeleport={props.pendingTeleport} />)
+          row.map((tile, j) => (
+            <MapTile
+              mapTileData={{
+                ...tile,
+                isMoveValid: isValidMove(oldRow, oldCol, i, j),
+              }}
+              playerPosition={playerPosition}
+              playerData={props.playerData}
+              key={[i, j]}
+              onTileClick={onTileClick}
+              teleportMode={props.teleportMode}
+              pendingTeleport={props.pendingTeleport}
+              confirmTeleport={props.confirmTeleport}
+              cancelTeleport={props.cancelTeleport}
+            />
+          ))
         )}
       </div>
     </>
@@ -30,4 +45,6 @@ Map.propTypes = {
   isValidMove: PropTypes.func.isRequired,
   teleportMode: PropTypes.any,
   pendingTeleport: PropTypes.any,
-}
+  confirmTeleport: PropTypes.func,
+  cancelTeleport: PropTypes.func,
+};

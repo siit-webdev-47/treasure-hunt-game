@@ -23,8 +23,9 @@ function MapTile(props) {
     difficulty,
     isMoveValid,
   } = props.mapTileData;
+
   const playerPosition = props.playerPosition;
-    
+
   const teleportCursorClass = teleportMode ? "teleport-cursor" : "";
 
   const isSelectedTeleport =
@@ -61,14 +62,14 @@ function MapTile(props) {
   const tileRef = useRef(null);
 
   useEffect(() => {
-    if (playerOnTile && tileRef.current) {
+    if ((playerOnTile && tileRef.current) || isSelectedTeleport) {
       tileRef.current.scrollIntoView({
         behavior: "smooth",
         block: "center",
         inline: "center",
       });
     }
-  }, [playerOnTile]);
+  }, [playerOnTile, isSelectedTeleport]);
 
   let isValidTile = "";
   if (isMoveValid && canMove) {
@@ -83,10 +84,24 @@ function MapTile(props) {
 
   return (
     <div
-        ref={tileRef}
-      className={`map-tile ${tileClass} ${treasureTileClass} ${energyLevel(player.playerEnergy)} ${playerOnTileClass} ${difficulty} ${tileVisible} ${isValidTile} ${teleportCursorClass} ${teleportSelectedClass}`}
+      ref={tileRef}
+      className={`map-tile ${tileClass} ${treasureTileClass} ${energyLevel(
+        player.playerEnergy
+      )} ${playerOnTileClass} ${difficulty} ${tileVisible} ${isValidTile} ${teleportCursorClass} ${teleportSelectedClass}`}
       onClick={handleTileClick}
     >
+      {isSelectedTeleport && teleportMode && pendingTeleport && (
+        <div className="teleport-confirmation">
+          <p>Teleport here?</p>
+          <button className="button-confirm" onClick={props.confirmTeleport}>
+            Yes
+          </button>
+          <button className="button-cancel" onClick={props.cancelTeleport}>
+            No
+          </button>
+        </div>
+      )}
+
       <div>
         <div className="tile-coordinates">
           <small>
@@ -135,4 +150,6 @@ MapTile.propTypes = {
   onTileClick: PropTypes.func.isRequired,
   teleportMode: PropTypes.any,
   pendingTeleport: PropTypes.any,
+  confirmTeleport: PropTypes.func,
+  cancelTeleport: PropTypes.func,
 };

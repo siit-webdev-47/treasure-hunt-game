@@ -202,6 +202,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     <ClickContext.Provider value={handleContinueClick}>
       <div className="game-container">
         {!visited && <AnswerWindow />}
+
         {isErrorVisible && (
           <div className="error-popup">
             <div className="error-content">
@@ -215,6 +216,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
             </div>
           </div>
         )}
+        
         <Map
           mapData={map}
           playerData={player}
@@ -222,28 +224,18 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
           isValidMove={isValidMove}
           teleportMode={teleportMode}
           pendingTeleport={pendingTeleport}
+          confirmTeleport={confirmTeleport}
+          cancelTeleport={cancelTeleport}
         />
+
         {isTeleportAvailable && (
           <Teleport onActivateTeleport={handleActivateTeleport} />
         )}
+
         {(isSeeDistanceAvailable || player.canSeeDistance) && (
           <SeeDistanceToTreasure
             onActivateSeeDistance={handleActivateSeeDistance}
           />
-        )}
-        {teleportMode && pendingTeleport && (
-          <div className="teleport-confirmation">
-            <p>
-              You want to teleport to row {pendingTeleport.row}, col{" "}
-              {pendingTeleport.col}?
-            </p>
-            <button className="button-confirm" onClick={confirmTeleport}>
-              Yes
-            </button>
-            <button className="button-cancel" onClick={cancelTeleport}>
-              No
-            </button>
-          </div>
         )}
 
         {teleportMode && !pendingTeleport && (
@@ -254,6 +246,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
             </button>
           </div>
         )}
+
       </div>
     </ClickContext.Provider>
   );
