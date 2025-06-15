@@ -116,8 +116,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   }
 
   function confirmTeleport() {
-    console.log("Teleport Confirm");
-
     if (!pendingTeleport) return;
 
     const { row: teleportRow, col: teleportCol } = pendingTeleport;
@@ -214,20 +212,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
         {isTeleportAvailable && (
           <Teleport onActivateTeleport={handleActivateTeleport} />
         )}
-        {/* {teleportMode && pendingTeleport && (
-          <div className="teleport-confirmation">
-            <p>
-              You want to teleport to row {pendingTeleport.row}, col{" "}
-              {pendingTeleport.col}?
-            </p>
-            <button className="button-confirm" onClick={confirmTeleport}>
-              Yes
-            </button>
-            <button className="button-cancel" onClick={cancelTeleport}>
-              No
-            </button>
-          </div>
-        )} */}
 
         {teleportMode && !pendingTeleport && (
           <div className="teleport-info">
