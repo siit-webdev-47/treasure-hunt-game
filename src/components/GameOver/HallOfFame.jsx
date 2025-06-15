@@ -32,7 +32,7 @@ export default function HallOfFame({
         <table className="hall-of-fame-table">
           <thead>
             <tr>
-              <th>Possition</th>
+              <th>Position</th>
               <th>Date</th>
               <th>Player</th>
               <th>Points</th>

@@ -12,7 +12,7 @@ export default function SeeDistanceToTreasure({ onActivateSeeDistance }) {
     <div  className="see-distance">
       {!player.canSeeDistance && (
       <div>
-        <p>See aproximative distance untill treasure available!</p>
+        <p>See aproximative distance until treasure available!</p>
         <p>Energy cost: {energyLevels.maxLowEnergy}</p>
         <button onClick={onActivateSeeDistance}>
           Activate See the distance
