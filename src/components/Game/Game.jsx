@@ -124,13 +124,20 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     if (!pendingTeleport) return;
 
     const { row: teleportRow, col: teleportCol } = pendingTeleport;
+    const oldRow = map.playerPosition.row;
+    const oldCol = map.playerPosition.col;
+    const updatedTiles = [...map.tiles];
 
-    const updatedTiles = updateVisibilityTile(map, teleportRow, teleportCol);
-
-    updatedTiles[teleportRow][teleportCol] = {
-      ...updatedTiles[teleportRow][teleportCol],
+    updatedTiles[oldRow][oldCol]= {
+      ...updatedTiles[oldRow][oldCol],
       yieldValue: 0,
-      visited: false,
+      visited: true,
+    };
+
+    updateVisibilityTile({ ...map, tiles: updatedTiles }, teleportRow, teleportCol);
+     updatedTiles[teleportRow][teleportCol] = {
+     ...updatedTiles[teleportRow][teleportCol],
+     visited: false,
     };
 
     setMap((prevMap) => ({
