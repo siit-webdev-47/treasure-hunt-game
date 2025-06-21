@@ -10,20 +10,24 @@ export default function distanceToTreasure(map) {
     
   
   let message = "";  
+  let color = "black"; // Default color
 
   switch (true) {
     case (distance <= 4):
       message = "You are very close to the treasure!";
+      color = "green";
       break;
     case (distance > 4 && distance <= 8):
       message = "You are getting closer to the treasure!";
+      color = "orange";
       break;
     case (distance > 8):
       message = "You are far from the treasure!";
+      color = "red";
       break;
     default:
       console.log("Unknown distance");
   }
 
-  return message;
+  return { message, color};
 }

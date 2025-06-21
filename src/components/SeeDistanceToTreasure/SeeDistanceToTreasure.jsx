@@ -7,7 +7,7 @@ import distanceToTreasure from "../Functions/distanceToTreasure";
 
 export default function SeeDistanceToTreasure({ onActivateSeeDistance }) {
   const { player, map } = useContext(AppSettingsContext);
-
+  const {message, color} = distanceToTreasure(map);
   return (
     <div  className="see-distance">
       {!player.canSeeDistance && (
@@ -20,8 +20,8 @@ export default function SeeDistanceToTreasure({ onActivateSeeDistance }) {
       </div>
       )}
     {player.canSeeDistance && (
-    <div>
-        <p>{distanceToTreasure(map)}</p>
+    <div style={{ color: color }}>
+        <p>{message}</p>
     </div>
 )}
 
