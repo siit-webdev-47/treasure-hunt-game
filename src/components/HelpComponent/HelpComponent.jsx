@@ -1,3 +1,4 @@
+import "./HelpComponent.css"
 import { useContext, useEffect, useState } from "react";
 import SeeDistanceToTreasure from "../SeeDistanceToTreasure/SeeDistanceToTreasure";
 // import Teleport from "../Teleport/Teleport";
@@ -73,11 +74,12 @@ export default function HelpComponent() {
         <Teleport onActivateTeleport={handleActivateTeleport} />
       )} */}
 
-      {(isSeeDistanceAvailable || player.canSeeDistance) && (
+     
         <SeeDistanceToTreasure
           onActivateSeeDistance={handleActivateSeeDistance}
+          isSeeDistanceAvailable={isSeeDistanceAvailable}
         />
-      )}
+    
 
       {/* {teleportMode && !pendingTeleport && (
         <div className="teleport-info">
