@@ -7,7 +7,8 @@ import AnswerWindow from "../Answer/AnswerWindow";
 import { energyLevels } from "../Functions/energyLevel";
 import Teleport from "../Teleport/Teleport";
 import { updateVisibilityTile } from "../Functions/updateVisibilityTile";
-import SeeDistanceToTreasure from "../SeeDistanceToTreasure/SeeDistanceToTreasure";
+// import SeeDistanceToTreasure from "../SeeDistanceToTreasure/SeeDistanceToTreasure";
+import HelpComponent from "../HelpComponent/HelpComponent";
 
 export const ClickContext = createContext();
 
@@ -18,7 +19,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isErrorVisible, setIsErrorVisible] = useState(false);
   const [isTeleportAvailable, setIsTeleportAvailable] = useState(false);
-  const [isSeeDistanceAvailable, setIsSeeDistanceAvailable] = useState(false);
   const [teleportMode, setTeleportMode] = useState(false);
   const [pendingTeleport, setPendingTeleport] = useState(null);
 
@@ -35,11 +35,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   // check teleport available
   useEffect(() => {
     setIsTeleportAvailable(player.playerEnergy >= energyLevels.maxMidEnergy);
-  }, [player.playerEnergy]);
-
-  // check See Distance available
-  useEffect(() => {
-    setIsSeeDistanceAvailable(player.playerEnergy >= energyLevels.maxLowEnergy);
   }, [player.playerEnergy]);
 
   function isValidMove(oldRow, oldCol, newRow, newCol) {
@@ -122,14 +117,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     setPendingTeleport(null);
   }
 
-  function handleActivateSeeDistance() {
-    setPlayer((prevPlayer) => ({
-      ...prevPlayer,
-      canSeeDistance: true,
-      playerEnergy: prevPlayer.playerEnergy - energyLevels.maxLowEnergy,
-    }));
-  }
-
   function confirmTeleport() {
     if (!pendingTeleport) return;
 
@@ -165,9 +152,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     setPendingTeleport(null);
   }
 
-  // usePlayerMovement(row, col, map.rows, map.cols, handlePlayerMove);
-
-  const handleContinueClick = () => {
+    const handleContinueClick = () => {
     let correctVar = map.tiles[row][col].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[row][col].yieldValue;
 
@@ -232,11 +217,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
           <Teleport onActivateTeleport={handleActivateTeleport} />
         )}
 
-        {(isSeeDistanceAvailable || player.canSeeDistance) && (
-          <SeeDistanceToTreasure
-            onActivateSeeDistance={handleActivateSeeDistance}
-          />
-        )}
+        <HelpComponent />
 
         {teleportMode && !pendingTeleport && (
           <div className="teleport-info">
