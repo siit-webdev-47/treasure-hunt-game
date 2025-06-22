@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import AnswerWindow from "../Answer/AnswerWindow";
 import { energyLevels } from "../Functions/energyLevel";
 import Teleport from "../Teleport/Teleport";
-import { updateVisibilityTile } from "../Functions/updateVisibilityTile";
 import { clearVisibility } from "../Functions/clearVisibility";
 import { setVisibility } from "../Functions/setVisibility";
 
@@ -84,7 +83,8 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       !map.tiles[oldRow][oldCol].hasTreasure
     ) {
 
-      updateVisibilityTile(map, newRow, newCol);
+      clearVisibility(map, newRow, newCol);
+      setVisibility(map, newRow, newCol);
 
       setMap((prevMap) => {
         const updatedTiles = [...prevMap.tiles];
