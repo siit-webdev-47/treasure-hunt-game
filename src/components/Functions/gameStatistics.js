@@ -18,18 +18,17 @@ function difficultyIndex(playerResponses) {
   return ((averageSum / totalSumResponses) * 100).toFixed(0);
 }
 
-function questionScore(playerResponses, map) {
-  const { row, col } = map.playerPosition;
-  const finishBonus = (map.tiles[row][col].hasTreasure) ? 10 : 0;
-  
+function questionScore(player) {
+ 
+  const playerResponses = player.playerResponses;
+ 
   return (
     playerResponses.easyCorrect * 2 -
     playerResponses.easyWrong * 3 +
     playerResponses.mediumCorrect * 4 -
     playerResponses.mediumWrong * 2 +
     playerResponses.hardCorrect * 6 -
-    playerResponses.hardWrong * 1 +
-    finishBonus
+    playerResponses.hardWrong * 1 
   );
 }
 
@@ -48,8 +47,8 @@ function calculateMapDifficulty(map) {
 }
 
 function calculateFinalScore(map, player) {
-  
-let finalScore = questionScore(player.playerResponses, map)  * timeDifficultyIndex(player) * calculateMapDifficulty(map)/100 ;
+
+let finalScore = (questionScore(player, map)  * timeDifficultyIndex(player) * calculateMapDifficulty(map)/100 ) + finishBonus(player, map) + startingBonus(player);
 if (Number.isNaN(finalScore)) {
     finalScore = 0;
   }
@@ -60,7 +59,20 @@ function timeDifficultyIndex(player) {
   return 10 / (player.timeStats.averageAnsweringTime / 1000);
 }
 
+function finishBonus(player, map) {
+  const { row, col } = map.playerPosition;
+  return map.tiles[row][col].hasTreasure ? 10 : 0;
+}
+
+function startingBonus(player) {
+  if (player.playerStartingEnergyLevel === "medium") {
+    return 20;
+  } else if (player.playerStartingEnergyLevel === "hard") {
+    return 40;
+  }
+  return 0;
+}
 
 export default difficultyIndex;
 
-export { questionScore, calculateTimeStats, calculateMapDifficulty, calculateFinalScore, timeDifficultyIndex };
+export { questionScore, calculateTimeStats, calculateMapDifficulty, calculateFinalScore, timeDifficultyIndex, finishBonus, startingBonus };

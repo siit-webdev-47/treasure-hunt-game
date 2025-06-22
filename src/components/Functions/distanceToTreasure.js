@@ -5,9 +5,6 @@ export default function distanceToTreasure(map) {
   const distance = 
     Math.abs(treasurePosition.row - playerPosition.row) +
     Math.abs(treasurePosition.col - playerPosition.col)  ;
-
-    console.log(`Distance to treasure: ${distance}`);
-    
   
   let message = "";  
   let color = "black"; // Default color

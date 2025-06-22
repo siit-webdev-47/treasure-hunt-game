@@ -67,7 +67,7 @@
   padding: 5px;
   position: absolute;
   z-index: 10;
-  bottom: -450%;
+  top: -200%;
   left: 50%;
   margin-left: -200px;
   box-shadow: 0px 0px 30px 0px var(--color2);

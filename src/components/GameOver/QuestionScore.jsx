@@ -1,14 +1,13 @@
-import { useContext } from "react";
 import { questionScore } from "../Functions/gameStatistics";
 import PropTypes from "prop-types";
-import { AppSettingsContext } from "../../App";
+
 
 export default function QuestionsScore({ player }) {
-  const { map } = useContext(AppSettingsContext);
+  
   return (
     <div className="statisticsText">
       <h3>
-        Questions Score: {questionScore(player.playerResponses, map)} points
+        Questions Score: {questionScore(player)} points
       </h3>
       <div className="infoIcon">
         {"ℹ️"}
@@ -26,6 +25,9 @@ export default function QuestionsScore({ player }) {
           </h5>
           <h5>
             If the player finds the treasure, he receives a bonus of 10 points.
+          </h5>
+          <h5>
+            There is a bonus for starting energy level : 40 points for hard, 20 points for medium and 0 points for easy.
           </h5>
         </div>
       </div>
