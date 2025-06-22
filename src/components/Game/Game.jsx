@@ -18,9 +18,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const { visited } = map.tiles[row][col];
   const [errorMessage, setErrorMessage] = useState("");
   const [isErrorVisible, setIsErrorVisible] = useState(false);
-  const [isTeleportAvailable, setIsTeleportAvailable] = useState(false);
   const [isSeeDistanceAvailable, setIsSeeDistanceAvailable] = useState(false);
-  const [teleportMode, setTeleportMode] = useState(false);
   const [pendingTeleport, setPendingTeleport] = useState(null);
 
   // player move
@@ -243,7 +241,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
           playerData={player}
           onTileClick={handlePlayerMove}
           isValidMove={isValidMove}
-          teleportMode={teleportMode}
+          teleportMode={player.teleportMode}
           pendingTeleport={pendingTeleport}
           confirmTeleport={confirmTeleport}
           cancelTeleport={cancelTeleport}
@@ -259,7 +257,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
           />
         )}
 
-        {teleportMode && !pendingTeleport && (
+        {player.teleportMode && !pendingTeleport && (
           <div className="teleport-info">
             <p>Click on the map to select a tile to teleport to.</p>
             <button className="button-cancel" onClick={cancelTeleport}>
