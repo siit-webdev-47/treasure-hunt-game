@@ -95,10 +95,11 @@
   margin-top: auto;
   z-index: 1000;
 }
+.game-over-statistics button:hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  background-color: lightgrey;
+}
 .game-over-statistics button:active {
     background-color: black;
     color: white;
-  }
-  .game-over-statistics button:hover {
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
   }

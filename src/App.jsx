@@ -7,6 +7,8 @@ import generateMapTiles from "./components/Functions/generateMapTiles";
 import mapFactory from "./components/Functions/mapFactory";
 import playerFactory from "./components/Functions/playerFactory";
 import generateRandomPlayerPosition from "./components/Functions/generateRandomPlayerPosition";
+import { calculateTimeStats } from "./components/Functions/gameStatistics";
+import { generateHallOfFame } from "./components/Functions/generateHallOfFameObj";
 
 const defaultPlayerResponses = {
   easyCorrect: 0,
@@ -29,7 +31,7 @@ function App() {
   const startGame = () => {
 
     map.playerPosition = generateRandomPlayerPosition( map.rows, map.cols );
-    const { tiles, questionListUpdatePromise } = generateMapTiles(
+    const { tiles, questionListUpdatePromise, treasureCoordinates } = generateMapTiles(
       map.rows,
       map.cols,
       map.category,
@@ -43,6 +45,7 @@ function App() {
       setMap({
         ...map,
         playerPosition: map.playerPosition,
+        treasurePosition: treasureCoordinates,
         tiles: updatedTiles,
       });
       setPlayer(
@@ -55,7 +58,7 @@ function App() {
 
   const resetGame = () => {
     map.playerPosition = generateRandomPlayerPosition( map.rows, map.cols );
-    const { questionListUpdatePromise } = generateMapTiles(
+    const { questionListUpdatePromise, treasureCoordinates } = generateMapTiles(
       map.rows,
       map.cols,
       map.category,
@@ -67,13 +70,14 @@ function App() {
       setMap((prevMap) => ({
         ...prevMap,
         playerPosition: map.playerPosition ,
+        treasurePosition: treasureCoordinates,
         tiles: updatedTiles,
       }));
 
       setPlayer((prevPlayer) => ({
         ...prevPlayer,
         playerEnergy: prevPlayer.playerStartingEnergy,
-        playerResponses: defaultPlayerResponses,
+        playerResponses: { ...defaultPlayerResponses },
         answeredQuestions: [],
         timeStats: {
           totalAnsweringTime: 0,
@@ -85,8 +89,8 @@ function App() {
           bonusEnergy: 0,
         },
         canMove: true,
+        canSeeDistance: false,
       }));
-
       setGamePhase("ONGOING");
     });
   };
@@ -100,6 +104,8 @@ function App() {
     if (energy <= 0) {
       setGamePhase("GAME_OVER");
       setGameOverMsg("You ran out of energy!🪦");
+      calculateTimeStats(player);
+      generateHallOfFame(player, map);
       return { gameOverMsg };
     }
 
@@ -108,6 +114,10 @@ function App() {
     if (map.tiles[row][col].hasTreasure) {
       setGamePhase("GAME_OVER");
       setGameOverMsg("🏆 You found the treasure! 💰");
+      calculateTimeStats(player);
+      map.playerPosition = position;
+      generateHallOfFame(player, map);
+
       return { gameOverMsg };
     }
   };
@@ -119,6 +129,7 @@ function App() {
   const onPlayerAnswer = (updatedEnergy) => {
     evaluateGameState(updatedEnergy);
   };
+
 
   return (
     <>

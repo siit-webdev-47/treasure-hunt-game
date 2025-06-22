@@ -8,7 +8,7 @@ import PlayerScore from "../PlayerScore/PlayerScore";
 function MapTile(props) {
   // const { mapTileData, playerPosition, playerData, onTileClick } = props;
   const { player, map } = useContext(AppSettingsContext);
-  const { playerEnergy , canMove } = player;
+  const { playerEnergy, canMove } = player;
   const { teleportMode, pendingTeleport } = props;
 
   const {
@@ -23,8 +23,9 @@ function MapTile(props) {
     difficulty,
     isMoveValid,
   } = props.mapTileData;
+
   const playerPosition = props.playerPosition;
-    
+
   const teleportCursorClass = teleportMode ? "teleport-cursor" : "";
 
   const isSelectedTeleport =
@@ -58,38 +59,49 @@ function MapTile(props) {
   const playerOnTile = playerPosition.row === row && playerPosition.col === col;
   const playerOnTileClass = playerOnTile ? "playerOnTile" : "";
 
-const tileRef = useRef(null);
+  const tileRef = useRef(null);
 
-useEffect(() => {
-  if (playerOnTile && tileRef.current) {
-    tileRef.current.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-      inline: "center",
-    });
-  }
-}, [playerOnTile]);
-
+  useEffect(() => {
+    if ((playerOnTile && tileRef.current) || isSelectedTeleport) {
+      tileRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+    }
+  }, [playerOnTile, isSelectedTeleport]);
 
   let isValidTile = "";
-    if (isMoveValid && canMove) {
-      isValidTile = "valid-move-tile";
-    } 
+  if (isMoveValid && canMove) {
+    isValidTile = "valid-move-tile";
+  }
 
-    const handleTileClick = () => {
-      const oldRow = playerPosition.row;
-      const oldCol = playerPosition.col;
-      props.onTileClick(row, col, oldRow, oldCol); 
-    };
+  const handleTileClick = () => {
+    const oldRow = playerPosition.row;
+    const oldCol = playerPosition.col;
+    props.onTileClick(row, col, oldRow, oldCol);
+  };
 
   return (
     <div
-        ref={tileRef}
+      ref={tileRef}
       className={`map-tile ${tileClass} ${treasureTileClass} ${energyLevel(
         player.playerEnergy
       )} ${playerOnTileClass} ${difficulty} ${tileVisible} ${isValidTile} ${teleportCursorClass} ${teleportSelectedClass}`}
       onClick={handleTileClick}
     >
+      {isSelectedTeleport && teleportMode && pendingTeleport && (
+        <div className="teleport-confirmation">
+          <p>Teleport here?</p>
+          <button className="button-confirm" onClick={props.confirmTeleport}>
+            Yes
+          </button>
+          <button className="button-cancel" onClick={props.cancelTeleport}>
+            No
+          </button>
+        </div>
+      )}
+
       <div>
         <div className="tile-coordinates">
           <small>
@@ -138,4 +150,6 @@ MapTile.propTypes = {
   onTileClick: PropTypes.func.isRequired,
   teleportMode: PropTypes.any,
   pendingTeleport: PropTypes.any,
+  confirmTeleport: PropTypes.func,
+  cancelTeleport: PropTypes.func,
 };

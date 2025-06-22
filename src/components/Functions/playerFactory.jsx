@@ -10,6 +10,7 @@ const playerFactory = (playerName = "Anony Moose", playerEnergyLevel = 'hard') =
     canMove: true,
     teleportMode: false,
     teleportAvailable: false,  
+    canSeeDistance: false,
     playerResponses:{
       easyCorrect: 0,
       easyWrong: 0,

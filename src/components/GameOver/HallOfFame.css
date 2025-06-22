@@ -1,0 +1,112 @@
+h3 {
+    margin: 0;
+    margin-top: 20px;
+    font-weight: bold;
+}
+h4 {
+    margin: 0;
+    margin-top: 10px;
+    font-weight: normal;
+}
+.hall-of-fame-wrapper {
+  max-height: 80%;
+  max-width: 90%;
+  /* overflow: auto; */
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  z-index: 90;
+  transform: translate(-50%, 0%);
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 1rem;
+    border: solid 1px #000;
+  box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.736);
+ }
+ 
+.hall-of-fame-wrapper h2 {
+  margin: 0;
+  margin-top: 10px;
+  line-height: 1;
+  text-align: center;
+}
+
+.hall-of-fame-wrapper button {
+  position: sticky; 
+  bottom: 0;
+  align-self: center;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: solid 1px #000;
+  background-color: #ffffff;
+  color: black;
+  cursor: pointer;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  margin-top: auto; 
+  z-index: 1000;
+}
+
+.hall-of-fame-wrapper button:hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  background-color: lightgrey;
+}
+
+.hall-of-fame-wrapper button:active {
+  background-color: #2a2a2a;
+  color: white;
+}
+
+.hall-of-fame-table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  table-layout: fixed;
+  display: block;
+}
+
+.hall-of-fame-table thead,
+.hall-of-fame-table tbody {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.hall-of-fame-table th,
+.hall-of-fame-table td {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.hall-of-fame-table th {
+  color: black;
+  font-weight: bold;
+  background-color: #a4a8aa;
+}
+
+
+.hall-of-fame-table td {
+  background-color: #f2f2f2;
+  width: 10%;
+}
+
+.hall-of-fame-table tbody{
+  width: 102.1%;
+  display: block;
+  height: 520px; 
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.hall-of-fame-table tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.current-player {
+font-weight: bold;
+color: rgb(17, 143, 0);
+}

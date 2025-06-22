@@ -9,12 +9,7 @@ export const MAP_MAX_COLS = 20;
 
 function generateMapTiles(rows, cols, category = '', subcategories = [], difficulty='', initPlayerPosition = { row: 0, col: 0 }) {
 
-const { row: initRow, col: initCol } = initPlayerPosition;
-
-  // map.playerPosition = {
-  //   row: initRow,
-  //   col: initCol,
-  // };
+  const { row: initRow, col: initCol } = initPlayerPosition;
 
   if (rows < MAP_MIN_ROWS || rows > MAP_MAX_ROWS) {
     console.error(`Rows too small or too large!`);
@@ -34,13 +29,12 @@ const { row: initRow, col: initCol } = initPlayerPosition;
       for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
           tiles[i][j] = { ...tiles[i][j], ...questionVect[i * cols + j] };
-          if (i!==0 || j!==0) {
+          if (i!==initRow || j!==initCol) {
             tiles[i][j].yieldValue = generateYield(tiles[i][j].difficulty);
             tiles[i][j].requiredEnergy = generateEnergy(tiles[i][j].difficulty);
           }
         }
       }
-
       return [...tiles]
     });
 
@@ -52,8 +46,8 @@ const { row: initRow, col: initCol } = initPlayerPosition;
         col: j,
         visited: i == initRow && j == initCol ? true : false,
         visible: i == initRow && j == initCol ? true : false,
-        requiredEnergy: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 5 + 1),
-        yieldValue: i == initRow && j == initCol ? 0 : Math.floor(Math.random() * 9 + 1),
+        requiredEnergy: 0,
+        yieldValue: 0,
         hasTreasure: false,
         question: "",
         category: "",
@@ -79,7 +73,8 @@ const { row: initRow, col: initCol } = initPlayerPosition;
 
   return {
     tiles,
-    questionListUpdatePromise
+    questionListUpdatePromise,
+    treasureCoordinates
   }
 }
 

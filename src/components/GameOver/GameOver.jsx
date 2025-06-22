@@ -3,17 +3,17 @@ import PropTypes from "prop-types";
 import { useContext, useState } from "react";
 import GameOverStatistics from "./GameOverStatistics";
 import ReviewQuestions from "./ReviewQuestions";
-import { calculateTimeStats } from "../Functions/gameStatistics";
 import { AppSettingsContext } from "../../App";
 import FinalScore from "./FinalScore";
+import HallOfFame from "./HallOfFame";
+import { readVectorStorage } from "../Functions/useDB";
 
 export default function GameOver({ newGame, resetGame, gameOverMsg }) {
   const [showReviewQuestions, setShowReviewQuestions] = useState(false);
   const [showGameOverStatistics, setShowGameOverStatistics] = useState(false);
+  const [showHallOfFame, setShowHallOfFame] = useState(false);
   const { map, player } = useContext(AppSettingsContext);
 
-  calculateTimeStats(player);
-  
   const reviewQuestionsClick = () => {
     setShowReviewQuestions(true);
   };
@@ -30,6 +30,14 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
     setShowGameOverStatistics(false);
   };
 
+  const hallOfFameClick = () => {
+    setShowHallOfFame(true);
+  };
+
+  const onCloseHallOfFame = () => {
+    setShowHallOfFame(false);
+  };
+
   return (
     <div className="game-over-wrapper">
       <div className="game-over-container">
@@ -44,6 +52,13 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
         {showReviewQuestions && (
           <ReviewQuestions onCloseReview={onCloseReview} />
         )}
+        {showHallOfFame && (
+          <HallOfFame
+            player={player}
+            playerResult={readVectorStorage("HallOfFame")}
+            onCloseHallOfFame={onCloseHallOfFame}
+          />
+        )}
         <div className="game-over-buttons">
           <div className="info-buttons-container">
             <button onClick={reviewQuestionsClick} className="info-buttons">
@@ -51,6 +66,9 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
             </button>
             <button onClick={gameOverStatisticsClick} className="info-buttons">
               Game Over Statistics
+            </button>
+            <button onClick={hallOfFameClick} className="info-buttons">
+              Hall of fame
             </button>
           </div>
           <div className="reset-buttons-container">

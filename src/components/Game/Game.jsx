@@ -8,6 +8,7 @@ import { energyLevels } from "../Functions/energyLevel";
 import Teleport from "../Teleport/Teleport";
 import { clearVisibility } from "../Functions/clearVisibility";
 import { setVisibility } from "../Functions/setVisibility";
+import SeeDistanceToTreasure from "../SeeDistanceToTreasure/SeeDistanceToTreasure";
 
 export const ClickContext = createContext();
 
@@ -17,7 +18,10 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   const { visited } = map.tiles[row][col];
   const [errorMessage, setErrorMessage] = useState("");
   const [isErrorVisible, setIsErrorVisible] = useState(false);
-  const [pendingTeleport, setPendingTeleport] = useState(null)
+  const [isTeleportAvailable, setIsTeleportAvailable] = useState(false);
+  const [isSeeDistanceAvailable, setIsSeeDistanceAvailable] = useState(false);
+  const [teleportMode, setTeleportMode] = useState(false);
+  const [pendingTeleport, setPendingTeleport] = useState(null);
 
   // player move
   useEffect(() => {
@@ -35,6 +39,11 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       ...prevPlayer,
       teleportAvailable: player.playerEnergy >= energyLevels.maxMidEnergy,
     }));
+  }, [player.playerEnergy]);
+
+  // check See Distance available
+  useEffect(() => {
+    setIsSeeDistanceAvailable(player.playerEnergy >= energyLevels.maxLowEnergy);
   }, [player.playerEnergy]);
 
   function isValidMove(oldRow, oldCol, newRow, newCol) {
@@ -122,6 +131,14 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     setPendingTeleport(null);
   }
 
+  function handleActivateSeeDistance() {
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      canSeeDistance: true,
+      playerEnergy: prevPlayer.playerEnergy - energyLevels.maxLowEnergy,
+    }));
+  }
+
   function confirmTeleport() {
     if (!pendingTeleport) return;
 
@@ -172,20 +189,11 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
   // usePlayerMovement(row, col, map.rows, map.cols, handlePlayerMove);
 
   const handleContinueClick = () => {
-
-    const responseType = map.tiles[row][col].correctAnsw ? "Correct" : "Wrong";
-    const property = `${map.tiles[row][col].difficulty}${responseType}`;
-    const newPlayerResponses = {
-      ...player.playerResponses,
-      [property]: player.playerResponses[property] + 1,
-    };
-
-
-
     let correctVar = map.tiles[row][col].correctAnsw ? 1 : -1;
     const tileEnergy = correctVar * map.tiles[row][col].yieldValue;
 
-    const newPlayerEnergy = player.playerEnergy + tileEnergy + player.consecutiveAnswers.bonusEnergy;
+    const newPlayerEnergy =
+      player.playerEnergy + tileEnergy + player.consecutiveAnswers.bonusEnergy;
 
     setMap((prevMap) => {
       const updatedTiles = [...prevMap.tiles];
@@ -203,48 +211,63 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
       playerEnergy: newPlayerEnergy,
-      playerResponses: newPlayerResponses,
+      // playerResponses: newPlayerResponses,
       canMove: true,
     }));
+
     onPlayerAnswer(newPlayerEnergy);
+    
   };
 
   return (
     <ClickContext.Provider value={handleContinueClick}>
       <div className="game-container">
         {!visited && <AnswerWindow />}
+
         {isErrorVisible && (
           <div className="error-popup">
             <div className="error-content">
-              <p className="error-message">
-                {errorMessage}
-              </p>
-              <button className="close-button" onClick={() => setIsErrorVisible(false)}>
+              <p className="error-message">{errorMessage}</p>
+              <button
+                className="close-button"
+                onClick={() => setIsErrorVisible(false)}
+              >
                 Close
               </button>
             </div>
           </div>
         )}
-        <Map mapData={map} playerData={player} onTileClick={handlePlayerMove} isValidMove={isValidMove} teleportMode={player.teleportMode} pendingTeleport={pendingTeleport} />
+        
+        <Map
+          mapData={map}
+          playerData={player}
+          onTileClick={handlePlayerMove}
+          isValidMove={isValidMove}
+          teleportMode={teleportMode}
+          pendingTeleport={pendingTeleport}
+          confirmTeleport={confirmTeleport}
+          cancelTeleport={cancelTeleport}
+        />
+
         {player.teleportAvailable && (
           <Teleport onActivateTeleport={handleActivateTeleport} />
         )}
-        {player.teleportMode && pendingTeleport && (
-          <div className="teleport-confirmation" >
-            <p>
-              You want to teleport to row {pendingTeleport.row},{" "}col {pendingTeleport.col}?
-            </p>
-            <button className="button-confirm" onClick={confirmTeleport}>Yes</button>
-            <button className="button-cancel" onClick={cancelTeleport}>No</button>
+
+        {(isSeeDistanceAvailable || player.canSeeDistance) && (
+          <SeeDistanceToTreasure
+            onActivateSeeDistance={handleActivateSeeDistance}
+          />
+        )}
+
+        {teleportMode && !pendingTeleport && (
+          <div className="teleport-info">
+            <p>Click on the map to select a tile to teleport to.</p>
+            <button className="button-cancel" onClick={cancelTeleport}>
+              Cancel Teleport
+            </button>
           </div>
         )}
 
-        {player.teleportMode && !pendingTeleport && (
-          <div className="teleport-info" >
-            <p>Click on the map to select a tile to teleport to.</p>
-            <button className="button-cancel" onClick={cancelTeleport}>Cancel Teleport</button>
-          </div>
-        )}
       </div>
     </ClickContext.Provider>
   );
