@@ -7,6 +7,8 @@ import AnswerWindow from "../Answer/AnswerWindow";
 import { energyLevels } from "../Functions/energyLevel";
 import Teleport from "../Teleport/Teleport";
 import { updateVisibilityTile } from "../Functions/updateVisibilityTile";
+import { clearVisibility } from "../Functions/clearVisibility";
+import { setVisibility } from "../Functions/setVisibility";
 
 export const ClickContext = createContext();
 
@@ -134,10 +136,13 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       visited: true,
     };
 
-    updateVisibilityTile({ ...map, tiles: updatedTiles }, teleportRow, teleportCol);
-     updatedTiles[teleportRow][teleportCol] = {
-     ...updatedTiles[teleportRow][teleportCol],
-     visited: false,
+    clearVisibility(map, oldRow, oldCol);
+    setVisibility(map, teleportRow, teleportCol);
+
+
+    updatedTiles[teleportRow][teleportCol] = {
+       ...updatedTiles[teleportRow][teleportCol],
+       visited: false,
     };
 
     setMap((prevMap) => ({
