@@ -6,7 +6,7 @@ export default function MapDifficulty({ map }) {
     <div className="statisticsText">
       <h3>Map Difficulty Index: {calculateMapDifficulty(map)}%</h3>
       <div className="infoIcon">
-        {"ℹ️"}
+        <div>ℹ️</div>
         <div className="infoWindow">
           <h4>
             This index represents the difficulty of the map according to its

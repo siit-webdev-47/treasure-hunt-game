@@ -10,7 +10,7 @@ export default function TimeStatistics({ player }) {
           {(timeDifficultyIndex(player) * 100).toFixed(2)} %
         </h3>
         <div className="infoIcon">
-          {"ℹ️"}
+          <div>ℹ️</div>
           <div className="infoWindow">
             <h4>This index considers the time spent answering questions.</h4>
             <h5>

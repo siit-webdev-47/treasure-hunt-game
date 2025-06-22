@@ -6,7 +6,7 @@ export default function FinalScore({ player, map }) {
     <div className="statisticsText">
       <h3>Final Score: {calculateFinalScore(map, player).toFixed(2)}</h3>
       <div className="infoIcon">
-        {"ℹ️"}
+        <div>ℹ️</div>
         <div className="infoWindow">
           <h4>
             This score is calculated based on the questions answered, the time
@@ -21,14 +21,14 @@ export default function FinalScore({ player, map }) {
           </h5>
           <h5>
             The score is calculated as follows: [ (questions score) * (time
-            difficulty index) * (map difficulty index) ] + (starting energy
-            level bonus) + (treasure bonus) =
+            difficulty index) * (map difficulty index) ] + starting energy
+            level bonus + treasure bonus =
           </h5>
           <h5>
-            = ( {questionScore(player, map)} *{" "}
-            {timeDifficultyIndex(player).toFixed(2)} *{" "}
-            {calculateMapDifficulty(map) / 100} ) + ( {startingBonus(player)} +{" "}
-            {finishBonus(player, map)} ) =
+            = ( {questionScore(player, map)} * {" "}
+            {timeDifficultyIndex(player).toFixed(2)} * {" "}
+            {calculateMapDifficulty(map) / 100} ) +  {startingBonus(player)} + {" "}
+            {finishBonus(player, map)} =
           </h5>
           <h5>= {calculateFinalScore(map, player).toFixed(2)}</h5>
         </div>

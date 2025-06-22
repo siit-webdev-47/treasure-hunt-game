@@ -10,7 +10,7 @@ export default function QuestionsScore({ player }) {
         Questions Score: {questionScore(player)} points
       </h3>
       <div className="infoIcon">
-        {"ℹ️"}
+        <div>ℹ️</div>
         <div className="infoWindow">
           <h4>
             This score represents the total points accumulated by the player.

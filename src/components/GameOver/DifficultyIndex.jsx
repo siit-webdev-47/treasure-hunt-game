@@ -10,7 +10,7 @@ export default function DifficultyIndex({ player }) {
         Question Difficulty Index: {difficultyIndex(player.playerResponses)}%
       </h3>
       <div className="infoIcon">
-        {"ℹ️"}
+        <div>ℹ️</div>
         <div className="infoWindow">
           <h4>
             This index represents the average difficulty of the questions
