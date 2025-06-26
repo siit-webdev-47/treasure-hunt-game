@@ -4,6 +4,7 @@ import { AppSettingsContext } from "../../App";
 import PropTypes from "prop-types";
 import energyLevel from "../Functions/energyLevel";
 import PlayerScore from "../PlayerScore/PlayerScore";
+import { TeleportConfirm } from "../TeleportConfirm/TeleportConfirm";
 
 function MapTile(props) {
   // const { mapTileData, playerPosition, playerData, onTileClick } = props;
@@ -91,15 +92,10 @@ function MapTile(props) {
       onClick={handleTileClick}
     >
       {isSelectedTeleport && teleportMode && pendingTeleport && (
-        <div className="teleport-confirmation">
-          <p>Teleport here?</p>
-          <button className="button-confirm" onClick={props.confirmTeleport}>
-            Yes
-          </button>
-          <button className="button-cancel" onClick={props.cancelTeleport}>
-            No
-          </button>
-        </div>
+        <TeleportConfirm
+          confirmTeleport={props.confirmTeleport}
+          cancelTeleport={props.cancelTeleport}
+        />
       )}
 
       <div>

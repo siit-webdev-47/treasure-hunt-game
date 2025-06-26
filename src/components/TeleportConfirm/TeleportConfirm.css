@@ -1,0 +1,29 @@
+.teleport-info {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: 350px;
+  background-color: #e0f0ff;
+  border: 3px solid #007bff;
+  border-radius: 1rem;
+  padding: 20px 30px;
+  box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.736);
+  z-index: 999;
+  text-align: center;
+  font-size: 1rem;
+  color: #003366;
+  font-weight: 600;
+}
+
+.teleport-confirmation {
+  width: fit-content;
+  z-index: 999;
+  text-align: center;
+  font-size: 1rem;
+  color: #003366;
+  font-weight: 600;
+  & p {
+    margin-bottom: 1.25rem;
+  }
+}
