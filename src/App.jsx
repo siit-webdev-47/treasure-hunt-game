@@ -39,6 +39,7 @@ function App() {
       map.questionDifficulty,
       map.playerPosition
     );
+    console.log("Comoara e la coordonatele :", treasureCoordinates);
     setMap({ ...map, tiles });
 
     questionListUpdatePromise.then((updatedTiles) => {
