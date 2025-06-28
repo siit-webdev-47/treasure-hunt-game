@@ -90,6 +90,7 @@ function App() {
         },
         canMove: true,
         canSeeDistance: false,
+        canIncreaseViewRange: false,
       }));
       setGamePhase("ONGOING");
     });

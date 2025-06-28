@@ -4,6 +4,7 @@ import SeeDistanceToTreasure from "../SeeDistanceToTreasure/SeeDistanceToTreasur
 // import Teleport from "../Teleport/Teleport";
 import { AppSettingsContext } from "../../App";
 import { energyLevels } from "../Functions/energyLevel";
+import IncreaseViewRange from "../IncreaseViewrange/IncreaseViewrange";
 // import { updateVisibilityTile } from "../Functions/updateVisibilityTile";
 
 export default function HelpComponent() {
@@ -11,6 +12,7 @@ export default function HelpComponent() {
 //   const {  map, setMap } = useContext(AppSettingsContext);
 //   const [isTeleportAvailable, setIsTeleportAvailable] = useState(false);
   const [isSeeDistanceAvailable, setIsSeeDistanceAvailable] = useState(false);
+  const [isIncreaseViewRangeAvailable, setIsIncreaseViewRangeAvailable] = useState(false);
 //   const [teleportMode, setTeleportMode] = useState(false);
 //   const [pendingTeleport, setPendingTeleport] = useState(null);
 
@@ -19,6 +21,9 @@ export default function HelpComponent() {
 //   }, [player.playerEnergy]);
   useEffect(() => {
     setIsSeeDistanceAvailable(player.playerEnergy >= energyLevels.maxLowEnergy);
+  }, [player.playerEnergy]);
+  useEffect(() => {
+    setIsIncreaseViewRangeAvailable(player.playerEnergy >= energyLevels.maxLowEnergy);
   }, [player.playerEnergy]);
 //   function handleActivateTeleport() {
 //     setTeleportMode(true);
@@ -29,6 +34,13 @@ export default function HelpComponent() {
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
       canSeeDistance: true,
+      playerEnergy: prevPlayer.playerEnergy - energyLevels.maxLowEnergy,
+    }));
+  }
+  function handleActivateIncreaseViewRange() {
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      canIncreaseViewRange: true,
       playerEnergy: prevPlayer.playerEnergy - energyLevels.maxLowEnergy,
     }));
   }
@@ -78,6 +90,11 @@ export default function HelpComponent() {
         <SeeDistanceToTreasure
           onActivateSeeDistance={handleActivateSeeDistance}
           isSeeDistanceAvailable={isSeeDistanceAvailable}
+        />
+
+        <IncreaseViewRange 
+          onActivateIncreaseViewRange={handleActivateIncreaseViewRange}
+          isIncreaseViewRangeAvailable={isIncreaseViewRangeAvailable}
         />
     
 
