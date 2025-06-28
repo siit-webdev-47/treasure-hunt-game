@@ -62,7 +62,7 @@ function MapTile(props) {
   const tileRef = useRef(null);
 
   useEffect(() => {
-    if ((playerOnTile && tileRef.current) || isSelectedTeleport) {
+    if (((playerOnTile && tileRef.current) || isSelectedTeleport) && !teleportMode) {
       tileRef.current.scrollIntoView({
         behavior: "smooth",
         block: "center",
