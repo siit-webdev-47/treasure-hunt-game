@@ -1,8 +1,8 @@
 // sets the visible property for the tiles around the player (1 tile around)
 
-export function setVisibility(map, row, col) {
-  for (let i = -1; i <= 1; i++) {
-    for (let j = -1; j <= 1; j++) {
+export function setVisibility(map, row, col, range = 1) {
+  for (let i = -range; i <= range; i++) {
+    for (let j = -range; j <= range; j++) {
       if (
         row + i >= 0 &&
         col + j >= 0 &&

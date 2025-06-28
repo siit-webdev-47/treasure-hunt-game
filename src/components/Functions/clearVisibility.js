@@ -1,8 +1,8 @@
 // clears the visible property for the tiles around the player (2 tiles around)
 
-export function clearVisibility(map, row, col) {
-  for (let i = -2; i <= 2; i++) {
-    for (let j = -2; j <= 2; j++) {
+export function clearVisibility(map, row, col, range = 1) {
+  for (let i = -(range + 1); i <= (range + 1); i++) {
+    for (let j = -(range + 1); j <= (range + 1); j++) {
       if (
         row + i >= 0 &&
         col + j >= 0 &&

@@ -91,6 +91,7 @@ function App() {
         canMove: true,
         canSeeDistance: false,
         canIncreaseViewRange: false,
+        viewRange: 1,
       }));
       setGamePhase("ONGOING");
     });

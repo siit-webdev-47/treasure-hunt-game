@@ -3,11 +3,10 @@ import PropTypes from "prop-types";
 import { energyLevels } from "../Functions/energyLevel";
 import { useContext } from "react";
 import { AppSettingsContext } from "../../App";
-import distanceToTreasure from "../Functions/distanceToTreasure";
 
-export default function IncreaseViewRange({ onActivateSeeDistance, isIncreaseViewRangeAvailable }) {
-  const { player, map } = useContext(AppSettingsContext);
-  const {message, color} = distanceToTreasure(map);
+export default function IncreaseViewRange({ onActivateIncreaseViewRange, isIncreaseViewRangeAvailable }) {
+  const { player } = useContext(AppSettingsContext);
+ 
   let classProperty = (isIncreaseViewRangeAvailable  || player.canIncreaseViewRange) ? "increase-viewrange-available" : "increase-viewrange-unavailable";
 
   return (
@@ -17,14 +16,14 @@ export default function IncreaseViewRange({ onActivateSeeDistance, isIncreaseVie
         <p>Extend view range with one extra tile { isIncreaseViewRangeAvailable ? "available!" : "" }</p>
         <p>Energy cost: {energyLevels.maxLowEnergy}</p>
         { isIncreaseViewRangeAvailable && (
-        <button onClick={onActivateSeeDistance}>
+        <button onClick={onActivateIncreaseViewRange}>
           Activate Increase View Range
         </button>)}
       </div>
       )}
     {player.canIncreaseViewRange && (
-    <div style={{ color: color }}>
-        <p>{message}</p>
+    <div >
+        <p>Extended range view !</p>
     </div>
 )}
 
@@ -33,6 +32,6 @@ export default function IncreaseViewRange({ onActivateSeeDistance, isIncreaseVie
 }
 
 IncreaseViewRange.propTypes = {
-  onActivateSeeDistance: PropTypes.func,
+  onActivateIncreaseViewRange: PropTypes.func,
   isIncreaseViewRangeAvailable: PropTypes.bool,
 };
