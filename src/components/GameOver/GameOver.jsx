@@ -8,7 +8,7 @@ import FinalScore from "./FinalScore";
 import HallOfFame from "./HallOfFame";
 import { readVectorStorage } from "../Functions/useDB";
 
-export default function GameOver({ newGame, resetGame, gameOverMsg }) {
+export default function GameOver({ newGame, resetGame, gameOverMsg, treasurePosition }) {
   const [showReviewQuestions, setShowReviewQuestions] = useState(false);
   const [showGameOverStatistics, setShowGameOverStatistics] = useState(false);
   const [showHallOfFame, setShowHallOfFame] = useState(false);
@@ -45,6 +45,9 @@ export default function GameOver({ newGame, resetGame, gameOverMsg }) {
           <p>Game Over!</p>
           <p>{gameOverMsg}</p>
           <FinalScore player={player} map={map} />
+        {treasurePosition && (
+           <p className="treasure-location"> The treasure was at row {treasurePosition.row}, column {treasurePosition.col}.</p>
+        )}
         </div>
         {showGameOverStatistics && (
           <GameOverStatistics onCloseStatistics={onCloseStatistics} />
@@ -89,4 +92,8 @@ GameOver.propTypes = {
   resetGame: PropTypes.func.isRequired,
   newGame: PropTypes.func.isRequired,
   gameOverMsg: PropTypes.string.isRequired,
+   treasurePosition: PropTypes.shape({
+    row: PropTypes.number,
+    col: PropTypes.number,
+  }),
 };

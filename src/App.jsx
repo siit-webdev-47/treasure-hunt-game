@@ -147,6 +147,7 @@ function App() {
             newGame={newGame}
             resetGame={resetGame}
             gameOverMsg={gameOverMsg}
+            treasurePosition={map.treasurePosition}
           />
         )}
       </AppSettingsContext.Provider>
