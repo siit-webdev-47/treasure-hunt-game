@@ -155,5 +155,5 @@ function App() {
   );
 }
 
-export const AppSettingsContext = createContext();
+export const AppSettingsContext = createContext(null);
 export default App;
