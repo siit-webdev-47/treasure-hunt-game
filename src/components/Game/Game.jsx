@@ -7,8 +7,7 @@ import AnswerWindow from "../Answer/AnswerWindow";
 import { energyLevels } from "../Functions/energyLevel";
 import Teleport from "../Teleport/Teleport";
 import HelpComponent from "../HelpComponent/HelpComponent";
-import { clearVisibility } from "../Functions/clearVisibility";
-import { setVisibility } from "../Functions/setVisibility";
+import { clearVisibility, setVisibility } from "../Functions/updateVisibility";
 
 export const ClickContext = createContext();
 
@@ -152,6 +151,7 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       tiles: updatedTiles,
     }));
 
+    const newEnergy = player.playerEnergy - energyLevels.maxMidEnergy;
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
       playerEnergy: prevPlayer.playerEnergy - energyLevels.maxMidEnergy,
@@ -160,6 +160,8 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       teleportAvailable: false, 
     }));
     setPendingTeleport(null);
+    onPlayerMove(newEnergy, { row: teleportRow, col: teleportCol });
+
   }
 
   function cancelTeleport() {
