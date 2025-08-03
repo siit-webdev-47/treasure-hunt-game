@@ -83,8 +83,8 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       !map.tiles[oldRow][oldCol].hasTreasure
     ) {
 
-      clearVisibility(map, newRow, newCol);
-      setVisibility(map, newRow, newCol);
+      clearVisibility(map, newRow, newCol, player.viewRange);
+      setVisibility(map, newRow, newCol, player.viewRange);
 
       setMap((prevMap) => {
         const updatedTiles = [...prevMap.tiles];
@@ -136,8 +136,8 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
       visited: true,
     };
 
-    clearVisibility(map, oldRow, oldCol);
-    setVisibility(map, teleportRow, teleportCol);
+    clearVisibility(map, oldRow, oldCol, player.viewRange);
+    setVisibility(map, teleportRow, teleportCol, player.viewRange);
 
 
     updatedTiles[teleportRow][teleportCol] = {

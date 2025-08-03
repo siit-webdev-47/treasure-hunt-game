@@ -1,29 +1,40 @@
-import "./HelpComponent.css"
+import "./HelpComponent.css";
 import { useContext, useEffect, useState } from "react";
 import SeeDistanceToTreasure from "../SeeDistanceToTreasure/SeeDistanceToTreasure";
 // import Teleport from "../Teleport/Teleport";
 import { AppSettingsContext } from "../../App";
 import { energyLevels } from "../Functions/energyLevel";
+import IncreaseViewRange from "../IncreaseViewrange/IncreaseViewrange";
+import { setVisibility } from "../Functions/setVisibility";
 // import { updateVisibilityTile } from "../Functions/updateVisibilityTile";
 
 export default function HelpComponent() {
-  const { player, setPlayer} = useContext(AppSettingsContext);
-//   const {  map, setMap } = useContext(AppSettingsContext);
-//   const [isTeleportAvailable, setIsTeleportAvailable] = useState(false);
+  const { player, setPlayer } = useContext(AppSettingsContext);
+  const { map, setMap } = useContext(AppSettingsContext);
+  //   const {  map, setMap } = useContext(AppSettingsContext);
+  //   const [isTeleportAvailable, setIsTeleportAvailable] = useState(false);
   const [isSeeDistanceAvailable, setIsSeeDistanceAvailable] = useState(false);
-//   const [teleportMode, setTeleportMode] = useState(false);
-//   const [pendingTeleport, setPendingTeleport] = useState(null);
+  const [isIncreaseViewRangeAvailable, setIsIncreaseViewRangeAvailable] =
+    useState(false);
+  //   const [teleportMode, setTeleportMode] = useState(false);
+  //   const [pendingTeleport, setPendingTeleport] = useState(null);
 
-//   useEffect(() => {
-//     setIsTeleportAvailable(player.playerEnergy >= energyLevels.maxMidEnergy);
-//   }, [player.playerEnergy]);
+  //   useEffect(() => {
+  //     setIsTeleportAvailable(player.playerEnergy >= energyLevels.maxMidEnergy);
+  //   }, [player.playerEnergy]);
   useEffect(() => {
     setIsSeeDistanceAvailable(player.playerEnergy >= energyLevels.maxLowEnergy);
   }, [player.playerEnergy]);
-//   function handleActivateTeleport() {
-//     setTeleportMode(true);
-//     setPendingTeleport(null);
-//   }
+  
+  useEffect(() => {
+    setIsIncreaseViewRangeAvailable(
+      player.playerEnergy >= energyLevels.maxLowEnergy
+    );
+  }, [player.playerEnergy]);
+  //   function handleActivateTeleport() {
+  //     setTeleportMode(true);
+  //     setPendingTeleport(null);
+  //   }
 
   function handleActivateSeeDistance() {
     setPlayer((prevPlayer) => ({
@@ -32,41 +43,61 @@ export default function HelpComponent() {
       playerEnergy: prevPlayer.playerEnergy - energyLevels.maxLowEnergy,
     }));
   }
+  function handleActivateIncreaseViewRange() {
+    setPlayer((prevPlayer) => ({
+      ...prevPlayer,
+      canIncreaseViewRange: true,
+      playerEnergy: prevPlayer.playerEnergy - energyLevels.maxLowEnergy,
+      viewRange: 2,
+    }));
+  }
 
-//   function confirmTeleport() {
-//     if (!pendingTeleport) return;
+  useEffect(() => {
+    if (player.canIncreaseViewRange) {
+      setVisibility(
+        map,
+        map.playerPosition.row,
+        map.playerPosition.col,
+        player.viewRange
+      );
+      setMap((prevMap) => ({ ...prevMap }));
+    }
+  }, [player.viewRange]);
 
-//     const { row: teleportRow, col: teleportCol } = pendingTeleport;
+  //   function confirmTeleport() {
+  //     if (!pendingTeleport) return;
 
-//     const updatedTiles = updateVisibilityTile(map, teleportRow, teleportCol);
+  //     const { row: teleportRow, col: teleportCol } = pendingTeleport;
 
-//     updatedTiles[teleportRow][teleportCol] = {
-//       ...updatedTiles[teleportRow][teleportCol],
-//       yieldValue: 0,
-//       visited: false,
-//     };
+  //     const updatedTiles = updateVisibilityTile(map, teleportRow, teleportCol);
 
-//     setMap((prevMap) => ({
-//       ...prevMap,
-//       playerPosition: { row: teleportRow, col: teleportCol },
-//       tiles: updatedTiles,
-//     }));
+  //     updatedTiles[teleportRow][teleportCol] = {
+  //       ...updatedTiles[teleportRow][teleportCol],
+  //       yieldValue: 0,
+  //       visited: false,
+  //     };
 
-//     setPlayer((prevPlayer) => ({
-//       ...prevPlayer,
-//       playerEnergy: prevPlayer.playerEnergy - energyLevels.maxMidEnergy,
-//       canMove: false,
-//     }));
+  //     setMap((prevMap) => ({
+  //       ...prevMap,
+  //       playerPosition: { row: teleportRow, col: teleportCol },
+  //       tiles: updatedTiles,
+  //     }));
 
-//     setIsTeleportAvailable(false);
-//     setTeleportMode(false);
-//     setPendingTeleport(null);
-//   }
+  //     setPlayer((prevPlayer) => ({
+  //       ...prevPlayer,
+  //       playerEnergy: prevPlayer.playerEnergy - energyLevels.maxMidEnergy,
+  //       canMove: false,
+  //     }));
 
-//   function cancelTeleport() {
-//     setTeleportMode(false);
-//     setPendingTeleport(null);
-//   }
+  //     setIsTeleportAvailable(false);
+  //     setTeleportMode(false);
+  //     setPendingTeleport(null);
+  //   }
+
+  //   function cancelTeleport() {
+  //     setTeleportMode(false);
+  //     setPendingTeleport(null);
+  //   }
 
   return (
     <div className="help-container">
@@ -74,12 +105,15 @@ export default function HelpComponent() {
         <Teleport onActivateTeleport={handleActivateTeleport} />
       )} */}
 
-     
-        <SeeDistanceToTreasure
-          onActivateSeeDistance={handleActivateSeeDistance}
-          isSeeDistanceAvailable={isSeeDistanceAvailable}
-        />
-    
+      <SeeDistanceToTreasure
+        onActivateSeeDistance={handleActivateSeeDistance}
+        isSeeDistanceAvailable={isSeeDistanceAvailable}
+      />
+
+      <IncreaseViewRange
+        onActivateIncreaseViewRange={handleActivateIncreaseViewRange}
+        isIncreaseViewRangeAvailable={isIncreaseViewRangeAvailable}
+      />
 
       {/* {teleportMode && !pendingTeleport && (
         <div className="teleport-info">
