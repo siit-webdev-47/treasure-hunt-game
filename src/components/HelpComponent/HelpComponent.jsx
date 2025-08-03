@@ -5,8 +5,7 @@ import SeeDistanceToTreasure from "../SeeDistanceToTreasure/SeeDistanceToTreasur
 import { AppSettingsContext } from "../../App";
 import { energyLevels } from "../Functions/energyLevel";
 import IncreaseViewRange from "../IncreaseViewrange/IncreaseViewrange";
-import { setVisibility } from "../Functions/setVisibility";
-// import { updateVisibilityTile } from "../Functions/updateVisibilityTile";
+import { setVisibility } from "../Functions/updateVisibility";
 
 export default function HelpComponent() {
   const { player, setPlayer } = useContext(AppSettingsContext);

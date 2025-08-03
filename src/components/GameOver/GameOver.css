@@ -106,3 +106,8 @@ h3 {
   margin: 0;
   font-weight: bold;
 }
+.treasure-location {
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 1.5rem;
+}
