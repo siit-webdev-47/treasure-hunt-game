@@ -25,7 +25,7 @@ export default function HelpComponent() {
   useEffect(() => {
     setIsSeeDistanceAvailable(player.playerEnergy >= energyLevels.maxLowEnergy);
   }, [player.playerEnergy]);
-  
+
   useEffect(() => {
     setIsIncreaseViewRangeAvailable(
       player.playerEnergy >= energyLevels.maxLowEnergy
@@ -54,12 +54,7 @@ export default function HelpComponent() {
 
   useEffect(() => {
     if (player.canIncreaseViewRange) {
-      setVisibility(
-        map,
-        map.playerPosition.row,
-        map.playerPosition.col,
-        player.viewRange
-      );
+      setVisibility(map, map.playerPosition.row, map.playerPosition.col, player.viewRange);
       setMap((prevMap) => ({ ...prevMap }));
     }
   }, [player.viewRange]);
