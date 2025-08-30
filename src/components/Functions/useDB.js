@@ -10,26 +10,26 @@ const CLIENT_ID =
 
 async function initGoogleSheets() {
     try {
-  await gapi.client.init({
-    apiKey: API_KEY,
-    clientId: CLIENT_ID,
-    discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
-    scope: SCOPES,
-  });
-  
-  await gapi.auth2.init({
-    client_id: CLIENT_ID,
-    scope: SCOPES.join(" "),
-  });
-  
-    const auth = gapi.auth2.getAuthInstance();
-    await auth.signIn();
+        await gapi.client.init({
+            clientId: CLIENT_ID,
+            discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+            scope: SCOPES.join(" "),
+        });
 
-    isInitialized = true;
-    console.log('Google Sheets API initialized successfully');
-  } catch (err) {
-    console.error('Error initializing Google Sheets API:', err);
-  }
+        await gapi.auth2.init({
+            client_id: CLIENT_ID,
+            scope: SCOPES.join(" "),
+        });
+
+        const auth = gapi.auth2.getAuthInstance();
+        await auth.signIn();
+
+        isInitialized = true;
+        console.log('Google Sheets API initialized successfully');
+    } catch (err) {
+        console.error('Error initializing Google Sheets API:', err);
+    }
+
 
 }
 gapi.load("client", initGoogleSheets);
@@ -131,4 +131,5 @@ export {
   saveVectorStorage,
   readVectorGoogle,
   saveVectorGoogle,
+  initGoogleSheets, 
 };

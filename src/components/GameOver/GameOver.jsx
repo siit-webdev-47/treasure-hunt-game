@@ -7,11 +7,13 @@ import { AppSettingsContext } from "../../App";
 import FinalScore from "./FinalScore";
 import HallOfFame from "./HallOfFame";
 import { readVectorStorage } from "../Functions/useDB";
+import TreasurePosition from "./TreasurePosition";
 
 export default function GameOver({ newGame, resetGame, gameOverMsg, treasurePosition }) {
   const [showReviewQuestions, setShowReviewQuestions] = useState(false);
   const [showGameOverStatistics, setShowGameOverStatistics] = useState(false);
   const [showHallOfFame, setShowHallOfFame] = useState(false);
+  const [showTreasurePosition, setShowTreasurePosition] = useState(false);
   const { map, player } = useContext(AppSettingsContext);
 
   const reviewQuestionsClick = () => {
@@ -37,7 +39,14 @@ export default function GameOver({ newGame, resetGame, gameOverMsg, treasurePosi
   const onCloseHallOfFame = () => {
     setShowHallOfFame(false);
   };
+  const treasurePositionClick = () => {
+    setShowTreasurePosition(true);
+  };
 
+  const onCloseTreasurePosition = () => {
+    setShowTreasurePosition(false);
+  };
+  
   return (
     <div className="game-over-wrapper">
       <div className="game-over-container">
@@ -54,6 +63,9 @@ export default function GameOver({ newGame, resetGame, gameOverMsg, treasurePosi
         )}
         {showReviewQuestions && (
           <ReviewQuestions onCloseReview={onCloseReview} />
+        )}
+        {showTreasurePosition && (
+          <TreasurePosition onCloseTreasurePosition={onCloseTreasurePosition} />
         )}
         {showHallOfFame && (
           <HallOfFame

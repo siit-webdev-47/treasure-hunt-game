@@ -1,3 +1,4 @@
+import { gapi } from "gapi-script";
 import difficultyIndex, {calculateFinalScore, calculateMapDifficulty, timeDifficultyIndex} from "./gameStatistics";
 import { initGoogleSheets, readVectorGoogle, readVectorStorage, saveVectorGoogle } from "./useDB";
 
@@ -32,7 +33,8 @@ function generateHallOfFame(player, map) {
   newVector.push(hallOfFameObj);
   const sortedVector = sortVectorByScore(newVector);
   localStorage.setItem("HallOfFame", JSON.stringify(newVector));
-  initGoogleSheets();
+
+ gapi.load("client", initGoogleSheets);
 
   saveVectorGoogle("HallOfFame", newVector);
 
