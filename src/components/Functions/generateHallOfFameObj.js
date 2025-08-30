@@ -1,5 +1,5 @@
 import difficultyIndex, {calculateFinalScore, calculateMapDifficulty, timeDifficultyIndex} from "./gameStatistics";
-import { readVectorGoogle, readVectorStorage, saveVectorGoogle } from "./useDB";
+import { initGoogleSheets, readVectorGoogle, readVectorStorage, saveVectorGoogle } from "./useDB";
 
 export default function generateHallOfFameObj(player, map) {
   const resultObject = {
@@ -32,6 +32,7 @@ function generateHallOfFame(player, map) {
   newVector.push(hallOfFameObj);
   const sortedVector = sortVectorByScore(newVector);
   localStorage.setItem("HallOfFame", JSON.stringify(newVector));
+  initGoogleSheets();
 
   saveVectorGoogle("HallOfFame", newVector);
 
