@@ -88,7 +88,7 @@
   box-shadow: 0px 0px 5px 0px #7a7a71;
   color: var(--color3);
   transition: 0.5s ease-in-out;
-  width: 190px;
+  width: 170px;
 }
 
 .info-buttons:hover {

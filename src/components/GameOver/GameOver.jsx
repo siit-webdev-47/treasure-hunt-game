@@ -46,7 +46,7 @@ export default function GameOver({ newGame, resetGame, gameOverMsg, treasurePosi
   const onCloseTreasurePosition = () => {
     setShowTreasurePosition(false);
   };
-  
+
   return (
     <div className="game-over-wrapper">
       <div className="game-over-container">
@@ -54,9 +54,7 @@ export default function GameOver({ newGame, resetGame, gameOverMsg, treasurePosi
           <p>Game Over!</p>
           <p>{gameOverMsg}</p>
           <FinalScore player={player} map={map} />
-        {treasurePosition && (
-           <p className="treasure-location"> The treasure was at row {treasurePosition.row}, column {treasurePosition.col}.</p>
-        )}
+
         </div>
         {showGameOverStatistics && (
           <GameOverStatistics onCloseStatistics={onCloseStatistics} />
@@ -65,7 +63,7 @@ export default function GameOver({ newGame, resetGame, gameOverMsg, treasurePosi
           <ReviewQuestions onCloseReview={onCloseReview} />
         )}
         {showTreasurePosition && (
-          <TreasurePosition onCloseTreasurePosition={onCloseTreasurePosition} />
+          <TreasurePosition treasurePosition={treasurePosition} onCloseTreasurePosition={onCloseTreasurePosition} />
         )}
         {showHallOfFame && (
           <HallOfFame
@@ -76,6 +74,9 @@ export default function GameOver({ newGame, resetGame, gameOverMsg, treasurePosi
         )}
         <div className="game-over-buttons">
           <div className="info-buttons-container">
+          <button onClick={treasurePositionClick} className="info-buttons">
+            Treasure Position
+          </button>
             <button onClick={reviewQuestionsClick} className="info-buttons">
               Review Questions
             </button>
@@ -104,7 +105,7 @@ GameOver.propTypes = {
   resetGame: PropTypes.func.isRequired,
   newGame: PropTypes.func.isRequired,
   gameOverMsg: PropTypes.string.isRequired,
-   treasurePosition: PropTypes.shape({
+  treasurePosition: PropTypes.shape({
     row: PropTypes.number,
     col: PropTypes.number,
   }),
