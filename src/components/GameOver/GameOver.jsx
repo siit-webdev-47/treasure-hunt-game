@@ -47,6 +47,12 @@ export default function GameOver({ newGame, resetGame, gameOverMsg, treasurePosi
     setShowTreasurePosition(false);
   };
 
+  const foundTreasure = map.treasurePosition.row == map.playerPosition.row && map.treasurePosition.col == map.playerPosition.col ? true : false;
+
+  console.log(`map.treasurePosition`, map.treasurePosition);
+  console.log(`map.playerPosition`, map.playerPosition);
+  console.log(`foundTreasure`, foundTreasure);
+
   return (
     <div className="game-over-wrapper">
       <div className="game-over-container">
@@ -74,9 +80,10 @@ export default function GameOver({ newGame, resetGame, gameOverMsg, treasurePosi
         )}
         <div className="game-over-buttons">
           <div className="info-buttons-container">
-          <button onClick={treasurePositionClick} className="info-buttons">
-            Treasure Position
-          </button>
+            {!foundTreasure && 
+            <button onClick={treasurePositionClick} className="info-buttons">
+              Treasure Position
+            </button> }
             <button onClick={reviewQuestionsClick} className="info-buttons">
               Review Questions
             </button>
