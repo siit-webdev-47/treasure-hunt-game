@@ -6,7 +6,6 @@ import energyLevel from "../Functions/energyLevel";
 import PlayerScore from "../PlayerScore/PlayerScore";
 
 function MapTile(props) {
-  // const { mapTileData, playerPosition, playerData, onTileClick } = props;
   const { player, map } = useContext(AppSettingsContext);
   const { playerEnergy, canMove } = player;
   const { teleportMode, pendingTeleport } = props;

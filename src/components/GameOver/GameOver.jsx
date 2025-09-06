@@ -49,10 +49,6 @@ export default function GameOver({ newGame, resetGame, gameOverMsg, treasurePosi
 
   const foundTreasure = map.treasurePosition.row == map.playerPosition.row && map.treasurePosition.col == map.playerPosition.col ? true : false;
 
-  console.log(`map.treasurePosition`, map.treasurePosition);
-  console.log(`map.playerPosition`, map.playerPosition);
-  console.log(`foundTreasure`, foundTreasure);
-
   return (
     <div className="game-over-wrapper">
       <div className="game-over-container">

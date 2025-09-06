@@ -195,7 +195,6 @@ function Game({ onPlayerMove, onPlayerAnswer }) {
     setPlayer((prevPlayer) => ({
       ...prevPlayer,
       playerEnergy: newPlayerEnergy,
-      // playerResponses: newPlayerResponses,
       canMove: true,
     }));
 

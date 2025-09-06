@@ -2,7 +2,6 @@ import difficultyIndex from "../Functions/gameStatistics";
 import PropTypes from "prop-types";
 
 export default function DifficultyIndex({ player }) {
-  // const { player } = useContext(AppSettingsContext);
 
   return (
     <div className="statisticsText">
